@@ -5,6 +5,18 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoRead", "MangoRead\MangoRead.csproj", "{DC77BC47-27DC-484B-A2B3-02C74F7FE3EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoRead.DAL", "MangoRead.DAL\MangoRead.DAL.csproj", "{216494CF-BBAF-421D-86F4-21A15DEC1B06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{A7676561-E2F2-4031-8AAF-D8D2DB8B9C98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{3B2FEF91-7CFA-4B3E-9EB5-831C9E0B3CB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{B3154649-A74A-453D-B489-626DF3F25832}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoRead.Domain", "MangoRead.Domain\MangoRead.Domain.csproj", "{3253B34D-7BAE-4FCB-9D02-927F41755344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoRead.Service", "MangoRead.Service\MangoRead.Service.csproj", "{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +27,26 @@ Global
 		{DC77BC47-27DC-484B-A2B3-02C74F7FE3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC77BC47-27DC-484B-A2B3-02C74F7FE3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC77BC47-27DC-484B-A2B3-02C74F7FE3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216494CF-BBAF-421D-86F4-21A15DEC1B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216494CF-BBAF-421D-86F4-21A15DEC1B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216494CF-BBAF-421D-86F4-21A15DEC1B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216494CF-BBAF-421D-86F4-21A15DEC1B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3253B34D-7BAE-4FCB-9D02-927F41755344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3253B34D-7BAE-4FCB-9D02-927F41755344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3253B34D-7BAE-4FCB-9D02-927F41755344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3253B34D-7BAE-4FCB-9D02-927F41755344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{216494CF-BBAF-421D-86F4-21A15DEC1B06} = {A7676561-E2F2-4031-8AAF-D8D2DB8B9C98}
+		{3253B34D-7BAE-4FCB-9D02-927F41755344} = {3B2FEF91-7CFA-4B3E-9EB5-831C9E0B3CB6}
+		{2BDC6B6D-9BA5-44F0-BC5D-A50255F846FA} = {B3154649-A74A-453D-B489-626DF3F25832}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2B0D6B3-1FAD-4301-9F15-0A6A04AD7BE1}
