@@ -11,8 +11,10 @@ namespace MangoRead.Domain.Entities
 {
     public class Manuscript
     {
-        [ForeignKey("Content")]
+        [Key]
         public int Id { get; set; }
+
+        public Guid Index { get; } = Guid.NewGuid();
 
         [Required]
         public string Title { get; set; } = string.Empty;
@@ -41,10 +43,8 @@ namespace MangoRead.Domain.Entities
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
-        public Guid Key { get; set; } = Guid.NewGuid();
+        public List<GenreHolder> Genres { get; set; } = new List<GenreHolder>();
 
-        public IList<Genre> Genres { get; set; } = new List<Genre>();
-
-        public virtual ManuscriptContent? Content { get; set; }
+        public ManuscriptContent? Content { get; set; }
     }
 }

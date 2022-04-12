@@ -15,5 +15,9 @@ namespace MangoRead.Domain.Entities
         public string Extension { get; set; } = string.Empty;
 
         public string Path { get; set; } = string.Empty;
+
+        public int ManuscriptContentId { get; set; }
+
+        public ManuscriptContent Content { get; set; }
     }
 }

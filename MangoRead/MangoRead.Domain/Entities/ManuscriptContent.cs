@@ -23,10 +23,5 @@ namespace MangoRead.Domain.Entities
 
         [ForeignKey("ManuscriptId")]
         public Manuscript Manuscript { get; set; } // navigational property
-
-        public ManuscriptContent(Guid key)
-        {
-            this.FolderName = key.ToString();
-        }
     }
 }
