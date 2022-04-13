@@ -15,7 +15,7 @@ namespace MangoRead.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            _ = this.Database.EnsureDeleted();
+            //_ = this.Database.EnsureDeleted();
             _ = this.Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

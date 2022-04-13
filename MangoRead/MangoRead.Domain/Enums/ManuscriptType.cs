@@ -13,6 +13,6 @@ namespace MangoRead.Domain.Enums
         Manhwa,
         Manhua,
         Web,
-        Etc
+        Other
     }
 }

@@ -13,5 +13,6 @@ namespace MangoRead.Domain.Enums
         Detective,
         Action,
         Drama,
+        Romance
     }
 }

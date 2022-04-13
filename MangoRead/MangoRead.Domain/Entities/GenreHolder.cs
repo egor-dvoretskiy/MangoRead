@@ -12,7 +12,7 @@ namespace MangoRead.Domain.Entities
     {
         public int Id { get; set; }
 
-        public ManuscriptType Genre { get; set; }
+        public Genre Genre { get; set; }
 
         public int ManuscriptId { get; set; }
 

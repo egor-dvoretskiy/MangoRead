@@ -18,8 +18,6 @@ namespace MangoRead.Controllers
 
         public IActionResult Index()
         {
-            this._context.Manuscripts.Add(new Domain.Entities.Manuscript { Title = "Test title", Publisher = "SomeGuy", Type = Domain.Enums.ManuscriptType.Manhwa });
-            this._context.SaveChangesAsync();
             return View();
         }
 

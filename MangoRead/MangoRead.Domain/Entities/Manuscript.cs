@@ -35,7 +35,7 @@ namespace MangoRead.Domain.Entities
         public string OriginCountry { get; set; } = string.Empty;
 
         [Required]
-        public ManuscriptType Type { get; set; } = ManuscriptType.Etc;
+        public ManuscriptType Type { get; set; } = ManuscriptType.Other;
 
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
