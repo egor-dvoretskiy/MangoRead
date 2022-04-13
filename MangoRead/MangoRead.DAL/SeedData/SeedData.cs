@@ -17,7 +17,7 @@ namespace MangoRead.DAL.SeedData
         {
             using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                if (context == null)
+                if (context == null || context.Manuscripts == null)
                 {
                     throw new ArgumentNullException($"{nameof(context)} is null at SeedData.");
                 }
@@ -41,7 +41,7 @@ namespace MangoRead.DAL.SeedData
         {
             Manuscript manuscript = new Manuscript();
 
-            manuscript.Type = ManuscriptType.Manga;
+            manuscript.Type = ManuscriptType.Manhwa;
             manuscript.Title = "Orewa no kokoro tadashi nii";
             manuscript.Description = "Main character becoming popular thanks to his ability to be super handsome.";
             manuscript.Genres.AddRange(
@@ -117,7 +117,7 @@ namespace MangoRead.DAL.SeedData
         {
             Manuscript manuscript = new Manuscript();
 
-            manuscript.Type = ManuscriptType.Manga;
+            manuscript.Type = ManuscriptType.Web;
             manuscript.Title = "Romance on Krasnogvardeyskaya street";
             manuscript.Description = "Just a two lover trying to survive in this dangerous world.";
             manuscript.Genres.AddRange(
@@ -170,7 +170,7 @@ namespace MangoRead.DAL.SeedData
 
         private static void AddPage(this List<Page> content, string name, string extension, string path)
         {
-            string pagePath = string.Concat(path, $@"\\{name}{extension}");
+            string pagePath = string.Concat(path, $@"\{name}{extension}");
 
             content.Add(new Page()
             {

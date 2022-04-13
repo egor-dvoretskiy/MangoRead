@@ -1,6 +1,10 @@
 using MangoRead.DAL;
+using MangoRead.DAL.Interfaces;
+using MangoRead.DAL.Repositories;
 using MangoRead.DAL.SeedData;
 using MangoRead.Middlewares;
+using MangoRead.Service.Implementations;
+using MangoRead.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +16,9 @@ string connectionString = builder.Configuration.GetConnectionString("MangoReadCo
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("MangoRead.DAL")));
+
+builder.Services.AddScoped<IManuscriptService, ManuscriptService>();
+builder.Services.AddScoped<IManuscriptRepository, ManuscriptRepository>();
 
 var app = builder.Build();
 

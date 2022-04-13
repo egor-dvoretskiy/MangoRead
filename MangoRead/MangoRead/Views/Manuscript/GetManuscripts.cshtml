@@ -1,0 +1,61 @@
+﻿@using MangoRead.Domain.Entities;
+
+@model List<Manuscript>
+
+@{
+    ViewData["Title"] = "List of Manuscripts";
+}
+
+<h1>List of Manuscripts</h1>
+<br/>
+
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].UploadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Description)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {        
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UploadDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            </tr>
+        }
+  </tbody>
+</table>

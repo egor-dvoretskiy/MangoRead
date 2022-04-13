@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementations\" />
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\MangoRead.DAL\MangoRead.DAL.csproj" />
+    <ProjectReference Include="..\MangoRead.Domain\MangoRead.Domain.csproj" />
   </ItemGroup>
 
 </Project>
