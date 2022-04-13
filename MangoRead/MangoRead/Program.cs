@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 string connectionString = builder.Configuration.GetConnectionString("MangoReadContext");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("MangoRead.DAL")));
 
 var app = builder.Build();
 

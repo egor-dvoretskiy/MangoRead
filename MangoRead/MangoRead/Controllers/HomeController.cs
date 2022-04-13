@@ -1,6 +1,7 @@
 ﻿using MangoRead.DAL;
 using MangoRead.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace MangoRead.Controllers
@@ -18,6 +19,15 @@ namespace MangoRead.Controllers
 
         public IActionResult Index()
         {
+            var elements = _context.Manuscripts.Where(x => x.OriginCountry.Equals("Japanese")).ToList();
+
+            if (elements.Any())
+            {
+                var test = _context.Manuscripts.Include(x => x.Content).ThenInclude(x => x.Pages).ToList();
+                string foldername = elements[0].Content?.FolderName ?? "nothing";
+                string pages = elements[0].Content?.Pages.First().Path;
+            }
+
             return View();
         }
 
