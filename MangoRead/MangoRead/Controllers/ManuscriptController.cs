@@ -12,7 +12,12 @@ namespace MangoRead.Controllers
             this.manuscriptService = manuscriptService;
         }
 
-        public async Task<IActionResult> GetManuscripts()
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Archive()
         {
             var response = await this.manuscriptService.GetManuscripts();
 
@@ -22,11 +27,6 @@ namespace MangoRead.Controllers
             }
 
             return RedirectToAction("Error");
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }
