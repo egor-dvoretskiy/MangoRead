@@ -31,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model[0].Description)
             </th>
+            <th>
+                Control
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -54,6 +57,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a>Edit</a> |
+                    <a  asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a>Delete</a>
                 </td>
             </tr>
         }

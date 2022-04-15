@@ -36,9 +36,33 @@ namespace MangoRead.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IBaseResponse<Manuscript>> GetManuscriptById(int id)
+        public async Task<IBaseResponse<Manuscript>> GetManuscriptById(int id)
         {
-            throw new NotImplementedException();
+            var response = new BaseResponse<Manuscript>();
+
+            try
+            {
+                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+
+                if (manuscript == null)
+                {
+                    response.Descripton = "There is no manuscript with such id.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Data = manuscript;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<Manuscript>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
         }
 
         public async Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts()

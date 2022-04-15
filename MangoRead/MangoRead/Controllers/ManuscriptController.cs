@@ -12,18 +12,25 @@ namespace MangoRead.Controllers
             this.manuscriptService = manuscriptService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Archive()
+        public async Task<IActionResult> Index()
         {
             var response = await this.manuscriptService.GetManuscripts();
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
                 return View(response.Data.ToList());
+            }
+
+            return RedirectToAction("Error");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await this.manuscriptService.GetManuscriptById(id);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return View(response.Data);
             }
 
             return RedirectToAction("Error");

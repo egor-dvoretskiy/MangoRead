@@ -33,9 +33,9 @@ namespace MangoRead.DAL.Repositories
             return await this._context.Manuscripts.Include(x => x.Content).ThenInclude(x => x.Pages).ToListAsync();
         }
 
-        public Task<Manuscript> GetEntityById(int id)
+        public async Task<Manuscript> GetEntityById(int id)
         {
-            throw new NotImplementedException();
+            return await this._context.Manuscripts.Where(x => x.Id == id).SingleOrDefaultAsync();
         }
 
         public Task<Manuscript> Update(Manuscript entity)
