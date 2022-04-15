@@ -18,9 +18,20 @@ namespace MangoRead.DAL.Repositories
             _context = context;
         }
 
-        public Task<bool> Create(Manuscript entity)
+        public async Task<bool> Create(Manuscript entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await this._context.Manuscripts.AddAsync(entity);
+                await this._context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                _ = exception;
+                return false;
+            }
         }
 
         public Task<bool> Delete(Manuscript entity)
@@ -33,7 +44,7 @@ namespace MangoRead.DAL.Repositories
             return await this._context.Manuscripts.Include(x => x.Content).ThenInclude(x => x.Pages).ToListAsync();
         }
 
-        public async Task<Manuscript> GetEntityById(int id)
+        public async Task<Manuscript?> GetEntityById(int id)
         {
             return await this._context.Manuscripts.Where(x => x.Id == id).SingleOrDefaultAsync();
         }

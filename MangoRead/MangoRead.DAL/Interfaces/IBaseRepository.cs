@@ -10,7 +10,7 @@ namespace MangoRead.DAL.Interfaces
     {
         Task<bool> Create(T entity);
 
-        Task<T> GetEntityById(int id);
+        Task<T?> GetEntityById(int id);
 
         Task<List<T>> GetEntities();
 

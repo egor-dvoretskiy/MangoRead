@@ -1,4 +1,5 @@
-﻿using MangoRead.Service.Interfaces;
+﻿using MangoRead.Domain.ViewModels;
+using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangoRead.Controllers
@@ -34,6 +35,27 @@ namespace MangoRead.Controllers
             }
 
             return RedirectToAction("Error");
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ManuscriptViewModel manuscript)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await this.manuscriptService.AddManuscript(manuscript);
+
+                if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View(manuscript);
         }
     }
 }

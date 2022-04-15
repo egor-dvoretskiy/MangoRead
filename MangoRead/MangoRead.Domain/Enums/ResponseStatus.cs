@@ -10,6 +10,9 @@ namespace MangoRead.Domain.Enums
     {
         OK = 0,
         EmptyEntity = 101,
+        CreateError = 201,
+        UpdateError = 301,
+        DeleteError = 401,
         InternalServerError = 901,
     }
 }

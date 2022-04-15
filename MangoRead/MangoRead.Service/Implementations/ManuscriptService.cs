@@ -21,9 +21,37 @@ namespace MangoRead.Service.Implementations
             this.manuscriptRepository = manuscriptRepository;
         }
 
-        public Task<IBaseResponse<ManuscriptViewModel>> AddManuscript(ManuscriptViewModel carViewModel)
+        public async Task<IBaseResponse<ManuscriptViewModel>> AddManuscript(ManuscriptViewModel carViewModel)
         {
-            throw new NotImplementedException();
+            var response = new BaseResponse<ManuscriptViewModel>();
+
+            try
+            {
+
+                //manuscriptviewmodel -> model
+
+                var manuscript = new Manuscript();
+
+                bool isValid = await this.manuscriptRepository.Create(manuscript);
+
+                if (!isValid)
+                {
+                    response.Descripton = "There is no manuscript with such id.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<ManuscriptViewModel>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
         }
 
         public Task<IBaseResponse<bool>> DeleteManuscript(int id)
