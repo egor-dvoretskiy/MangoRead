@@ -14,8 +14,6 @@ namespace MangoRead.Domain.ViewModels
         [Key]
         public int Id { get; set; }
 
-        public Guid Index { get; } = Guid.NewGuid();
-
         [Required]
         public string Title { get; set; } = string.Empty;
 

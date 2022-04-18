@@ -9,25 +9,14 @@ namespace MangoRead.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this._context = context;
         }
 
         public IActionResult Index()
         {
-            var elements = _context.Manuscripts.Where(x => x.OriginCountry.Equals("Japanese")).ToList();
-
-            if (elements.Any())
-            {
-                var test = _context.Manuscripts.Include(x => x.Content).ThenInclude(x => x.Pages).ToList();
-                string foldername = elements[0].Content?.FolderName ?? "nothing";
-                string pages = elements[0].Content?.Pages.First().Path;
-            }
-
             return View();
         }
 

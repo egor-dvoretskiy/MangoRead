@@ -27,7 +27,7 @@ namespace MangoRead.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptById(id);
+            var response = await this.manuscriptService.GetManuscriptViewModelById(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -56,6 +56,33 @@ namespace MangoRead.Controllers
             }
 
             return View(manuscript);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var response = await this.manuscriptService.GetManuscriptViewModelById(id);
+            var manuscript = response.Data;
+
+            if (manuscript == null)
+            {
+                return NotFound();
+            }
+
+            return View(manuscript);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, ManuscriptViewModel model)
+        {
+            var response = await this.manuscriptService.Edit(id, model);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
         }
     }
 }

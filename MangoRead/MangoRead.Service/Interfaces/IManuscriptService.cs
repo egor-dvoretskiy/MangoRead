@@ -13,12 +13,12 @@ namespace MangoRead.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts();
 
-        Task<IBaseResponse<Manuscript>> GetManuscriptById(int id);
+        Task<IBaseResponse<ManuscriptViewModel>> GetManuscriptViewModelById(int id);
 
         Task<IBaseResponse<ManuscriptViewModel>> AddManuscript(ManuscriptViewModel carViewModel);
 
         Task<IBaseResponse<bool>> DeleteManuscript(int id);
 
-        Task<IBaseResponse<Manuscript>> Edit(int id, ManuscriptViewModel model);
+        Task<IBaseResponse<ManuscriptViewModel>> Edit(int id, ManuscriptViewModel model);
     }
 }

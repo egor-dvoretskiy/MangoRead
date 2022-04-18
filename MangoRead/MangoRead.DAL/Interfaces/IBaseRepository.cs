@@ -14,7 +14,7 @@ namespace MangoRead.DAL.Interfaces
 
         Task<List<T>> GetEntities();
 
-        Task<T> Update(T entity);
+        Task<bool> Update(T entity);
 
         Task<bool> Delete(T entity);
     }

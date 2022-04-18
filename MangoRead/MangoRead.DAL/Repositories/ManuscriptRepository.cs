@@ -49,9 +49,20 @@ namespace MangoRead.DAL.Repositories
             return await this._context.Manuscripts.Where(x => x.Id == id).SingleOrDefaultAsync();
         }
 
-        public Task<Manuscript> Update(Manuscript entity)
+        public async Task<bool> Update(Manuscript entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this._context.Manuscripts.Update(entity);
+                await this._context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                _ = exception;
+                return false;
+            }
         }
     }
 }

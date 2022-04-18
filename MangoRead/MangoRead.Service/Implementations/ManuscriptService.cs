@@ -27,16 +27,28 @@ namespace MangoRead.Service.Implementations
 
             try
             {
-
-                //manuscriptviewmodel -> model
-
-                var manuscript = new Manuscript();
+                var manuscript = new Manuscript()
+                {
+                    Id = carViewModel.Id,
+                    Title = carViewModel.Title,
+                    Author = carViewModel.Author,
+                    Publisher = carViewModel.Publisher,
+                    Translator = carViewModel.Translator,
+                    OriginCountry = carViewModel.OriginCountry,
+                    Type = carViewModel.Type,
+                    Description = carViewModel.Description,
+                    IsRequireLegalAge = carViewModel.IsRequireLegalAge,
+                    Genres = carViewModel.Genres,
+                    Content = carViewModel.Content,
+                    UpdateDate = DateTime.Now,
+                    UploadDate = DateTime.Now,
+                };
 
                 bool isValid = await this.manuscriptRepository.Create(manuscript);
 
                 if (!isValid)
                 {
-                    response.Descripton = "There is no manuscript with such id.";
+                    response.Descripton = "There is an error with creation.";
                     response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
                     return response;
                 }
@@ -59,14 +71,54 @@ namespace MangoRead.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IBaseResponse<Manuscript>> Edit(int id, ManuscriptViewModel model)
+        public async Task<IBaseResponse<ManuscriptViewModel>> Edit(int id, ManuscriptViewModel carViewModel)
         {
-            throw new NotImplementedException();
+            var response = new BaseResponse<ManuscriptViewModel>();
+
+            try
+            {
+                var manuscript = new Manuscript()
+                {
+                    Id = carViewModel.Id,
+                    Title = carViewModel.Title,
+                    Author = carViewModel.Author,
+                    Publisher = carViewModel.Publisher,
+                    Translator = carViewModel.Translator,
+                    OriginCountry = carViewModel.OriginCountry,
+                    Type = carViewModel.Type,
+                    Description = carViewModel.Description,
+                    IsRequireLegalAge = carViewModel.IsRequireLegalAge,
+                    Genres = carViewModel.Genres,
+                    Content = carViewModel.Content,
+                    UpdateDate = DateTime.Now,
+                    UploadDate = DateTime.Now,
+                };
+
+                bool isValid = await this.manuscriptRepository.Update(manuscript);
+
+                if (!isValid)
+                {
+                    response.Descripton = "There is no manuscript with such id.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<ManuscriptViewModel>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
         }
 
-        public async Task<IBaseResponse<Manuscript>> GetManuscriptById(int id)
+        public async Task<IBaseResponse<ManuscriptViewModel>> GetManuscriptViewModelById(int id)
         {
-            var response = new BaseResponse<Manuscript>();
+            var response = new BaseResponse<ManuscriptViewModel>();
 
             try
             {
@@ -79,13 +131,30 @@ namespace MangoRead.Service.Implementations
                     return response;
                 }
 
-                response.Data = manuscript;
+                ManuscriptViewModel model = new ManuscriptViewModel()
+                {
+                    Id = id,
+                    Title = manuscript.Title,
+                    Author = manuscript.Author,
+                    UpdateDate = manuscript.UpdateDate,
+                    UploadDate = manuscript.UploadDate,
+                    Publisher = manuscript.Publisher,
+                    Translator = manuscript.Translator,
+                    OriginCountry = manuscript.OriginCountry,
+                    Type = manuscript.Type,
+                    Description = manuscript.Description,
+                    IsRequireLegalAge = manuscript.IsRequireLegalAge,
+                    Genres = manuscript.Genres,
+                    Content = manuscript.Content,
+                };
+
+                response.Data = model;
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
             catch (Exception exception)
             {
-                return new BaseResponse<Manuscript>()
+                return new BaseResponse<ManuscriptViewModel>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
