@@ -1,5 +1,5 @@
 ﻿using MangoRead.DAL.Interfaces;
-using MangoRead.Domain.Entities;
+using MangoRead.Domain.Models;
 using MangoRead.Domain.Interfaces;
 using MangoRead.Domain.Responses;
 using MangoRead.Domain.ViewModels;

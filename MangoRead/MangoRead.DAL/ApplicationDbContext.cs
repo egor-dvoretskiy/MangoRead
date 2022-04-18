@@ -1,4 +1,4 @@
-﻿using MangoRead.Domain.Entities;
+﻿using MangoRead.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

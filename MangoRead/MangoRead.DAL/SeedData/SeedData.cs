@@ -1,4 +1,4 @@
-﻿using MangoRead.Domain.Entities;
+﻿using MangoRead.Domain.Models;
 using MangoRead.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

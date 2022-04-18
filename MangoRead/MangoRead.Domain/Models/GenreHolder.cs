@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MangoRead.Domain.Entities
+namespace MangoRead.Domain.Models
 {
     public class GenreHolder
     {
