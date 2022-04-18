@@ -8,11 +8,11 @@ namespace MangoRead.Domain.Enums
 {
     public enum ManuscriptType
     {
+        Other,
         Comix,
         Manga,
         Manhwa,
         Manhua,
         Web,
-        Other
     }
 }
