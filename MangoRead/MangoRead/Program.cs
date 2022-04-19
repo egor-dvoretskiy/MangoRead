@@ -2,20 +2,32 @@ using MangoRead.DAL;
 using MangoRead.DAL.Interfaces;
 using MangoRead.DAL.Repositories;
 using MangoRead.DAL.SeedData;
+using MangoRead.Domain.Models.Account;
 using MangoRead.Middlewares;
 using MangoRead.Service.Implementations;
 using MangoRead.Service.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-string connectionString = builder.Configuration.GetConnectionString("MangoReadContext");
+string connectionStringContent = builder.Configuration.GetConnectionString("MangoReadContext");
+string connectionStringAccountDb = builder.Configuration.GetConnectionString("AccountDbContext");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("MangoRead.DAL")));
+    options.UseSqlServer(connectionStringContent, b => b.MigrationsAssembly("MangoRead.DAL")));
+builder.Services.AddDbContext<AccountDbContext>(options =>
+    options.UseSqlServer(connectionStringAccountDb, b => b.MigrationsAssembly("MangoRead.DAL")));
+
+builder.Services.AddIdentity<User, IdentityRole>(opts => {
+    opts.Password.RequiredLength = 3;
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireLowercase = false;
+    opts.Password.RequireUppercase = false;
+    opts.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<AccountDbContext>();
+
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IManuscriptService, ManuscriptService>();
 builder.Services.AddScoped<IManuscriptRepository, ManuscriptRepository>();
@@ -46,6 +58,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

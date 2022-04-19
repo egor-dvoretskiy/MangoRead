@@ -1,0 +1,30 @@
+﻿
+@model MangoRead.Domain.Models.Account.User
+@{
+    ViewData["Title"] = "Personal Account";
+}
+
+<h1>Personal Account</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (Model != null)
+        {
+            <form method="post" asp-controller="Account" asp-action="Logout" >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">@Model.UserName</label><br />
+                </div>
+                <br/>
+                <div class="form-group">
+                    <input type="submit" value="Logout" class="btn btn-primary"/>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
