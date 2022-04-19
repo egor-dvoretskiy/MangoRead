@@ -9,3 +9,27 @@
     padding: 0 20px;
     border-radius: 15px;
 }*/
+
+.inline-set {
+}
+
+.inline-set div {
+    display: inline-block;
+}
+
+.inline-set div.inset-left {
+    width: 60%;
+}
+
+.inline-set div.inset-right {
+    margin-right: 0;
+    margin-left: auto;
+    vertical-align: central;
+    text-align: right;
+}
+    .inline-set div.inset-right input {
+        width: 70px;
+        border-radius: 5px;
+        box-shadow: black 0 0 2px 1px
+    }
+

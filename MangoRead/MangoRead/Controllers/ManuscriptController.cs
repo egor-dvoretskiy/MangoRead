@@ -1,4 +1,5 @@
-﻿using MangoRead.Domain.ViewModels;
+﻿using MangoRead.Domain.Enums;
+using MangoRead.Domain.ViewModels;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,16 @@ namespace MangoRead.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var manuscript = new ManuscriptCreateViewModel()
+            {
+                DbStoredGenres = Enum.GetValues<Genre>().Select(x => new System.Web.Mvc.SelectListItem
+                {
+                    Value = x.ToString(),
+                    Text = x.ToString()
+                }),
+            };
+
+            return View(manuscript);
         }
 
         [HttpPost]
