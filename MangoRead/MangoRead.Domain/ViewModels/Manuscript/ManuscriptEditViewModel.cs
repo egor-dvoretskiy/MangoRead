@@ -11,6 +11,8 @@ namespace MangoRead.Domain.ViewModels.Manuscript
 {
     public class ManuscriptEditViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Title { get; set; } = string.Empty;
 

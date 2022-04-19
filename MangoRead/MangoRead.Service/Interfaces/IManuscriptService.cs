@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MangoRead.Domain.ViewModels.Manuscript;
 
 namespace MangoRead.Service.Interfaces
 {
@@ -13,12 +14,14 @@ namespace MangoRead.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts();
 
-        Task<IBaseResponse<ManuscriptViewModel>> GetManuscriptViewModelById(int id);
+        Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptViewModelForEditById(int id);
 
-        Task<IBaseResponse<ManuscriptViewModel>> AddManuscript(ManuscriptViewModel carViewModel);
+        Task<IBaseResponse<ManuscriptDetailsViewModel>> GetManuscriptDetailsById(int id);
+
+        Task<IBaseResponse<ManuscriptCreateViewModel>> AddManuscript(ManuscriptCreateViewModel model);
 
         Task<IBaseResponse<bool>> DeleteManuscript(int id);
 
-        Task<IBaseResponse<ManuscriptViewModel>> Edit(int id, ManuscriptViewModel model);
+        Task<IBaseResponse<ManuscriptEditViewModel>> Edit(int id, ManuscriptEditViewModel model);
     }
 }

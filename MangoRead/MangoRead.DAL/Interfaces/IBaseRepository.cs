@@ -16,6 +16,6 @@ namespace MangoRead.DAL.Interfaces
 
         Task<bool> Update(T entity);
 
-        Task<bool> Delete(T entity);
+        Task<bool> Delete(int id);
     }
 }

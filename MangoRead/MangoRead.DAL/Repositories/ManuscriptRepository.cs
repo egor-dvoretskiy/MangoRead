@@ -34,19 +34,38 @@ namespace MangoRead.DAL.Repositories
             }
         }
 
-        public Task<bool> Delete(Manuscript entity)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var manuscript = await this._context.Manuscripts
+                    .Where(x => x.Id == id)
+                    .SingleOrDefaultAsync();
+                this._context.Manuscripts.Remove(manuscript);
+                await this._context.SaveChangesAsync();
+
+                return true;
+            }
+            catch(Exception exception)
+            {
+                _ = exception;
+                return false;
+            }
         }
 
         public async Task<List<Manuscript>> GetEntities()
         {
-            return await this._context.Manuscripts.Include(x => x.Content).ThenInclude(x => x.Pages).ToListAsync();
+            return await this._context.Manuscripts
+                .Include(x => x.Content)
+                .ThenInclude(x => x.Pages)
+                .ToListAsync();
         }
 
         public async Task<Manuscript?> GetEntityById(int id)
         {
-            return await this._context.Manuscripts.Where(x => x.Id == id).SingleOrDefaultAsync();
+            return await this._context.Manuscripts
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<bool> Update(Manuscript entity)

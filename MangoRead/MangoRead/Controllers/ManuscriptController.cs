@@ -1,4 +1,5 @@
 ﻿using MangoRead.Domain.ViewModels;
+using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ namespace MangoRead.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptViewModelById(id);
+            var response = await this.manuscriptService.GetManuscriptDetailsById(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -43,7 +44,7 @@ namespace MangoRead.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ManuscriptViewModel manuscript)
+        public async Task<IActionResult> Create(ManuscriptCreateViewModel manuscript)
         {
             if (ModelState.IsValid)
             {
@@ -58,9 +59,21 @@ namespace MangoRead.Controllers
             return View(manuscript);
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await this.manuscriptService.DeleteManuscript(id);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Error");
+        }
+
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptViewModelById(id);
+            var response = await this.manuscriptService.GetManuscriptViewModelForEditById(id);
             var manuscript = response.Data;
 
             if (manuscript == null)
@@ -73,7 +86,7 @@ namespace MangoRead.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ManuscriptViewModel model)
+        public async Task<IActionResult> Edit(int id, ManuscriptEditViewModel model)
         {
             var response = await this.manuscriptService.Edit(id, model);
 
