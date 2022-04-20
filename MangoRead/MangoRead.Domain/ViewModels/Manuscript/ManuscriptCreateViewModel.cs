@@ -1,5 +1,6 @@
 ﻿using MangoRead.Domain.Enums;
 using MangoRead.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -36,6 +37,8 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         public bool IsRequireLegalAge { get; set; } = false;
 
         public Genre[]? Genres { get; set; }
+
+        public List<IFormFile>? Files { get; set; }
 
         public ManuscriptContent? Content { get; set; }
     }

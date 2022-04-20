@@ -3,6 +3,7 @@ using MangoRead.Domain.ViewModels;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace MangoRead.Controllers
 {
@@ -97,6 +98,28 @@ namespace MangoRead.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Upload(List<IFormFile> postedFiles)
+        {
+            List<string> uploadedFiles = new List<string>();
+            int count = 0;
+            foreach (IFormFile postedFile in postedFiles)
+            {
+                string fileName = Path.GetFileName(postedFile.FileName);
+                count++;
+                /*using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                    uploadedFiles.Add(fileName);
+                    ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
+                }*/
+            }
+
+            ViewBag.Message = $"uploaded {count} time(s).";
+
+            return RedirectToAction("Create");
         }
     }
 }

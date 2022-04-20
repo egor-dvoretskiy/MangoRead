@@ -54,15 +54,32 @@
                 <span asp-validation-for="Genres" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span>Select File:</span>
+                <input type="file" name="Files" asp-for="Files" multiple class="form-control" />
+                <br/>
+                <span asp-validation-for="Files" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="IsRequireLegalAge" class="control-label"></label>
                 <input type="checkbox" asp-for="IsRequireLegalAge" class="form-check-input"/>
                 <span asp-validation-for="IsRequireLegalAge" class="text-danger"></span>
-            </div>
+            </div>  
             <br/>
+        
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        </form>  
+            
+        @*<form method="post" enctype="multipart/form-data" asp-controller="Manuscript" asp-action="Upload">
+            <div class="form-group">
+                <span>Select File:</span>
+                <input type="file" name="postedFiles" multiple class="form-control" />
+                <input type="submit" value="Upload" class="form-control"/>
+                <br/>
+                <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+            </div>
+        </form>*@
     </div>
 </div>
 
