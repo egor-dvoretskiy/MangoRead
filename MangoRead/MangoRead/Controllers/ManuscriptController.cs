@@ -41,16 +41,7 @@ namespace MangoRead.Controllers
 
         public IActionResult Create()
         {
-            var manuscript = new ManuscriptCreateViewModel()
-            {
-                DbStoredGenres = Enum.GetValues<Genre>().Select(x => new System.Web.Mvc.SelectListItem
-                {
-                    Value = x.ToString(),
-                    Text = x.ToString()
-                }),
-            };
-
-            return View(manuscript);
+            return View();
         }
 
         [HttpPost]
@@ -83,7 +74,7 @@ namespace MangoRead.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptViewModelForEditById(id);
+            var response = await this.manuscriptService.GetManuscriptForEditById(id);
             var manuscript = response.Data;
 
             if (manuscript == null)

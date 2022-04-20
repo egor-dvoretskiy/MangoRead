@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace MangoRead.Domain.ViewModels.Manuscript
 {
@@ -36,9 +35,7 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
-        public IEnumerable<SelectListItem>? DbStoredGenres { get; set; }
-
-        public Genre[]? SelectedGenres { get; set; }
+        public Genre[]? Genres { get; set; }
 
         public ManuscriptContent? Content { get; set; }
     }

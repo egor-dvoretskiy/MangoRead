@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MangoRead.Domain.ViewModels.Manuscript;
+using MangoRead.Domain.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MangoRead.Service.Implementations
 {
@@ -43,7 +45,7 @@ namespace MangoRead.Service.Implementations
                     Type = model.Type,
                     Description = model.Description,
                     IsRequireLegalAge = model.IsRequireLegalAge,
-                    Genres = model.SelectedGenres.Select(x => new GenreHolder() { Genre = x }).ToList(),
+                    Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList(),
                     Content = model.Content,
                 };
 
@@ -114,7 +116,7 @@ namespace MangoRead.Service.Implementations
                 manuscript.Type = model.Type;
                 manuscript.Description = model.Description;
                 manuscript.IsRequireLegalAge = model.IsRequireLegalAge;
-                manuscript.Genres = model.Genres;
+                manuscript.Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList();
                 manuscript.Content = model.Content;
 
 
@@ -168,7 +170,7 @@ namespace MangoRead.Service.Implementations
                     Type = manuscript.Type,
                     Description = manuscript.Description,
                     IsRequireLegalAge = manuscript.IsRequireLegalAge,
-                    Genres = manuscript.Genres,
+                    GenresString = string.Join(", ", manuscript.Genres.Select(x => x.Genre).ToArray()),
                     Content = manuscript.Content,
                 };
 
@@ -186,7 +188,7 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptViewModelForEditById(int id)
+        public async Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id)
         {
             var response = new BaseResponse<ManuscriptEditViewModel>();
 
@@ -211,9 +213,24 @@ namespace MangoRead.Service.Implementations
                     Type = manuscript.Type,
                     Description = manuscript.Description,
                     IsRequireLegalAge = manuscript.IsRequireLegalAge,
-                    Genres = manuscript.Genres,
+                    Genres = manuscript.Genres.Select(x => x.Genre).ToArray(),
                     Content = manuscript.Content,
                 };
+
+                List<SelectListItem> genres = new List<SelectListItem>();
+                foreach(var genre in Enum.GetValues<Genre>())
+                {
+                    SelectListItem item = new SelectListItem()
+                    {
+                        Text = genre.ToString(),
+                        Value = genre.ToString(),
+                        Selected = model.Genres.Contains(genre)
+                    };
+
+                    genres.Add(item);
+                }
+
+                model.GenresList = genres;
 
                 response.Data = model;
                 response.Status = Domain.Enums.ResponseStatus.OK;

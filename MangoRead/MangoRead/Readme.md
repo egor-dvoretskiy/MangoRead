@@ -11,4 +11,5 @@
 - -||- Add to Content
 - Make enum genres as db entity
 - make enum manuscripttypes as db entity
-- Change @Html.ListBoxFor to listbox
++ Change @Html.ListBoxFor to listbox
++ details -> genreString

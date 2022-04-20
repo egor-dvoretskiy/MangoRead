@@ -64,6 +64,8 @@ namespace MangoRead.DAL.Repositories
         public async Task<Manuscript?> GetEntityById(int id)
         {
             return await this._context.Manuscripts
+                .Include(x => x.Genres)
+                .Include(x => x.Content)
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
         }

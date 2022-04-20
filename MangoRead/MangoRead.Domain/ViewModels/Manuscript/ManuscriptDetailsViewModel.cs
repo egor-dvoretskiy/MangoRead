@@ -41,7 +41,8 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
-        public List<GenreHolder> Genres { get; set; } = new List<GenreHolder>();
+        [Display(Name = "Genres")]
+        public string? GenresString { get; set; }
 
         public ManuscriptContent? Content { get; set; }
     }
