@@ -22,7 +22,29 @@ namespace MangoRead.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.GenreHolder", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Chapter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VolumeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VolumeId");
+
+                    b.ToTable("Chapter");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.GenreHolder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +65,7 @@ namespace MangoRead.DAL.Migrations
                     b.ToTable("GenreHolder");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.Manuscript", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Manuscript", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +120,7 @@ namespace MangoRead.DAL.Migrations
                     b.ToTable("Manuscripts");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.ManuscriptContent", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.ManuscriptContent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,9 +135,6 @@ namespace MangoRead.DAL.Migrations
                     b.Property<int>("ManuscriptId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PagesAmount")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ManuscriptId")
@@ -124,7 +143,7 @@ namespace MangoRead.DAL.Migrations
                     b.ToTable("ManuscriptContent");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.Page", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Page", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,12 +151,12 @@ namespace MangoRead.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ChapterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ManuscriptContentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -149,14 +168,47 @@ namespace MangoRead.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManuscriptContentId");
+                    b.HasIndex("ChapterId");
 
                     b.ToTable("Page");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.GenreHolder", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Volume", b =>
                 {
-                    b.HasOne("MangoRead.Domain.Entities.Manuscript", "Manuscript")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ManuscriptContentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManuscriptContentId");
+
+                    b.ToTable("Volume");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.Chapter", b =>
+                {
+                    b.HasOne("MangoRead.Domain.Models.Volume", "Volume")
+                        .WithMany("Chapters")
+                        .HasForeignKey("VolumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Volume");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.GenreHolder", b =>
+                {
+                    b.HasOne("MangoRead.Domain.Models.Manuscript", "Manuscript")
                         .WithMany("Genres")
                         .HasForeignKey("ManuscriptId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -165,38 +217,59 @@ namespace MangoRead.DAL.Migrations
                     b.Navigation("Manuscript");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.ManuscriptContent", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.ManuscriptContent", b =>
                 {
-                    b.HasOne("MangoRead.Domain.Entities.Manuscript", "Manuscript")
+                    b.HasOne("MangoRead.Domain.Models.Manuscript", "Manuscript")
                         .WithOne("Content")
-                        .HasForeignKey("MangoRead.Domain.Entities.ManuscriptContent", "ManuscriptId")
+                        .HasForeignKey("MangoRead.Domain.Models.ManuscriptContent", "ManuscriptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Manuscript");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.Page", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Page", b =>
                 {
-                    b.HasOne("MangoRead.Domain.Entities.ManuscriptContent", "Content")
+                    b.HasOne("MangoRead.Domain.Models.Chapter", "Chapter")
                         .WithMany("Pages")
+                        .HasForeignKey("ChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chapter");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.Volume", b =>
+                {
+                    b.HasOne("MangoRead.Domain.Models.ManuscriptContent", "ManuscriptContent")
+                        .WithMany("Volumes")
                         .HasForeignKey("ManuscriptContentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Content");
+                    b.Navigation("ManuscriptContent");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.Manuscript", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.Chapter", b =>
+                {
+                    b.Navigation("Pages");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.Manuscript", b =>
                 {
                     b.Navigation("Content");
 
                     b.Navigation("Genres");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Entities.ManuscriptContent", b =>
+            modelBuilder.Entity("MangoRead.Domain.Models.ManuscriptContent", b =>
                 {
-                    b.Navigation("Pages");
+                    b.Navigation("Volumes");
+                });
+
+            modelBuilder.Entity("MangoRead.Domain.Models.Volume", b =>
+                {
+                    b.Navigation("Chapters");
                 });
 #pragma warning restore 612, 618
         }

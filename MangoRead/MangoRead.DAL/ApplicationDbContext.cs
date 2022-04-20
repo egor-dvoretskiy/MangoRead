@@ -16,7 +16,7 @@ namespace MangoRead.DAL
             : base(options)
         {
             /*_ = this.Database.EnsureDeleted();*/
-            _ = this.Database.EnsureCreated();
+            /*_ = this.Database.EnsureCreated();*/
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,10 +41,17 @@ namespace MangoRead.DAL
                 .HasOne(x => x.Manuscript)
                 .WithOne(y => y.Content);
 
+            builder.Entity<Volume>()
+                .HasOne(x => x.ManuscriptContent)
+                .WithMany(y => y.Volumes);
+
+            builder.Entity<Chapter>()
+                .HasOne(x => x.Volume)
+                .WithMany(y => y.Chapters);
+
             builder.Entity<Page>()
-                .HasOne(x => x.Content)
-                .WithMany(y => y.Pages)
-                .HasForeignKey(x => x.ManuscriptContentId);
+                .HasOne(x => x.Chapter)
+                .WithMany(y => y.Pages);
 
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MangoRead.DAL.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ReworkedManuscriptContentMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,6 @@ namespace MangoRead.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PagesAmount = table.Column<int>(type: "int", nullable: false),
                     ManuscriptId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -74,6 +73,46 @@ namespace MangoRead.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Volume",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ManuscriptContentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Volume", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Volume_ManuscriptContent_ManuscriptContentId",
+                        column: x => x.ManuscriptContentId,
+                        principalTable: "ManuscriptContent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Chapter",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VolumeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chapter", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chapter_Volume_VolumeId",
+                        column: x => x.VolumeId,
+                        principalTable: "Volume",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Page",
                 columns: table => new
                 {
@@ -82,18 +121,23 @@ namespace MangoRead.DAL.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Extension = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ManuscriptContentId = table.Column<int>(type: "int", nullable: false)
+                    ChapterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Page", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Page_ManuscriptContent_ManuscriptContentId",
-                        column: x => x.ManuscriptContentId,
-                        principalTable: "ManuscriptContent",
+                        name: "FK_Page_Chapter_ChapterId",
+                        column: x => x.ChapterId,
+                        principalTable: "Chapter",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chapter_VolumeId",
+                table: "Chapter",
+                column: "VolumeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GenreHolder_ManuscriptId",
@@ -112,8 +156,13 @@ namespace MangoRead.DAL.Migrations
                 column: "Index");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Page_ManuscriptContentId",
+                name: "IX_Page_ChapterId",
                 table: "Page",
+                column: "ChapterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Volume_ManuscriptContentId",
+                table: "Volume",
                 column: "ManuscriptContentId");
         }
 
@@ -124,6 +173,12 @@ namespace MangoRead.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Page");
+
+            migrationBuilder.DropTable(
+                name: "Chapter");
+
+            migrationBuilder.DropTable(
+                name: "Volume");
 
             migrationBuilder.DropTable(
                 name: "ManuscriptContent");

@@ -15,9 +15,7 @@ namespace MangoRead.Domain.Models
 
         public string FolderName { get; set; } = string.Empty;
 
-        public List<Page> Pages { get; set; } = new List<Page>();
-
-        public int PagesAmount { get; set; }
+        public List<Volume> Volumes { get; set; } = new List<Volume>();
 
         public int ManuscriptId { get; set; }
 

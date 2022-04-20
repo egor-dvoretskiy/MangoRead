@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Domain.Models
 {
-    public class Page
+    public class Chapter
     {
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
-        public string Extension { get; set; } = string.Empty;
+        public List<Page> Pages { get; set; } = new List<Page>();
 
-        public string Path { get; set; } = string.Empty;
+        public int VolumeId { get; set; }
 
-        public int ChapterId { get; set; }
-
-        [ForeignKey("ChapterId")]
-        public Chapter Chapter { get; set; }
+        [ForeignKey("VolumeId")]
+        public Volume Volume { get; set; }
     }
 }

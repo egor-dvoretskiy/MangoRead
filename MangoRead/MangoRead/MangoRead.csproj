@@ -25,4 +25,8 @@
     <ProjectReference Include="..\MangoRead.Service\MangoRead.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\External plugins\" />
+  </ItemGroup>
+
 </Project>

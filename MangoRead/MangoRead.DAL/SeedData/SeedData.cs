@@ -158,12 +158,16 @@ namespace MangoRead.DAL.SeedData
 
             manuscriptContent.FolderName = folderName.ToString();
 
+            Volume volume = new Volume();
+            Chapter chapter = new Chapter();
+
             for (int i = 0; i < pagesAmount; i++)
             {
-                manuscriptContent.Pages.AddPage(i.ToString(), extension, path);
+                chapter.Pages.AddPage(i.ToString(), extension, path);
             }
-            
-            manuscriptContent.PagesAmount = pagesAmount;
+
+            volume.Chapters.Add(chapter);
+            manuscriptContent.Volumes.Add(volume);
 
             return manuscriptContent;
         }
