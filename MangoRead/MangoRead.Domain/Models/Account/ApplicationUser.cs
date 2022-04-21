@@ -11,15 +11,13 @@ namespace MangoRead.Domain.Models.Account
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
         [Display(Name = "First Name")]
         [DataType(DataType.Text)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; } = string.Empty;
 
-        [Required]
         [Display(Name = "Last Name")]
         [DataType(DataType.Text)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; } = string.Empty;
 
         [Required]
         [Display(Name = "Over 18?")]
