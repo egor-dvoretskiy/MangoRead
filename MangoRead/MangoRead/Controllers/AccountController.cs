@@ -1,37 +1,62 @@
 ﻿using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.ViewModels.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangoRead.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         [BindProperty]
-        public User CurrentUser { get; set; }
+        public ApplicationUser CurrentUser { get; set; }
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            IUserStore<ApplicationUser> userStore
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userStore = userStore;
+            _emailStore = GetEmailStore();
         }
 
         [HttpGet]
-        public IActionResult Register()
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
         {
-            return View();
+            var register = new RegisterViewModel()
+            {
+                ReturnUrl = returnUrl,
+            };
+
+            return View(register);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate };
-                // добавляем пользователя
+                ApplicationUser user = new ApplicationUser { 
+                    Email = model.Email, 
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName,
+                    IsOverEighteen = model.IsOverEighteen,
+                    ProfilePicture = model.ProfilePicture,
+                };
+
+                await this._userStore.SetUserNameAsync(user, user.FirstName, CancellationToken.None);
+                await this._emailStore.SetEmailAsync(user, user.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -68,6 +93,7 @@ namespace MangoRead.Controllers
                 }*/
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             if (string.IsNullOrEmpty(returnUrl))
@@ -80,6 +106,7 @@ namespace MangoRead.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -105,6 +132,15 @@ namespace MangoRead.Controllers
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

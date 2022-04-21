@@ -117,7 +117,7 @@ namespace MangoRead.DAL.SeedData
         {
             Manuscript manuscript = new Manuscript();
 
-            manuscript.Type = ManuscriptType.Web;
+            manuscript.Type = ManuscriptType.Webtoon;
             manuscript.Title = "Romance on Krasnogvardeyskaya street";
             manuscript.Description = "Just a two lover trying to survive in this dangerous world.";
             manuscript.Genres.AddRange(

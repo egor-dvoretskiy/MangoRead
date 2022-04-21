@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MangoRead.Domain\MangoRead.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

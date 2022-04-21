@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -52,13 +52,13 @@
                 <label asp-for="Genres" class ="control-label"></label>
                 <select asp-for="Genres" asp-items="Html.GetEnumSelectList<Genre>()" class="form-control genres-list" size="7" multiple required></select>
                 <span asp-validation-for="Genres" class="text-danger"></span>
-            </div>
+            </div>@*
             <div class="form-group">
                 <span>Select File:</span>
                 <input type="file" name="Files" asp-for="Files" multiple class="form-control" />
                 <br/>
                 <span asp-validation-for="Files" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="IsRequireLegalAge" class="control-label"></label>
                 <input type="checkbox" asp-for="IsRequireLegalAge" class="form-check-input"/>

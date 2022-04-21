@@ -8,10 +8,10 @@ namespace MangoRead.Domain.Enums
 {
     public enum Genre
     {
+        Action,
         Adult,
         Adventure,
         Detective,
-        Action,
         Drama,
         Romance
     }

@@ -19,15 +19,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDbContext<AccountDbContext>(options =>
     options.UseSqlServer(connectionStringAccountDb, b => b.MigrationsAssembly("MangoRead.DAL")));
 
-builder.Services.AddIdentity<User, IdentityRole>(opts => {
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole>(opts =>
+{
     opts.Password.RequiredLength = 3;
     opts.Password.RequireNonAlphanumeric = false;
     opts.Password.RequireLowercase = false;
     opts.Password.RequireUppercase = false;
     opts.Password.RequireDigit = false;
-}).AddEntityFrameworkStores<AccountDbContext>();
+})
+    .AddEntityFrameworkStores<AccountDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IManuscriptService, ManuscriptService>();
 builder.Services.AddScoped<IManuscriptRepository, ManuscriptRepository>();
