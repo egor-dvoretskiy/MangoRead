@@ -11,6 +11,8 @@
 - Mechanism add to Content (seq: create -> upload ??) >> first. add empty manuscript; second. get to details; third. add files to content.
 + Change @Html.ListBoxFor to listbox
 + details -> genreString
+- make account manage menu
+- rework login/signup from controllers to razorpages
 
 
 

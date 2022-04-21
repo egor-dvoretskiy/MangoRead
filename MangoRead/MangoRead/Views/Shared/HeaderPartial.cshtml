@@ -25,7 +25,7 @@
                                 <a class="nav-link text-dark">Hello, <b>@User.Identity?.Name</b>!</a> 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Account</a>
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>
                             </li>
                         }
                         else
