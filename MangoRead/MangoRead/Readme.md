@@ -12,7 +12,7 @@
 + Change @Html.ListBoxFor to listbox
 + details -> genreString
 - make account manage menu
-- rework login/signup from controllers to razorpages
++ rework login/signup from controllers to razorpages
 
 
 
