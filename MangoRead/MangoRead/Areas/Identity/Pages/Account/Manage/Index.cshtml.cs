@@ -40,6 +40,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        [TempData]
+        public string UserNameChangeLimitMessage { get; set; }
+
         [BindProperty]
         public ProfileViewModel ProfileViewModel { get; set; }
 
@@ -68,7 +71,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
+            UserNameChangeLimitMessage = $"You can change your username {user.UsernameChangeLimit} more time(s).";
             await LoadAsync(user);
             return Page();
         }
@@ -76,6 +79,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -120,6 +124,30 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
                     user.ProfilePicture = dataStream.ToArray();
                 }
                 await _userManager.UpdateAsync(user);
+            }
+
+            if (user.UsernameChangeLimit > 0)
+            {
+                if (ProfileViewModel.Username != user.UserName)
+                {
+                    var userNameExists = await _userManager.FindByNameAsync(ProfileViewModel.Username);
+                    if (userNameExists != null)
+                    {
+                        StatusMessage = "User name already taken. Select a different username.";
+                        return RedirectToPage();
+                    }
+                    var setUserName = await _userManager.SetUserNameAsync(user, ProfileViewModel.Username);
+                    if (!setUserName.Succeeded)
+                    {
+                        StatusMessage = "Unexpected error when trying to set user name.";
+                        return RedirectToPage();
+                    }
+                    else
+                    {
+                        user.UsernameChangeLimit -= 1;
+                        await _userManager.UpdateAsync(user);
+                    }
+                }
             }
 
             await _signInManager.RefreshSignInAsync(user);
