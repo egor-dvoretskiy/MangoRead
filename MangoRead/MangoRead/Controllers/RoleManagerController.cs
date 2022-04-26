@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
     public class RoleManagerController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -24,6 +26,7 @@ namespace MangoRead.Controllers
             return View(roles);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> AddRole(string roleName)
         {
             if (roleName != null)

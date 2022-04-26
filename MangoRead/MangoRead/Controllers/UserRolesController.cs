@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
     public class UserRolesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -43,8 +44,8 @@ namespace MangoRead.Controllers
             return View(userRolesViewModel);
         }
 
-        [Authorize(Roles = "SuperAdmin")]
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Manage(string userId)
         {
             ViewBag.userId = userId;
@@ -76,8 +77,8 @@ namespace MangoRead.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

@@ -1,0 +1,18 @@
+﻿@page
+@model AdminPanelModel
+@{
+    ViewData["Title"] = "Admin Panel";
+    ViewData["ActivePage"] = ManageNavPages.AdminPanel;
+}
+
+<div class="row">
+        <h4>That page contains admin controls.</h4>
+        <div class="d-block mb-4" style="vertical-align:central">
+            <p class="d-inline">Manage website roles.</p>
+            <a asp-area="" asp-controller="RoleManager" asp-action="Index" class="btn btn-primary d-inline">Manage roles</a>
+        </div>
+        <div class="d-block mb-4" style="vertical-align:central">
+            <p class="d-inline">Manage user roles.</p>
+            <a asp-area="" asp-controller="UserRoles" asp-action="Index" class="btn btn-primary d-inline">Manage users</a>
+        </div>  
+</div>
