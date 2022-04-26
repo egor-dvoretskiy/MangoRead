@@ -45,8 +45,12 @@ string contentFolderPath = builder.Configuration.GetValue<string>("StaticFilesCo
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
     SeedData.Initialize(services, contentFolderPath);
+    await RolesSeed.SeedRolesAsync(userManager, roleManager);
+    await RolesSeed.SeedSuperAdminAsync(userManager, roleManager);
 }
 
 // Configure the HTTP request pipeline.

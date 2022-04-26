@@ -35,8 +35,6 @@ namespace MangoRead.DAL.SeedData
             }
         }
 
-
-
         private static Manuscript GetManuscriptOne(string path)
         {
             Manuscript manuscript = new Manuscript();
