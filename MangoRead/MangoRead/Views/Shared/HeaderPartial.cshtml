@@ -9,13 +9,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul id="nav-ul-menu" class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" lang-tag="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy" lang-tag="privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Manuscript" asp-action="Index">Manuscripts</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Manuscript" asp-action="Index" lang-tag="archive">Manuscripts</a>
+                        </li>
+                        <li class="nav-item">
+                            <select id="lang-select" class="form-select">
+                                @*<option value="en">English</option>
+                                <option value="ru">Русский</option>*@
+                            </select>
                         </li>
                     </ul>
                     @*<ul id="auth-ul-menu" class="navbar-nav">
@@ -50,3 +56,6 @@
             </div>
         </nav>
     </header>
+
+    <script>
+    </script>
