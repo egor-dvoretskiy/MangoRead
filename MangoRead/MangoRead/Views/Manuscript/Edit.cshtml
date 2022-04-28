@@ -5,7 +5,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit #<i>@Model.Id</i></h1>
+<h1><span class="_index-manuscript-edit">Edit</span> #<i>@Model.Id</i></h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -58,12 +58,12 @@
             </div>
             <br/>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" class="btn btn-primary _save-button"/>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="_edit-manuscript-back">Back to List</a>
 </div>
