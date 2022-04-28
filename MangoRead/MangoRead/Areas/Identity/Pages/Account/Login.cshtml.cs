@@ -81,6 +81,12 @@ namespace MangoRead.Areas.Identity.Pages.Account
             {
                 ApplicationUser user = await _userManager.FindByEmailAsync(LoginViewModel.Email);
 
+                if (user is null)
+                {
+                    ModelState.AddModelError(string.Empty, "There is noo such user in database.");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, LoginViewModel.Password, LoginViewModel.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {

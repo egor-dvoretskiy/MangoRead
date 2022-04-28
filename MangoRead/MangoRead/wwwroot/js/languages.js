@@ -1,12 +1,12 @@
 ﻿var storedLangs = {
     en: {
-		"_home-index--welcome_message": "Learn about <a href='https://docs.microsoft.com/aspnet/core'>building Web apps with ASP.NET Core</a>.",
-		"_home-index--welcome_tag": "Welcome",
+		"_home-index-welcome_message": "Learn about <a href='https://docs.microsoft.com/aspnet/core'>building Web apps with ASP.NET Core</a>.",
+		"_home-index-welcome_tag": "Welcome",
 
 		"_privacy": "Privacy",
 		"_home": "Home",
 		"_archive": "Manuscripts",
-		"_home-privacy--privacy-policy": "Privacy Policy",
+		"_home-privacy-privacy-policy": "Privacy Policy",
 		"_privacy-policy-content": "Use this page to detail your site's privacy policy.",
 		"_index-manuscript": "List of Manuscripts",
 		"_index-manuscript-create": "Create New",
