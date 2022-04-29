@@ -1,4 +1,8 @@
 ﻿@using MangoRead.Domain.Models;
+@using MangoRead.Domain.Models.Account;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> _signInManager
 
 @model List<Manuscript>
 
@@ -10,7 +14,10 @@
 <br/>
 
 <p>
-    <a asp-action="Create" class="_index-manuscript-create">Create New</a>
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <a asp-action="Create" class="_index-manuscript-create">Create New</a>
+    }
 </p>
 <table class="table table-hover">
     <thead class="table-light">

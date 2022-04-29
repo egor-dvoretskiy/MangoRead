@@ -19,6 +19,9 @@ namespace MangoRead.Domain.Models
         [Required]
         public string Title { get; set; } = string.Empty;
 
+        [Required]
+        public byte[] TitleImage { get; set; }
+
         public string Author { get; set; } = string.Empty;
 
         [DataType(DataType.Date)]

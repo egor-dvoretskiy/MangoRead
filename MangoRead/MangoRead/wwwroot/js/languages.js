@@ -21,7 +21,6 @@
 		"_logout": "Logout",
 		"_login-greeting": "Hello,",
 		"_create-button": "Create",
-
 		"_error-word": "Error.",
 		"_error-message": "An error occurred while processing your request.",
 		"_request-id": "Request ID:",
@@ -41,7 +40,6 @@
 		"_role-manager": "Role Manager",
 		"_button-add-new-role": "Add New Role",
 		"_save-button": "Save",
-
 		"_login-account-using": "Use a local account to log in.",
 		"_forgot-password": "Forgot your password?",
 		"_register-as-new": "Register as a new user",
@@ -52,6 +50,14 @@
 			"<a href='https://go.microsoft.com/fwlink/?LinkID=532715'>article " +
 			"about setting up this ASP.NET application" +
 			" to support logging in via external services</a>.",
+
+		"_profile": "Profile",
+		"_email": "Email",
+		"_password": "Password",
+		"_external-logins": "External logins",
+		"_tf-authentification": "Two-Factor authentification",
+		"_personal-data": "Personal data",
+		"_control-panel": "Control panel",
 		"": "",
 		"": "",
 		"": "",
@@ -65,10 +71,10 @@
 
 	ru: {
 		"_home-index-welcome_message": "Ну ты это, заходи, если чо.",
+		"_home-index-welcome_tag": "Здарова, пес",
 		"_privacy": "Конфиденциальность",
 		"_home": "Главная",
 		"_archive": "Архив",
-		"_home-index-welcome_tag": "Здарова, пес",
 		"_home-privacy-privacy-policy": "Политика конфиденциальности",
 		"_home-privacy-privacy-policy-content": "Эта страница служит описанием политики конфиденциальности данного сайта.",
 		"_index-manuscript": "Список рукописей",
@@ -116,5 +122,12 @@
 			"о настройка приложения ASP.NET " +
 			"для включения поддрежки регистрации с других аккаунтов.</a>.",
 
+		"_profile": "Профиль",
+		"_email": "Почта",
+		"_password": "Пароль",
+		"_external-logins": "Внешние аккаунты",
+		"_tf-authentification": "Двухфакторная аутентификация",
+		"_personal-data": "Личные данные",
+		"_control-panel": "Панель управления",
     }
 }
