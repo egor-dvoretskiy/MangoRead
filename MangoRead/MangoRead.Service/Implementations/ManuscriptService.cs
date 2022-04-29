@@ -47,6 +47,7 @@ namespace MangoRead.Service.Implementations
                     IsRequireLegalAge = model.IsRequireLegalAge,
                     Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList(),
                     Content = model.Content,
+                    TitleImage = model.TitleImage,
                 };
 
                 bool isValid = await this.manuscriptRepository.Create(manuscript);

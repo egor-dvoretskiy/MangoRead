@@ -18,6 +18,9 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public string Title { get; set; } = string.Empty;
 
+        [Display(Name = "Title Picture")]
+        public byte[]? TitleImage { get; set; }
+
         public string Author { get; set; } = string.Empty;
 
         [Required]

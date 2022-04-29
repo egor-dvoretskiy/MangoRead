@@ -42,7 +42,7 @@ namespace MangoRead.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new ManuscriptCreateViewModel());
         }
 
         [HttpPost]

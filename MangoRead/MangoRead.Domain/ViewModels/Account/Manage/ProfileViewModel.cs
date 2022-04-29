@@ -20,7 +20,7 @@ namespace MangoRead.Domain.ViewModels.Account.Manage
 
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
 
         [Display(Name = "Profile Picture")]
         public byte[]? ProfilePicture { get; set; }
