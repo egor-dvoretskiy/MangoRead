@@ -46,7 +46,6 @@ namespace MangoRead.Service.Implementations
                     Description = model.Description,
                     IsRequireLegalAge = model.IsRequireLegalAge,
                     Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList(),
-                    Content = model.Content,
                     TitleImage = model.TitleImage,
                 };
 

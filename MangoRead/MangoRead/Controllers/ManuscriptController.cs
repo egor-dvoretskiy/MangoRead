@@ -40,6 +40,7 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new ManuscriptCreateViewModel());

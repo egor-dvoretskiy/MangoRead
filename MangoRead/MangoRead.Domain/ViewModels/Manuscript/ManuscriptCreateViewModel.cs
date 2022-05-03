@@ -19,7 +19,7 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         public string Title { get; set; } = string.Empty;
 
         [Display(Name = "Title Picture")]
-        public byte[]? TitleImage { get; set; }
+        public byte[] TitleImage { get; set; }
 
         public string Author { get; set; } = string.Empty;
 
@@ -40,9 +40,5 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         public bool IsRequireLegalAge { get; set; } = false;
 
         public Genre[]? Genres { get; set; }
-
-        public List<IFormFile>? Files { get; set; }
-
-        public ManuscriptContent? Content { get; set; }
     }
 }
