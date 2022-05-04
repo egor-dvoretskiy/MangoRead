@@ -9,8 +9,10 @@
 - Make layout a little bit beauty than now
 + Mechanism add to genres
 - Mechanism add to Content (seq: create -> upload ??) >> first. add empty manuscript; second. get to details; third. add files to content.
-- Add authorize attribute to manuscript actions.
-- Make manuscript CRUD according to roles.
+- add to account 'manuscript managment' field with approved and requested manuscripts.
+- get rid of 'create new' from index and move it to manuscript management page with name 'add new manuscript request'.
++ Add authorize attribute to manuscript actions.
++ Make manuscript CRUD according to roles.
 + Change @Html.ListBoxFor to listbox
 + details -> genreString
 + make account manage menu
