@@ -1,4 +1,8 @@
 ﻿@using MangoRead.Domain.ViewModels.Manuscript;
+@using MangoRead.Domain.Models.Account;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> _signInManager
 
 @model ManuscriptDetailsViewModel
 
@@ -110,6 +114,9 @@
     </dl>
 </div>
 <div>
-    <a asp-area="" asp-controller="Manuscript" asp-action="Edit" class="_index-manuscript-edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (_signInManager.IsSignedIn(User) && !User.IsInRole("Basic"))
+    {
+        <a asp-area="" asp-controller="Manuscript" asp-action="Edit" class="_index-manuscript-edit" asp-route-id="@Model.Id">Edit</a>
+    }    
     <a asp-area="" asp-controller="Manuscript" asp-action="Index" class="_edit-manuscript-back">Back to List</a>
 </div>

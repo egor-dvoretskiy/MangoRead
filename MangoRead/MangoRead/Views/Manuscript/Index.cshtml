@@ -81,10 +81,15 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Edit" asp-route-id="@item.Id" class="_index-manuscript-edit">Edit</a> |
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id" class="_index-manuscript-details">Details</a> |
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Delete" asp-route-id="@item.Id" class="_index-manuscript-delete">Delete</a>
-                    @*@Html.ActionLink("Delete", "Delete", "Manuscript", new { id = item.Id })*@
+                    @if (_signInManager.IsSignedIn(User) && !User.IsInRole("Basic"))
+                    {
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Edit" asp-route-id="@item.Id" class="_index-manuscript-edit">Edit</a>
+                    }
+                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id" class="_index-manuscript-details">Details</a> 
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Delete" asp-route-id="@item.Id" class="_index-manuscript-delete">Delete</a>
+                    }
                 </td>
             </tr>
         }

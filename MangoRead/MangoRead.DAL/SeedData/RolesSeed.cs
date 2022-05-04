@@ -38,7 +38,6 @@ namespace MangoRead.DAL.SeedData
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "6233");
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Basic.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.Moderator.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());

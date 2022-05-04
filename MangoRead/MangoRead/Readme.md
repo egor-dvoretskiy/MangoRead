@@ -16,7 +16,7 @@
 + make account manage menu
 + rework login/signup from controllers to razorpages
 + make create TitleImage as IFormFile
-- add title image to details and edit
++ add title image to details and edit
 
 
 
