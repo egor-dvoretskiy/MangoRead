@@ -67,15 +67,15 @@
         
         <div class="col-md-6 d-flex justify-content-center">
             <div class="form-group">
-                <label asp-for="TitleImage" style="width: 100%;" class="form-label"></label>
+                <label asp-for="TitlePicture" style="width: 100%;" class="form-label"></label>
                 <img id="titleImage" style="width:250px;height:356px; object-fit:cover" src="">
                 <input type="file"
                         accept=".png,.jpg,.jpeg,.gif,.tif"
-                        asp-for="TitleImage"
+                        asp-for="TitlePicture"
                         class="form-control"
                         style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
                         onchange="onImageAdd(this.files[0])" />
-                <span asp-validation-for="TitleImage" class="text-danger"></span>
+                <span asp-validation-for="TitlePicture" class="text-danger"></span>
             </div>
         </div> 
     </div>

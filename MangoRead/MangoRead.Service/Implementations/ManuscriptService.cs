@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MangoRead.Service.Extensions;
 
 namespace MangoRead.Service.Implementations
 {
@@ -46,7 +47,7 @@ namespace MangoRead.Service.Implementations
                     Description = model.Description,
                     IsRequireLegalAge = model.IsRequireLegalAge,
                     Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList(),
-                    TitleImage = model.TitleImage,
+                    TitleImage = await model.TitlePicture.GetBytes(),
                 };
 
                 bool isValid = await this.manuscriptRepository.Create(manuscript);
