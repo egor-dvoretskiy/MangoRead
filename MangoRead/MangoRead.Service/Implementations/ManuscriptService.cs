@@ -109,6 +109,7 @@ namespace MangoRead.Service.Implementations
                 var manuscript = await this.manuscriptRepository.GetEntityById(id);
 
                 manuscript.Title = model.Title;
+                manuscript.TitleImage = await model.TitlePicture.GetBytes();
                 manuscript.Author = model.Author;
                 manuscript.Publisher = model.Publisher;
                 manuscript.UpdateDate = DateTime.Now;
@@ -208,6 +209,7 @@ namespace MangoRead.Service.Implementations
                 ManuscriptEditViewModel model = new ManuscriptEditViewModel()
                 {
                     Title = manuscript.Title,
+                    TitleImage = manuscript.TitleImage,
                     Author = manuscript.Author,
                     Publisher = manuscript.Publisher,
                     Translator = manuscript.Translator,

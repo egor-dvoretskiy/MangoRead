@@ -74,7 +74,7 @@
                         asp-for="TitlePicture"
                         class="form-control"
                         style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                        onchange="onImageAdd(this.files[0])" />
+                        onchange="document.getElementById('titleImage').src = window.URL.createObjectURL(this.files[0])" />
                 <span asp-validation-for="TitlePicture" class="text-danger"></span>
             </div>
         </div> 
@@ -84,11 +84,3 @@
 <div>
     <a asp-action="Index" class="_edit-manuscript-back">Back to List</a>
 </div>
-
-<script>
-    function onImageAdd(file)
-    {
-        document.getElementById('titleImage').src = window.URL.createObjectURL(file);
-        console.log('url changed:', file);
-    }
-</script>

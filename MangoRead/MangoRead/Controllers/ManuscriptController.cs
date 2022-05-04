@@ -74,6 +74,7 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var response = await this.manuscriptService.GetManuscriptForEditById(id);
