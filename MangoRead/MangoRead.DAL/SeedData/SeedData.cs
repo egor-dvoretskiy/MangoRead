@@ -33,6 +33,64 @@ namespace MangoRead.DAL.SeedData
 
                 context.SaveChanges();
             }
+
+            using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+            {
+                if (context == null || context.Reviews == null)
+                {
+                    throw new ArgumentNullException($"{nameof(context)} is null at SeedData.");
+                }
+
+                if (context.Reviews.Any())
+                {
+                    return;
+                }
+
+                context.Reviews.Add(GetReviewOne());
+                context.Reviews.Add(GetReviewTwo());
+                context.Reviews.Add(GetReviewThree());
+
+                context.SaveChanges();
+            }
+        }
+
+        private static ManuscriptReview GetReviewOne()
+        {
+            ManuscriptReview review = new ManuscriptReview();
+
+            review.Rating = 4;
+            review.CouplingGuid = Guid.NewGuid();
+            review.Content = "Lorem ipsum ...";
+            review.AuthorUserName = "Simaon";
+            review.CreationDate = DateTime.Now;
+
+            return review;
+        }
+
+        private static ManuscriptReview GetReviewTwo()
+        {
+            ManuscriptReview review = new ManuscriptReview();
+
+            review.Rating = 3;
+            review.CouplingGuid = Guid.NewGuid();
+            review.Content = "Isuzu ipsum ...";
+            review.AuthorUserName = "Ergo";
+            review.CreationDate = DateTime.Now;
+
+            return review;
+        }
+
+        private static ManuscriptReview GetReviewThree()
+        {
+            ManuscriptReview review = new ManuscriptReview();
+
+            review.Rating = 3;
+            review.CouplingGuid = Guid.NewGuid();
+            review.Content = "Lorem ipsum colour ...";
+            review.AuthorUserName = "Sokka";
+            review.CreationDate = DateTime.Now;
+
+            return review;
         }
 
         private static Manuscript GetManuscriptOne(string path)
@@ -61,6 +119,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Publisher = "Ergo";
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
+            manuscript.TitleImage = new byte[32];
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 9, rootpath, ".png");
@@ -103,6 +162,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Publisher = "Ergo";
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
+            manuscript.TitleImage = new byte[48];
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 15, rootpath, ".jpg");
@@ -133,6 +193,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Publisher = "Ergo";
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
+            manuscript.TitleImage = new byte[32];
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 33, rootpath, ".jpg");
@@ -178,7 +239,36 @@ namespace MangoRead.DAL.SeedData
             {
                 Name = name,
                 Extension = extension,
-                Path = pagePath
+                Path = pagePath,
+                Comments = new List<Comment>
+                {
+                    new Comment()
+                    {
+                        Content = "Really breathtaking story!",
+                        CreationDate = DateTime.Now,
+                        Author = "Simaon",
+                        /*Replies = new List<Comment> {
+                            new Comment()
+                            {
+                                Content = "Completely agree",
+                                CreationDate = DateTime.Now,
+                                Author = "Jorsh"
+                            }
+                        }*/
+                    },
+                    new Comment()
+                    {
+                        Content = "Fascinating!",
+                        CreationDate = DateTime.Now,
+                        Author = "Sokka"
+                    },
+                    new Comment()
+                    {
+                        Content = "Cool and brave fable!",
+                        CreationDate = DateTime.Now,
+                        Author = "Aang"
+                    }
+                }
             });
         }
     }

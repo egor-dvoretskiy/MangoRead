@@ -1,4 +1,8 @@
 ﻿@using MangoRead.Domain.ViewModels.Manuscript;
+@using MangoRead.Domain.Models.Account;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> _signInManager
 
 @model ManuscriptDetailsViewModel
 
@@ -8,7 +12,7 @@
 
 
 <div>
-    <h4>Details of <i>@Model.Title</i></h4>
+    <h4><span class="_details-manuscript-title">Details of</span> <i>@Model.Title</i></h4>
     <hr />
 
     <dl class="row">
@@ -24,6 +28,21 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TitleImage)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.TitleImage != null)
+            {
+                <img id="titleImage" style="width:250px;height:356px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.TitleImage))">
+            }
+            else
+            {
+                <img id="titleImage" style="width:250px;height:356px; object-fit:cover" src="">
+            }
+        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Author)
         </dt>
@@ -95,6 +114,9 @@
     </dl>
 </div>
 <div>
-    @*<a asp-page="./Edit" asp-route-id="@Model.Review.Id">Edit</a> |*@
-    <a asp-area="" asp-controller="Manuscript" asp-action="Index">Back to List</a>
+    @if (_signInManager.IsSignedIn(User) && !User.IsInRole("Basic"))
+    {
+        <a asp-area="" asp-controller="Manuscript" asp-action="Edit" class="_index-manuscript-edit" asp-route-id="@Model.Id">Edit</a>
+    }    
+    <a asp-area="" asp-controller="Manuscript" asp-action="Index" class="_edit-manuscript-back">Back to List</a>
 </div>

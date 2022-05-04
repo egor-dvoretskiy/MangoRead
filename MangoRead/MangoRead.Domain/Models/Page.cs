@@ -17,6 +17,8 @@ namespace MangoRead.Domain.Models
 
         public string Path { get; set; } = string.Empty;
 
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+
         public int ChapterId { get; set; }
 
         [ForeignKey("ChapterId")]

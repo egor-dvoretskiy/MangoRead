@@ -1,17 +1,16 @@
 ﻿@using MangoRead.Domain.Enums;
+
 @model MangoRead.Domain.ViewModels.Manuscript.ManuscriptCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Manuscript</h4>
+<h4 class="_create-manuscript-title">Manuscript creation form</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -45,20 +44,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control"></input>
+                <input asp-for="Description" class="form-control"/>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Genres" class ="control-label"></label>
                 <select asp-for="Genres" asp-items="Html.GetEnumSelectList<Genre>()" class="form-control genres-list" size="7" multiple required></select>
                 <span asp-validation-for="Genres" class="text-danger"></span>
-            </div>@*
-            <div class="form-group">
-                <span>Select File:</span>
-                <input type="file" name="Files" asp-for="Files" multiple class="form-control" />
-                <br/>
-                <span asp-validation-for="Files" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="IsRequireLegalAge" class="control-label"></label>
                 <input type="checkbox" asp-for="IsRequireLegalAge" class="form-check-input"/>
@@ -66,23 +59,28 @@
             </div>  
             <br/>
         
+            <div class="form-group">                
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+                @*<input type="submit" class="btn btn-primary" />*@
+            </div>               
+        </div> 
+        
+        <div class="col-md-6 d-flex justify-content-center">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="TitlePicture" style="width: 100%;" class="form-label"></label>
+                <img id="titleImage" style="width:250px;height:356px; object-fit:cover" src="">
+                <input type="file"
+                        accept=".png,.jpg,.jpeg,.gif,.tif"
+                        asp-for="TitlePicture"
+                        class="form-control"
+                        style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                        onchange="document.getElementById('titleImage').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="TitlePicture" class="text-danger"></span>
             </div>
-        </form>  
-            
-        @*<form method="post" enctype="multipart/form-data" asp-controller="Manuscript" asp-action="Upload">
-            <div class="form-group">
-                <span>Select File:</span>
-                <input type="file" name="postedFiles" multiple class="form-control" />
-                <input type="submit" value="Upload" class="form-control"/>
-                <br/>
-                <span style="color:green">@Html.Raw(ViewBag.Message)</span>
-            </div>
-        </form>*@
+        </div> 
     </div>
-</div>
+</form>  
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="_edit-manuscript-back">Back to List</a>
 </div>

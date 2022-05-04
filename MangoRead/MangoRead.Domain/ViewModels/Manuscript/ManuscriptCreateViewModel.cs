@@ -18,6 +18,8 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public string Title { get; set; } = string.Empty;
 
+        public IFormFile TitlePicture { get; set; }
+
         public string Author { get; set; } = string.Empty;
 
         [Required]
@@ -37,9 +39,5 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         public bool IsRequireLegalAge { get; set; } = false;
 
         public Genre[]? Genres { get; set; }
-
-        public List<IFormFile>? Files { get; set; }
-
-        public ManuscriptContent? Content { get; set; }
     }
 }

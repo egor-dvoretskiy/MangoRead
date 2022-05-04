@@ -2,6 +2,7 @@
 using MangoRead.Domain.ViewModels;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
@@ -40,11 +41,14 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View(new ManuscriptCreateViewModel());
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(ManuscriptCreateViewModel manuscript)
         {
@@ -61,6 +65,7 @@ namespace MangoRead.Controllers
             return View(manuscript);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await this.manuscriptService.DeleteManuscript(id);
@@ -73,6 +78,8 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var response = await this.manuscriptService.GetManuscriptForEditById(id);
@@ -86,6 +93,7 @@ namespace MangoRead.Controllers
             return View(manuscript);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ManuscriptEditViewModel model)
@@ -100,7 +108,7 @@ namespace MangoRead.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult Upload(List<IFormFile> postedFiles)
         {
             List<string> uploadedFiles = new List<string>();
@@ -109,17 +117,17 @@ namespace MangoRead.Controllers
             {
                 string fileName = Path.GetFileName(postedFile.FileName);
                 count++;
-                /*using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                *//*using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                 {
                     postedFile.CopyTo(stream);
                     uploadedFiles.Add(fileName);
                     ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
-                }*/
+                }*//*
             }
 
             ViewBag.Message = $"uploaded {count} time(s).";
 
             return RedirectToAction("Create");
-        }
+        }*/
     }
 }

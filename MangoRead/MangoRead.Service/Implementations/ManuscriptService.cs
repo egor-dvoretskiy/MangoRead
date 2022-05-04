@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MangoRead.Service.Extensions;
 
 namespace MangoRead.Service.Implementations
 {
@@ -46,7 +47,7 @@ namespace MangoRead.Service.Implementations
                     Description = model.Description,
                     IsRequireLegalAge = model.IsRequireLegalAge,
                     Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList(),
-                    Content = model.Content,
+                    TitleImage = await model.TitlePicture.GetBytes(),
                 };
 
                 bool isValid = await this.manuscriptRepository.Create(manuscript);
@@ -108,6 +109,7 @@ namespace MangoRead.Service.Implementations
                 var manuscript = await this.manuscriptRepository.GetEntityById(id);
 
                 manuscript.Title = model.Title;
+                manuscript.TitleImage = await model.TitlePicture.GetBytes();
                 manuscript.Author = model.Author;
                 manuscript.Publisher = model.Publisher;
                 manuscript.UpdateDate = DateTime.Now;
@@ -161,6 +163,7 @@ namespace MangoRead.Service.Implementations
                 {
                     Id = id,
                     Title = manuscript.Title,
+                    TitleImage = manuscript.TitleImage,
                     Author = manuscript.Author,
                     UpdateDate = manuscript.UpdateDate,
                     UploadDate = manuscript.UploadDate,
@@ -206,6 +209,7 @@ namespace MangoRead.Service.Implementations
                 ManuscriptEditViewModel model = new ManuscriptEditViewModel()
                 {
                     Title = manuscript.Title,
+                    TitleImage = manuscript.TitleImage,
                     Author = manuscript.Author,
                     Publisher = manuscript.Publisher,
                     Translator = manuscript.Translator,

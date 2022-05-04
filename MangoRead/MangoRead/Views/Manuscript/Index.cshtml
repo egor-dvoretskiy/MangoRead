@@ -1,4 +1,8 @@
 ﻿@using MangoRead.Domain.Models;
+@using MangoRead.Domain.Models.Account;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> _signInManager
 
 @model List<Manuscript>
 
@@ -6,17 +10,23 @@
     ViewData["Title"] = "List of Manuscripts";
 }
 
-<h1>List of Manuscripts</h1>
+<h1 class="_index-manuscript">List of Manuscripts</h1>
 <br/>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <a asp-action="Create" class="_index-manuscript-create">Create New</a>
+    }
 </p>
 <table class="table table-hover">
     <thead class="table-light">
         <tr>
             <th>
                 #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TitleImage)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Title)
@@ -46,6 +56,16 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
+                    @if (item.TitleImage != null)
+                    {
+                        <img id="titleIndexImage" style="width:150px;height:256px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(item.TitleImage))">
+                    }
+                    else
+                    {
+                        <img id="titleIndexImage" style="width:150px;height:256px; object-fit:cover" src="">
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
@@ -61,10 +81,15 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    @*<a asp-area="" asp-controller="Manuscript" asp-action="">Delete</a>*@
-                    @Html.ActionLink("Delete", "Delete", "Manuscript", new { id = item.Id })
+                    @if (_signInManager.IsSignedIn(User) && !User.IsInRole("Basic"))
+                    {
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Edit" asp-route-id="@item.Id" class="_index-manuscript-edit">Edit</a>
+                    }
+                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id" class="_index-manuscript-details">Details</a> 
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Delete" asp-route-id="@item.Id" class="_index-manuscript-delete">Delete</a>
+                    }
                 </td>
             </tr>
         }

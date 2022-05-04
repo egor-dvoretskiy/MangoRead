@@ -1,5 +1,6 @@
 ﻿using MangoRead.Domain.Enums;
 using MangoRead.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ namespace MangoRead.Domain.ViewModels.Manuscript
 
         [Required]
         public string Title { get; set; } = string.Empty;
+
+        public byte[] TitleImage { get; set; }
+
+        public IFormFile TitlePicture { get; set; }
 
         public string Author { get; set; } = string.Empty;
 

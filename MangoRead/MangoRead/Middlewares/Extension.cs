@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Middlewares
 {
-    public static class MiddlewareExtension
+    public static class Extension
     {
         public static IApplicationBuilder SetContentFolders(this IApplicationBuilder builder, string path)
         {

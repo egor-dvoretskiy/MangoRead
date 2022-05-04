@@ -12,6 +12,8 @@ namespace MangoRead.DAL
     {
         public DbSet<Manuscript> Manuscripts { get; set; }
 
+        public DbSet<ManuscriptReview> Reviews { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -52,6 +54,10 @@ namespace MangoRead.DAL
             builder.Entity<Page>()
                 .HasOne(x => x.Chapter)
                 .WithMany(y => y.Pages);
+
+            builder.Entity<Page>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Page);
 
         }
     }
