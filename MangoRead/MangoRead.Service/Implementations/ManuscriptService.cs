@@ -162,6 +162,7 @@ namespace MangoRead.Service.Implementations
                 {
                     Id = id,
                     Title = manuscript.Title,
+                    TitleImage = manuscript.TitleImage,
                     Author = manuscript.Author,
                     UpdateDate = manuscript.UpdateDate,
                     UploadDate = manuscript.UploadDate,
