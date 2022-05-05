@@ -1,0 +1,90 @@
+﻿@page
+
+@model MangoRead.Areas.Identity.Pages.Account.Manage.ManuscriptManagementBasicModel
+@{
+}
+
+
+<div class="row">
+    <h4>That page provides manuscript management.</h4>
+    <br />
+    <div class="d-block mb-4" style="vertical-align:central">
+        <p class="d-inline">New manuscript request.</p>
+        <a asp-area="" asp-controller="Manuscript" asp-action="Create" class="btn btn-primary d-inline">Add</a>
+    </div>
+
+    <h3>Manuscripts</h3>
+    <hr />
+    <div>
+        <h5>Requested </h5>
+        <table id="data_table" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].ApprovingDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].IsApproved)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ManuscriptManagementBasicViewModels)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @if (!item.IsApproved)
+                            {
+                                <p>-</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @if (item.IsApproved)
+                            {
+                                <p>Approved</p>
+                            }
+                            else
+                            {
+                                <p>In process...</p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js">
+    $(document).ready(function() {
+        $('#data_table').DataTable();
+    });
+</script>

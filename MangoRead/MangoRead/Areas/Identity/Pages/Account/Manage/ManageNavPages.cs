@@ -64,6 +64,8 @@ namespace  MangoRead.Areas.Identity.Pages.Account.Manage
 
         public static string AdminPanel => "AdminPanel";
 
+        public static string ManuscriptManagementBasic => "ManuscriptManagementBasic";
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -113,6 +115,8 @@ namespace  MangoRead.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
         public static string AdminPanelNavClass(ViewContext viewContext) => PageNavClass(viewContext, AdminPanel);
+
+        public static string ManuscriptManagementBasicNavClass(ViewContext viewContext) => PageNavClass(viewContext, ManuscriptManagementBasic);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MangoRead.Domain.ViewModels.Manuscript;
+using MangoRead.Domain.ViewModels.Account.Manage;
 
 namespace MangoRead.Service.Interfaces
 {
     public interface IManuscriptService
     {
         Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts();
+
+        Task<IBaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
 
         Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id);
 

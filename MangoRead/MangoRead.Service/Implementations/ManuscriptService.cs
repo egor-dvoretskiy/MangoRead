@@ -15,6 +15,7 @@ using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MangoRead.Service.Extensions;
+using MangoRead.Domain.ViewModels.Account.Manage;
 
 namespace MangoRead.Service.Implementations
 {
@@ -272,6 +273,49 @@ namespace MangoRead.Service.Implementations
             catch (Exception exception)
             {
                 return new BaseResponse<IEnumerable<Manuscript>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
+        {
+            var response = new BaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>();
+
+            try
+            {
+                var manuscripts = await this.manuscriptRepository.GetEntities();
+
+                List<ManuscriptManagementBasicViewModel> managementViewModels = manuscripts
+                    .Where(x => x.Publisher == publisher)
+                    .Select(x => new ManuscriptManagementBasicViewModel 
+                    { 
+                        Id = x.Id,
+                        ApprovingDate = x.ApprovingDate,
+                        Title = x.Title,
+                        IsApproved = x.IsApproved,
+                        Type = x.Type,
+                        UploadDate = x.UploadDate
+                    })
+                    .ToList();
+
+                if (managementViewModels.Count == 0)
+                {
+                    response.Data = new List<ManuscriptManagementBasicViewModel>();
+                    response.Descripton = "Found 0 elements.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Data = managementViewModels;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
