@@ -322,5 +322,90 @@ namespace MangoRead.Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRequestedManuscriptsForAdvancedManagement()
+        {
+            var response = new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>();
+
+            try
+            {
+                var manuscripts = await this.manuscriptRepository.GetEntities();
+
+                List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
+                    .Where(x => x.IsApproved == ApproveStatus.InProgress)
+                    .Select(x => new ManuscriptManagementAdvancedViewModel
+                    {
+                        Id = x.Id,
+                        Publisher = x.Publisher,
+                        Title = x.Title,
+                        Type = x.Type,
+                        UploadDate = x.UploadDate
+                    })
+                    .ToList();
+
+                if (managementViewModels.Count == 0)
+                {
+                    response.Data = new List<ManuscriptManagementAdvancedViewModel>();
+                    response.Descripton = "Found 0 elements.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Data = managementViewModels;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetApprovedManuscriptsForAdvancedManagement()
+        {
+            var response = new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>();
+
+            try
+            {
+                var manuscripts = await this.manuscriptRepository.GetEntities();
+
+                List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
+                    .Where(x => x.IsApproved == ApproveStatus.Approved)
+                    .Select(x => new ManuscriptManagementAdvancedViewModel
+                    {
+                        Id = x.Id,
+                        ApprovingDate = x.ApprovingDate,
+                        Publisher = x.Publisher,
+                        Title = x.Title,
+                        Type = x.Type,
+                        UploadDate = x.UploadDate
+                    })
+                    .ToList();
+
+                if (managementViewModels.Count == 0)
+                {
+                    response.Data = new List<ManuscriptManagementAdvancedViewModel>();
+                    response.Descripton = "Found 0 elements.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Data = managementViewModels;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
     }
 }

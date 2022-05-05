@@ -24,6 +24,7 @@
 + add enum for approve status
 - make username unique
 - add to main page manuscript reviews
+- add to admin ManagementManuscriptControl (mmc) button create manuscript.
 
 
 

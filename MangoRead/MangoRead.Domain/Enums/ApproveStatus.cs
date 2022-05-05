@@ -10,22 +10,16 @@ namespace MangoRead.Domain.Enums
     public enum ApproveStatus
     {
         /// <summary>
-        /// Not seen by admins.
+        /// The request still processing.
         /// </summary>
-        [Display(Name = "")]
-        None,
+        [Display(Name = "In progress")]
+        InProgress,
 
         /// <summary>
         /// Everything is good, manuscript has its confirmation.
         /// </summary>
         [Display(Name = "Approved")]
         Approved,
-
-        /// <summary>
-        /// The request still processing.
-        /// </summary>
-        [Display(Name = "In progress")]
-        InProgress,
 
         /// <summary>
         /// Unfortunately, the request has been rejected.

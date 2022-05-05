@@ -49,7 +49,7 @@ namespace MangoRead.Domain.Models
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
-        public ApproveStatus IsApproved { get; set; } = ApproveStatus.None;
+        public ApproveStatus IsApproved { get; set; } = ApproveStatus.InProgress;
 
         public List<GenreHolder> Genres { get; set; } = new List<GenreHolder>();
 

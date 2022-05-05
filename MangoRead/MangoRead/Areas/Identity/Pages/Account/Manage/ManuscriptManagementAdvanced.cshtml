@@ -1,0 +1,115 @@
+﻿@page
+@model MangoRead.Areas.Identity.Pages.Account.Manage.ManuscriptManagementAdvancedModel
+@{
+}
+
+<div class="row">
+
+    <div>
+        <h4>Requested manuscripts </h4>
+        <br />
+        <table id="data_table_requested" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedManuscriptManagementAdvancedViewModel[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedManuscriptManagementAdvancedViewModel[0].Publisher)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedManuscriptManagementAdvancedViewModel[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedManuscriptManagementAdvancedViewModel[0].Type)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.RequestedManuscriptManagementAdvancedViewModel)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h4>Approved manuscripts </h4>
+        <br />
+        <table id="data_table_approved" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].Publisher)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].ApprovingDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].Type)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ApprovedManuscriptManagementAdvancedViewModel)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @if (item.ApprovingDate is null)
+                            {
+                                <p>-</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

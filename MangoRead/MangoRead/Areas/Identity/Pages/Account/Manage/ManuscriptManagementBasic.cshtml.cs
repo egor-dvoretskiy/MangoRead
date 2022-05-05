@@ -1,12 +1,14 @@
 using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.ViewModels.Account.Manage;
 using MangoRead.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MangoRead.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles = "Basic")]
     public class ManuscriptManagementBasicModel : PageModel
     {
         private readonly IManuscriptService _manuscriptService;

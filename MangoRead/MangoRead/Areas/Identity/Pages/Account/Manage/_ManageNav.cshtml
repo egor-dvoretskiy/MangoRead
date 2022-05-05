@@ -12,7 +12,21 @@
     }
     <li class="nav-item"><a class="nav-link _tf-authentification @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
     <li class="nav-item"><a class="nav-link _personal-data @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
-    <li class="nav-item"><a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-page="./ManuscriptManagementBasic">Manuscript Management</a></li>
+    
+    @if(User.IsInRole("Basic"))
+    {
+        <li class="nav-item">
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-page="./ManuscriptManagementBasic">Manuscript Management</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementAdvancedNavClass(ViewContext)" asp-page="./ManuscriptManagementAdvanced">Manuscript Management</a>
+        </li>
+    }
+
+    
 
     @if(User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
     {

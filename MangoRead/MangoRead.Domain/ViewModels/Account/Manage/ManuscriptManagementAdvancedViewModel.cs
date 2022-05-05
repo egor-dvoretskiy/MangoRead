@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Domain.ViewModels.Account.Manage
 {
-    public class ManuscriptManagementBasicViewModel
+    public class ManuscriptManagementAdvancedViewModel
     {
         public int Id { get; set; }
 
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime UploadDate { get; set; }
+
+        public string Publisher { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? ApprovingDate { get; set; } = null;
