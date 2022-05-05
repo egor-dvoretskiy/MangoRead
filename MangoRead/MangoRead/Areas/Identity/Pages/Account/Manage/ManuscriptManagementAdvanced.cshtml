@@ -4,8 +4,11 @@
 }
 
 <div class="row">
-
-    <div>
+    <div class="row">        
+        <a asp-area="" asp-controller="Manuscript" asp-action="Create" class="btn btn-primary">Add new manuscript</a>
+    </div>
+    <hr/>
+    <div class="row">
         <h4>Requested manuscripts </h4>
         <br />
         <table id="data_table_requested" class="table table-striped" style="width:100%">
@@ -36,7 +39,9 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                            <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Publisher)
@@ -52,7 +57,7 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div class="row">
         <h4>Approved manuscripts </h4>
         <br />
         <table id="data_table_approved" class="table table-striped" style="width:100%">
@@ -86,7 +91,9 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                            <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Publisher)

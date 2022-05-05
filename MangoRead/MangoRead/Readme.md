@@ -20,12 +20,13 @@
 + make create TitleImage as IFormFile
 + add title image to details and edit
 - add restriction to change SuperAdmin roles by everybody else
-- add different manuscriptmanagement pages for admins and basic users
++ add different manuscriptmanagement pages for admins and basic users
 + add enum for approve status
 - make username unique
 - add to main page manuscript reviews
 - add to admin ManagementManuscriptControl (mmc) button create manuscript.
-
++ add possibility to approve/reject the manuscripts
+- fix all routes
 
 
 ### Migration Commands

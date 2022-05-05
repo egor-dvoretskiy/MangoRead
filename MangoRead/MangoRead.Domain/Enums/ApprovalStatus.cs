@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Domain.Enums
 {
-    public enum ApproveStatus
+    public enum ApprovalStatus
     {
         /// <summary>
         /// The request still processing.

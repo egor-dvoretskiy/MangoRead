@@ -72,7 +72,7 @@ namespace MangoRead.Controllers
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                return RedirectToAction("Index");
+                return RedirectToPage("/Account/Manage/ManuscriptManagementAdvanced", new { area = "Identity" });
             }
 
             return RedirectToAction("Error");
@@ -102,10 +102,36 @@ namespace MangoRead.Controllers
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = id });
             }
 
             return View(model);
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var response = await this.manuscriptService.SetApprovalStatus(id, ApprovalStatus.Approved);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Details", new {id = id});
+            }
+
+            return RedirectToAction("Error");
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var response = await this.manuscriptService.SetApprovalStatus(id, ApprovalStatus.Rejected);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            return RedirectToAction("Error");
         }
 
         /*[HttpPost]

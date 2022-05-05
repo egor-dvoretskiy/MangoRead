@@ -43,9 +43,6 @@
             <th>
                 @Html.DisplayNameFor(model => model[0].Description)
             </th>
-            <th>
-                Control
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -66,7 +63,9 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>                     
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Author)
@@ -79,17 +78,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @if (_signInManager.IsSignedIn(User) && !User.IsInRole("Basic"))
-                    {
-                        <a asp-area="" asp-controller="Manuscript" asp-action="Edit" asp-route-id="@item.Id" class="_index-manuscript-edit">Edit</a>
-                    }
-                    <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id" class="_index-manuscript-details">Details</a> 
-                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
-                    {
-                        <a asp-area="" asp-controller="Manuscript" asp-action="Delete" asp-route-id="@item.Id" class="_index-manuscript-delete">Delete</a>
-                    }
                 </td>
             </tr>
         }

@@ -43,6 +43,8 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
+        public ApprovalStatus IsApproved { get; set; } = ApprovalStatus.InProgress;
+
         [Display(Name = "Genres")]
         public string? GenresString { get; set; }
 

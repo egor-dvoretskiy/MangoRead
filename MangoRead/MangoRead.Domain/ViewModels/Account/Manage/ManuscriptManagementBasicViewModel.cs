@@ -22,6 +22,6 @@ namespace MangoRead.Domain.ViewModels.Account.Manage
 
         public ManuscriptType Type { get; set; } = ManuscriptType.Other;
 
-        public ApproveStatus IsApproved { get; set; } = ApproveStatus.InProgress;
+        public ApprovalStatus IsApproved { get; set; } = ApprovalStatus.InProgress;
     }
 }

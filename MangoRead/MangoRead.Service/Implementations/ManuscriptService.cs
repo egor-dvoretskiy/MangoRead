@@ -174,6 +174,7 @@ namespace MangoRead.Service.Implementations
                     Type = manuscript.Type,
                     Description = manuscript.Description,
                     IsRequireLegalAge = manuscript.IsRequireLegalAge,
+                    IsApproved = manuscript.IsApproved,
                     GenresString = string.Join(", ", manuscript.Genres.Select(x => x.Genre).ToArray()),
                     Content = manuscript.Content,
                 };
@@ -332,7 +333,7 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
-                    .Where(x => x.IsApproved == ApproveStatus.InProgress)
+                    .Where(x => x.IsApproved == ApprovalStatus.InProgress)
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
@@ -374,7 +375,7 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
-                    .Where(x => x.IsApproved == ApproveStatus.Approved)
+                    .Where(x => x.IsApproved == ApprovalStatus.Approved)
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
@@ -401,6 +402,46 @@ namespace MangoRead.Service.Implementations
             catch (Exception exception)
             {
                 return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> SetApprovalStatus(int id, ApprovalStatus status)
+        {
+            var response = new BaseResponse<bool>();
+
+            try
+            {
+                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+
+                if (status == ApprovalStatus.Approved)
+                {
+                    manuscript.ApprovingDate = DateTime.Now;
+                }
+                else if (status == ApprovalStatus.Rejected)
+                {
+                    manuscript.ApprovingDate = null;
+                }
+                manuscript.IsApproved = status;
+
+                bool isValid = await this.manuscriptRepository.Update(manuscript);
+
+                if (!isValid)
+                {
+                    response.Descripton = "There is no manuscript with such id.";
+                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
+                    return response;
+                }
+
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<bool>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError

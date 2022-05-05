@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MangoRead.Domain.ViewModels.Manuscript;
 using MangoRead.Domain.ViewModels.Account.Manage;
+using MangoRead.Domain.Enums;
 
 namespace MangoRead.Service.Interfaces
 {
@@ -30,5 +31,7 @@ namespace MangoRead.Service.Interfaces
         Task<IBaseResponse<bool>> DeleteManuscript(int id);
 
         Task<IBaseResponse<ManuscriptEditViewModel>> Edit(int id, ManuscriptEditViewModel model);
+
+        Task<IBaseResponse<bool>> SetApprovalStatus(int id, ApprovalStatus status);
     }
 }
