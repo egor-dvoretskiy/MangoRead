@@ -21,11 +21,13 @@
 + add title image to details and edit
 - add restriction to change SuperAdmin roles by everybody else
 - add different manuscriptmanagement pages for admins and basic users
-- add enum for approve status
++ add enum for approve status
+- make username unique
+- add to main page manuscript reviews
 
 
 
 ### Migration Commands
 
-add-migration RenameIdentityTableNamesMigration -Context AccountDbContext -Project MangoRead.DAL
+add-migration name -Context AccountDbContext -Project MangoRead.DAL
 update-database -Context AccountDbContext -Project MangoRead.DAL

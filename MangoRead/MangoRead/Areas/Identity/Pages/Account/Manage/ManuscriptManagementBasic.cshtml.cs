@@ -37,7 +37,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
                 return;
             }
 
-            ManuscriptManagementBasicViewModels = response.Data.ToList();
+            ManuscriptManagementBasicViewModels = response.Data;
         }
     }
 }

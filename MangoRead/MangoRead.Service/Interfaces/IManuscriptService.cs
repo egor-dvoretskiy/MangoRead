@@ -15,7 +15,7 @@ namespace MangoRead.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts();
 
-        Task<IBaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
+        Task<IBaseResponse<IList<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
 
         Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id);
 

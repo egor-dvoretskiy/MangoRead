@@ -18,10 +18,10 @@ namespace MangoRead.Domain.ViewModels.Account.Manage
         public DateTime UploadDate { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime ApprovingDate { get; set; }
+        public DateTime? ApprovingDate { get; set; } = null;
 
         public ManuscriptType Type { get; set; } = ManuscriptType.Other;
 
-        public bool IsApproved { get; set; }
+        public ApproveStatus IsApproved { get; set; } = ApproveStatus.None;
     }
 }

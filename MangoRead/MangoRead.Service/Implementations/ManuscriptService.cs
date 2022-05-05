@@ -280,9 +280,9 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
+        public async Task<IBaseResponse<IList<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
         {
-            var response = new BaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>();
+            var response = new BaseResponse<IList<ManuscriptManagementBasicViewModel>>();
 
             try
             {
@@ -315,7 +315,7 @@ namespace MangoRead.Service.Implementations
             }
             catch (Exception exception)
             {
-                return new BaseResponse<IEnumerable<ManuscriptManagementBasicViewModel>>()
+                return new BaseResponse<IList<ManuscriptManagementBasicViewModel>>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError

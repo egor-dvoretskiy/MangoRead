@@ -54,7 +54,7 @@
                             @Html.DisplayFor(modelItem => item.UploadDate)
                         </td>
                         <td>
-                            @if (!item.IsApproved)
+                            @if (item.ApprovingDate is null)
                             {
                                 <p>-</p>
                             }
@@ -67,14 +67,7 @@
                             @Html.DisplayFor(modelItem => item.Type)
                         </td>
                         <td>
-                            @if (item.IsApproved)
-                            {
-                                <p>Approved</p>
-                            }
-                            else
-                            {
-                                <p>In process...</p>
-                            }
+                            @Html.DisplayFor(modelItem => item.IsApproved)
                         </td>
                     </tr>
                 }
@@ -82,9 +75,3 @@
         </table>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.js">
-    $(document).ready(function() {
-        $('#data_table').DataTable();
-    });
-</script>
