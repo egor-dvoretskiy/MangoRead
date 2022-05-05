@@ -15,17 +15,22 @@
             <div class="form-floating mb-4">
                 <input type="text" id="form3Example1" class="form-control" asp-for="RegisterViewModel.FirstName"/>
                 <label class="form-label" for="form3Example1" asp-for="RegisterViewModel.FirstName"></label>
-                @*<span asp-validation-for="RegisterViewModel.FirstName" class="text-danger"></span>*@
+                <span asp-validation-for="RegisterViewModel.FirstName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-4">
                 <input type="text" id="form3Example2" class="form-control" asp-for="RegisterViewModel.LastName"/>
                 <label class="form-label" for="form3Example2" asp-for="RegisterViewModel.LastName"></label>
-                @*<span asp-validation-for="RegisterViewModel.LastName" class="text-danger"></span>*@
+                <span asp-validation-for="RegisterViewModel.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="text" id="form3Example2" class="form-control" asp-for="RegisterViewModel.UserName"/>
+                <label class="form-label" for="form3Example2" asp-for="RegisterViewModel.UserName"></label>
+                <span asp-validation-for="RegisterViewModel.UserName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-4">
                 <input asp-for="RegisterViewModel.Email" type="email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="RegisterViewModel.Email"></label>
-                @*<span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>*@
+                <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
             </div>            
             <div class="form-check mb-4">
                 <input asp-for="RegisterViewModel.IsOverEighteen" type="checkbox" id="flexCheckDefault" class="form-check-input" aria-required="true" />
@@ -34,12 +39,12 @@
             <div class="form-floating mb-4">
                 <input asp-for="RegisterViewModel.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="RegisterViewModel.Password"></label>
-                @*<span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>*@
+                <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-4">
                 <input asp-for="RegisterViewModel.PasswordConfirm" type="password" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="RegisterViewModel.PasswordConfirm"></label>
-                @*<span asp-validation-for="RegisterViewModel.PasswordConfirm" class="text-danger"></span>*@
+                <span asp-validation-for="RegisterViewModel.PasswordConfirm" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
         </form>

@@ -15,7 +15,7 @@ namespace MangoRead.Domain.ViewModels.Account.Manage
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "username")]
+        [Display(Name = "Nickname")]
         public string Username { get; set; } = string.Empty;
 
         [DataType(DataType.PhoneNumber)]

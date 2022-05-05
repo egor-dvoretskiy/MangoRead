@@ -30,6 +30,10 @@ namespace MangoRead.Domain.ViewModels.Account
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Nickname")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Username change limit")]
         public int UsernameChangeLimit { get; set; } = 3;
 
@@ -44,10 +48,8 @@ namespace MangoRead.Domain.ViewModels.Account
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
 
-        [NotMapped]
         public byte[]? ProfilePicture { get; set; } = new byte[16];
 
-        [NotMapped]
         public string? ReturnUrl { get; set; }
     }
 }

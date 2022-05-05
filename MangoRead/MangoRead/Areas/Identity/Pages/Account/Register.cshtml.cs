@@ -83,9 +83,10 @@ namespace MangoRead.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.FirstName = RegisterViewModel.FirstName;
                 user.LastName = RegisterViewModel.LastName;
+                user.UserName = RegisterViewModel.UserName;
                 user.Email = RegisterViewModel.Email;
 
-                await _userStore.SetUserNameAsync(user, RegisterViewModel.FirstName, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, RegisterViewModel.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, RegisterViewModel.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, RegisterViewModel.Password);
 
