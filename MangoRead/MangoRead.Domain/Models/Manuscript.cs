@@ -30,6 +30,9 @@ namespace MangoRead.Domain.Models
         [DataType(DataType.Date)]
         public DateTime UpdateDate { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime ApprovingDate { get; set; }
+
         [Required]
         public string Publisher { get; set; } = string.Empty;
 
@@ -45,6 +48,8 @@ namespace MangoRead.Domain.Models
 
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
+
+        public bool IsApproved { get; set; } = false;
 
         public List<GenreHolder> Genres { get; set; } = new List<GenreHolder>();
 
