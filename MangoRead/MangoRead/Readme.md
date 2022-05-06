@@ -27,7 +27,10 @@
 + add to admin ManagementManuscriptControl (mmc) button create manuscript.
 + add possibility to approve/reject the manuscripts
 - fix all routes
-- add to management rejected  manuscripts
++ add to management rejected  manuscripts
+- rework edit according to approval system
+- add title to review class
+- add to manuscript list of reviews
 
 
 ### Migration Commands

@@ -4,6 +4,7 @@ using MangoRead.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangoRead.DAL.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220506111214_RenameMigration")]
+    partial class RenameMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,15 +209,8 @@ namespace MangoRead.DAL.Migrations.ApplicationDb
                     b.Property<Guid>("CouplingGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ManuscriptId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -224,8 +219,6 @@ namespace MangoRead.DAL.Migrations.ApplicationDb
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ManuscriptId");
 
                     b.ToTable("Reviews");
                 });
@@ -326,17 +319,6 @@ namespace MangoRead.DAL.Migrations.ApplicationDb
                     b.Navigation("Manuscript");
                 });
 
-            modelBuilder.Entity("MangoRead.Domain.Models.ManuscriptReview", b =>
-                {
-                    b.HasOne("MangoRead.Domain.Models.Manuscript", "Manuscript")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ManuscriptId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manuscript");
-                });
-
             modelBuilder.Entity("MangoRead.Domain.Models.Page", b =>
                 {
                     b.HasOne("MangoRead.Domain.Models.Chapter", "Chapter")
@@ -369,8 +351,6 @@ namespace MangoRead.DAL.Migrations.ApplicationDb
                     b.Navigation("Content");
 
                     b.Navigation("Genres");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("MangoRead.Domain.Models.ManuscriptContent", b =>

@@ -38,6 +38,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IManuscriptService, ManuscriptService>();
 builder.Services.AddScoped<IManuscriptRepository, ManuscriptRepository>();
 
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+
 var app = builder.Build();
 
 string contentFolderPath = builder.Configuration.GetValue<string>("StaticFilesConfiguration:ContentFolderPath");

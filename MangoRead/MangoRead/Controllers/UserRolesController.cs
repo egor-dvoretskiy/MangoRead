@@ -1,4 +1,5 @@
-﻿using MangoRead.Domain.Models.Account;
+﻿using MangoRead.Domain.Enums;
+using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.ViewModels.Roles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,11 @@ namespace MangoRead.Controllers
 
             foreach (var user in users)
             {
+                if (await _userManager.IsInRoleAsync(user, Roles.SuperAdmin.ToString()))
+                {
+                    continue;
+                }
+
                 var thisViewModel = new UserRolesViewModel();
                 thisViewModel.UserId = user.Id;
                 thisViewModel.UserName = user.UserName;

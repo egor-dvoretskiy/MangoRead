@@ -30,8 +30,6 @@ namespace MangoRead.Domain.Models
         [DataType(DataType.Date)]
         public DateTime UpdateDate { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? ApprovingDate { get; set; } = null;
 
         [Required]
         public string Publisher { get; set; } = string.Empty;
@@ -49,9 +47,14 @@ namespace MangoRead.Domain.Models
         [Required]
         public bool IsRequireLegalAge { get; set; } = false;
 
-        public ApprovalStatus IsApproved { get; set; } = ApprovalStatus.InProgress;
+        [DataType(DataType.Date)]
+        public DateTime? ApprovalDate { get; set; } = null;
+
+        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;
 
         public List<GenreHolder> Genres { get; set; } = new List<GenreHolder>();
+
+        public IList<ManuscriptReview> Reviews { get; set; } = new List<ManuscriptReview>();
 
         public ManuscriptContent? Content { get; set; }
     }

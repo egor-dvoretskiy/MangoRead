@@ -62,7 +62,7 @@ namespace MangoRead.DAL.SeedData
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum ...";
             review.AuthorUserName = "Simaon";
-            review.CreationDate = DateTime.Now;
+            review.UploadDate = DateTime.Now;
 
             return review;
         }
@@ -75,7 +75,7 @@ namespace MangoRead.DAL.SeedData
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Isuzu ipsum ...";
             review.AuthorUserName = "Ergo";
-            review.CreationDate = DateTime.Now;
+            review.UploadDate = DateTime.Now;
 
             return review;
         }
@@ -88,7 +88,7 @@ namespace MangoRead.DAL.SeedData
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum colour ...";
             review.AuthorUserName = "Sokka";
-            review.CreationDate = DateTime.Now;
+            review.UploadDate = DateTime.Now;
 
             return review;
         }

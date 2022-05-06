@@ -55,9 +55,7 @@ namespace MangoRead.Service.Implementations
 
                 if (!isValid)
                 {
-                    response.Descripton = "There is an error with creation.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentException(nameof(manuscript), "There is an error with manuscript CREATE.");
                 }
 
                 response.Status = Domain.Enums.ResponseStatus.OK;
@@ -83,9 +81,7 @@ namespace MangoRead.Service.Implementations
 
                 if (!isValid)
                 {
-                    response.Descripton = "There is nothing to delete.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentException("There is nothing to DELETE.");
                 }
 
                 response.Status = Domain.Enums.ResponseStatus.OK;
@@ -109,6 +105,11 @@ namespace MangoRead.Service.Implementations
             {
                 var manuscript = await this.manuscriptRepository.GetEntityById(id);
 
+                if (manuscript == null)
+                {
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
+                }
+
                 manuscript.Title = model.Title;
                 manuscript.TitleImage = await model.TitlePicture.GetBytes();
                 manuscript.Author = model.Author;
@@ -127,9 +128,7 @@ namespace MangoRead.Service.Implementations
 
                 if (!isValid)
                 {
-                    response.Descripton = "There is no manuscript with such id.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentException("There is an error with manuscript UPDATE.");
                 }
 
                 response.Status = Domain.Enums.ResponseStatus.OK;
@@ -155,9 +154,7 @@ namespace MangoRead.Service.Implementations
 
                 if (manuscript == null)
                 {
-                    response.Descripton = "There is no manuscript with such id to display details.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
                 }
 
                 ManuscriptDetailsViewModel model = new ManuscriptDetailsViewModel()
@@ -174,7 +171,7 @@ namespace MangoRead.Service.Implementations
                     Type = manuscript.Type,
                     Description = manuscript.Description,
                     IsRequireLegalAge = manuscript.IsRequireLegalAge,
-                    IsApproved = manuscript.IsApproved,
+                    IsApproved = manuscript.ApprovalStatus,
                     GenresString = string.Join(", ", manuscript.Genres.Select(x => x.Genre).ToArray()),
                     Content = manuscript.Content,
                 };
@@ -203,9 +200,7 @@ namespace MangoRead.Service.Implementations
 
                 if (manuscript == null)
                 {
-                    response.Descripton = "There is no manuscript with such id.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
                 }
 
                 ManuscriptEditViewModel model = new ManuscriptEditViewModel()
@@ -260,13 +255,6 @@ namespace MangoRead.Service.Implementations
             {
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
-                if (manuscripts.Count == 0)
-                {
-                    response.Descripton = "Found 0 elements.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
-                }
-
                 response.Data = manuscripts;
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
@@ -294,23 +282,15 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ManuscriptManagementBasicViewModel 
                     { 
                         Id = x.Id,
-                        ApprovingDate = x.ApprovingDate,
+                        ApprovingDate = x.ApprovalDate,
                         Title = x.Title,
-                        IsApproved = x.IsApproved,
+                        IsApproved = x.ApprovalStatus,
                         Type = x.Type,
                         UploadDate = x.UploadDate
                     })
                     .ToList();
 
-                if (managementViewModels.Count == 0)
-                {
-                    response.Data = new List<ManuscriptManagementBasicViewModel>();
-                    response.Descripton = "Found 0 elements.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
-                }
-
-                response.Data = managementViewModels;
+                response.Data = managementViewModels ?? new List<ManuscriptManagementBasicViewModel>();
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
@@ -333,7 +313,7 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
-                    .Where(x => x.IsApproved == ApprovalStatus.InProgress)
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.InProgress)
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
@@ -344,15 +324,7 @@ namespace MangoRead.Service.Implementations
                     })
                     .ToList();
 
-                if (managementViewModels.Count == 0)
-                {
-                    response.Data = new List<ManuscriptManagementAdvancedViewModel>();
-                    response.Descripton = "Found 0 elements.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
-                }
-
-                response.Data = managementViewModels;
+                response.Data = managementViewModels ?? new List<ManuscriptManagementAdvancedViewModel>();
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
@@ -375,11 +347,11 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
-                    .Where(x => x.IsApproved == ApprovalStatus.Approved)
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        ApprovingDate = x.ApprovingDate,
+                        ApprovingDate = x.ApprovalDate,
                         Publisher = x.Publisher,
                         Title = x.Title,
                         Type = x.Type,
@@ -387,15 +359,7 @@ namespace MangoRead.Service.Implementations
                     })
                     .ToList();
 
-                if (managementViewModels.Count == 0)
-                {
-                    response.Data = new List<ManuscriptManagementAdvancedViewModel>();
-                    response.Descripton = "Found 0 elements.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
-                }
-
-                response.Data = managementViewModels;
+                response.Data = managementViewModels ?? new List<ManuscriptManagementAdvancedViewModel>();
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
@@ -418,11 +382,11 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
-                    .Where(x => x.IsApproved == ApprovalStatus.Rejected)
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.Rejected)
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        ApprovingDate = x.ApprovingDate,
+                        ApprovingDate = x.ApprovalDate,
                         Publisher = x.Publisher,
                         Title = x.Title,
                         Type = x.Type,
@@ -430,15 +394,7 @@ namespace MangoRead.Service.Implementations
                     })
                     .ToList();
 
-                if (managementViewModels.Count == 0)
-                {
-                    response.Data = new List<ManuscriptManagementAdvancedViewModel>();
-                    response.Descripton = "Found 0 elements.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
-                }
-
-                response.Data = managementViewModels;
+                response.Data = managementViewModels ?? new List<ManuscriptManagementAdvancedViewModel>();
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
@@ -460,23 +416,26 @@ namespace MangoRead.Service.Implementations
             {
                 var manuscript = await this.manuscriptRepository.GetEntityById(id);
 
+                if (manuscript == null)
+                {
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
+                }
+
                 if (status == ApprovalStatus.Approved)
                 {
-                    manuscript.ApprovingDate = DateTime.Now;
+                    manuscript.ApprovalDate = DateTime.Now;
                 }
                 else if (status == ApprovalStatus.Rejected)
                 {
-                    manuscript.ApprovingDate = null;
+                    manuscript.ApprovalDate = null;
                 }
-                manuscript.IsApproved = status;
+                manuscript.ApprovalStatus = status;
 
                 bool isValid = await this.manuscriptRepository.Update(manuscript);
 
                 if (!isValid)
                 {
-                    response.Descripton = "There is no manuscript with such id.";
-                    response.Status = Domain.Enums.ResponseStatus.EmptyEntity;
-                    return response;
+                    throw new ArgumentException(nameof(manuscript), "There is an error with UPDATE review after setting ApprovalStatus.");
                 }
 
                 response.Status = Domain.Enums.ResponseStatus.OK;

@@ -16,13 +16,13 @@
     @if(User.IsInRole("Basic"))
     {
         <li class="nav-item">
-            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-page="./ManuscriptManagementBasic">Manuscript Management</a>
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-page="./ManuscriptManagement/ManuscriptManagementBasic">Manuscript Management</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementAdvancedNavClass(ViewContext)" asp-page="./ManuscriptManagementAdvanced">Manuscript Management</a>
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementAdvancedNavClass(ViewContext)" asp-page="./ManuscriptManagement/ManuscriptManagementAdvanced">Manuscript Management</a>
         </li>
     }
 
