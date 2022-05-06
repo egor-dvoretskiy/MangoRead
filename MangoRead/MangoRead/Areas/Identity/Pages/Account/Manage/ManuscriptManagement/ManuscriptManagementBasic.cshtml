@@ -30,13 +30,13 @@
                         @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].UploadDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].ApprovingDate)
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].ApprovalDate)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].Type)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].IsApproved)
+                        @Html.DisplayNameFor(model => model.ManuscriptManagementBasicViewModels[0].ApprovalStatus)
                     </th>
                 </tr>
             </thead>
@@ -54,20 +54,20 @@
                             @Html.DisplayFor(modelItem => item.UploadDate)
                         </td>
                         <td>
-                            @if (item.ApprovingDate is null)
+                            @if (item.ApprovalDate is null)
                             {
                                 <p>-</p>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                                @Html.DisplayFor(modelItem => item.ApprovalDate)
                             }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IsApproved)
+                            @Html.DisplayFor(modelItem => item.ApprovalStatus)
                         </td>
                     </tr>
                 }

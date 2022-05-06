@@ -1,6 +1,7 @@
 ﻿using MangoRead.Domain.Enums;
 using MangoRead.Domain.Interfaces;
 using MangoRead.Domain.Models;
+using MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement;
 using MangoRead.Domain.ViewModels.Review;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,14 @@ namespace MangoRead.Service.Interfaces
     public interface IReviewService
     {
         Task<IBaseResponse<IEnumerable<ReviewIndexViewModel>>> GetReviews();
+
+        Task<IBaseResponse<IList<ReviewManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
+
+        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRequestedReviewsForAdvancedManagement();
+
+        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetApprovedReviewsForAdvancedManagement();
+
+        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRejectedReviewsForAdvancedManagement();
 
         Task<IBaseResponse<ReviewEditViewModel>> GetReviewForEditById(int id);
 

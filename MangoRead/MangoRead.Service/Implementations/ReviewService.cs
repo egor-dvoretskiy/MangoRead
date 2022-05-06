@@ -3,6 +3,7 @@ using MangoRead.Domain.Enums;
 using MangoRead.Domain.Interfaces;
 using MangoRead.Domain.Models;
 using MangoRead.Domain.Responses;
+using MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement;
 using MangoRead.Domain.ViewModels.Review;
 using MangoRead.Service.Interfaces;
 using System;
@@ -265,6 +266,148 @@ namespace MangoRead.Service.Implementations
             catch (Exception exception)
             {
                 return new BaseResponse<bool>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IList<ReviewManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
+        {
+            var response = new BaseResponse<IList<ReviewManagementBasicViewModel>>();
+
+            try
+            {
+                var manuscripts = await this._reviewRepository.GetEntities();
+
+                List<ReviewManagementBasicViewModel> managementViewModels = manuscripts
+                    .Where(x => x.AuthorUserName == publisher)
+                    .Select(x => new ReviewManagementBasicViewModel
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        ApprovalStatus = x.ApprovalStatus,
+                        Rating = x.Rating,
+                        UpdateDate = x.UpdateDate
+                    })
+                    .ToList();
+
+                response.Data = managementViewModels ?? new List<ReviewManagementBasicViewModel>();
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ReviewManagementBasicViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRequestedReviewsForAdvancedManagement()
+        {
+            var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
+
+            try
+            {
+                var reviews = await this._reviewRepository.GetEntities();
+
+                List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.InProgress)
+                    .Select(x => new ReviewManagementAdvancedViewModel
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        UploadDate = x.UploadDate,
+                        UpdateDate = x.UpdateDate,
+                        ApprovalDate = x.ApprovalDate,
+                        AuthorUserName = x.AuthorUserName,
+                        Rating = x.Rating
+                    })
+                    .ToList();
+
+                response.Data = managementViewModels ?? new List<ReviewManagementAdvancedViewModel>();
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetApprovedReviewsForAdvancedManagement()
+        {
+            var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
+
+            try
+            {
+                var reviews = await this._reviewRepository.GetEntities();
+
+                List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
+                    .Select(x => new ReviewManagementAdvancedViewModel
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        UploadDate = x.UploadDate,
+                        UpdateDate = x.UpdateDate,
+                        ApprovalDate = x.ApprovalDate,
+                        AuthorUserName = x.AuthorUserName,
+                        Rating = x.Rating
+                    })
+                    .ToList();
+
+                response.Data = managementViewModels ?? new List<ReviewManagementAdvancedViewModel>();
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRejectedReviewsForAdvancedManagement()
+        {
+            var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
+
+            try
+            {
+                var reviews = await this._reviewRepository.GetEntities();
+
+                List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.Rejected)
+                    .Select(x => new ReviewManagementAdvancedViewModel
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        UploadDate = x.UploadDate,
+                        UpdateDate = x.UpdateDate,
+                        ApprovalDate = x.ApprovalDate,
+                        AuthorUserName = x.AuthorUserName,
+                        Rating = x.Rating
+                    })
+                    .ToList();
+
+                response.Data = managementViewModels ?? new List<ReviewManagementAdvancedViewModel>();
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError

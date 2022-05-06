@@ -21,11 +21,11 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
         }
 
         [BindProperty(SupportsGet = true)]
-        public IList<ReviewManagementBasicViewModel> ReviewManagementBasicViewModel { get; set; }
+        public IList<ReviewManagementBasicViewModel> ReviewManagementBasicViewModels { get; set; }
 
         public async Task OnGetAsync()
         {
-            /*var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
 
             if (user == null)
             {
@@ -39,7 +39,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
                 return;
             }
 
-            ManuscriptManagementBasicViewModels = response.Data;*/
+            ReviewManagementBasicViewModels = response.Data;
         }
     }
 }

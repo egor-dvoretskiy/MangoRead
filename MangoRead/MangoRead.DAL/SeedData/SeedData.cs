@@ -33,31 +33,13 @@ namespace MangoRead.DAL.SeedData
 
                 context.SaveChanges();
             }
-
-            using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                if (context == null || context.Reviews == null)
-                {
-                    throw new ArgumentNullException($"{nameof(context)} is null at SeedData.");
-                }
-
-                if (context.Reviews.Any())
-                {
-                    return;
-                }
-
-                context.Reviews.Add(GetReviewOne());
-                context.Reviews.Add(GetReviewTwo());
-                context.Reviews.Add(GetReviewThree());
-
-                context.SaveChanges();
-            }
         }
 
         private static ManuscriptReview GetReviewOne()
         {
             ManuscriptReview review = new ManuscriptReview();
 
+            review.Title = "hoha";
             review.Rating = 4;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum ...";
@@ -71,6 +53,7 @@ namespace MangoRead.DAL.SeedData
         {
             ManuscriptReview review = new ManuscriptReview();
 
+            review.Title = "shush";
             review.Rating = 3;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Isuzu ipsum ...";
@@ -84,6 +67,7 @@ namespace MangoRead.DAL.SeedData
         {
             ManuscriptReview review = new ManuscriptReview();
 
+            review.Title = "chicha";
             review.Rating = 3;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum colour ...";
@@ -120,6 +104,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
             manuscript.TitleImage = new byte[32];
+            manuscript.Reviews.Add(GetReviewOne());
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 9, rootpath, ".png");
@@ -163,6 +148,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
             manuscript.TitleImage = new byte[48];
+            manuscript.Reviews.Add(GetReviewTwo());
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 15, rootpath, ".jpg");
@@ -194,6 +180,7 @@ namespace MangoRead.DAL.SeedData
             manuscript.Translator = "Io";
             manuscript.OriginCountry = "Japanese";
             manuscript.TitleImage = new byte[32];
+            manuscript.Reviews.Add(GetReviewThree());
 
             string rootpath = GetRootPath(path, manuscript.Type.ToString());
             manuscript.Content = GetManuscriptContent(manuscript.Index, 33, rootpath, ".jpg");

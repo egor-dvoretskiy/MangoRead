@@ -2,3 +2,61 @@
 @model MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement.ReviewManagementBasicModel
 @{
 }
+
+<div class="row">
+    <h4>That page provides review management.</h4>
+    <br />@*
+    <div class="d-block mb-4" style="vertical-align:central">
+        <p class="d-inline">New manuscript request.</p>
+        <a asp-area="" asp-controller="Manuscript" asp-action="Create" class="btn btn-primary d-inline">Add</a>
+    </div>*@
+
+    <h3>Reviews</h3>
+    <hr />
+    <div>
+        <h5>Requested </h5>
+        <table id="data_table" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReviewManagementBasicViewModels[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReviewManagementBasicViewModels[0].UpdateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReviewManagementBasicViewModels[0].Rating)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReviewManagementBasicViewModels[0].ApprovalStatus)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ReviewManagementBasicViewModels)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

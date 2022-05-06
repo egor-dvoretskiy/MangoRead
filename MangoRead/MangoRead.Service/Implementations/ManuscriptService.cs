@@ -282,9 +282,9 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ManuscriptManagementBasicViewModel 
                     { 
                         Id = x.Id,
-                        ApprovingDate = x.ApprovalDate,
+                        ApprovalDate = x.ApprovalDate,
                         Title = x.Title,
-                        IsApproved = x.ApprovalStatus,
+                        ApprovalStatus = x.ApprovalStatus,
                         Type = x.Type,
                         UploadDate = x.UploadDate
                     })
@@ -351,7 +351,7 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        ApprovingDate = x.ApprovalDate,
+                        ApprovalDate = x.ApprovalDate,
                         Publisher = x.Publisher,
                         Title = x.Title,
                         Type = x.Type,
@@ -386,7 +386,7 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ManuscriptManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        ApprovingDate = x.ApprovalDate,
+                        ApprovalDate = x.ApprovalDate,
                         Publisher = x.Publisher,
                         Title = x.Title,
                         Type = x.Type,

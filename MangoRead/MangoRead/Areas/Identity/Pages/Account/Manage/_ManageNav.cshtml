@@ -16,13 +16,19 @@
     @if(User.IsInRole("Basic"))
     {
         <li class="nav-item">
-            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-page="./ManuscriptManagement/ManuscriptManagementBasic">Manuscript Management</a>
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementBasicNavClass(ViewContext)" asp-area="Identity" asp-page="/Account/Manage/ManuscriptManagement/ManuscriptManagementBasic">Manuscript Management</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link _review-management @ManageNavPages.ReviewManagementBasicNavClass(ViewContext)" asp-area="Identity" asp-page="/Account/Manage/ReviewManagement/ReviewManagementBasic">Review Management</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementAdvancedNavClass(ViewContext)" asp-page="./ManuscriptManagement/ManuscriptManagementAdvanced">Manuscript Management</a>
+            <a class="nav-link _manuscript-management @ManageNavPages.ManuscriptManagementAdvancedNavClass(ViewContext)" asp-area="Identity" asp-page="/Account/Manage/ManuscriptManagement/ManuscriptManagementAdvanced">Manuscript Management</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link _review-management @ManageNavPages.ReviewManagementAdvancedNavClass(ViewContext)" asp-area="Identity" asp-page="/Account/Manage/ReviewManagement/ReviewManagementAdvanced">Review Management</a>
         </li>
     }
 
@@ -31,7 +37,7 @@
     @if(User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <a class="nav-link _control-panel @ManageNavPages.AdminPanelNavClass(ViewContext)" id="admin-panel" asp-page="./AdminPanel">Control panel</a>
+            <a class="nav-link _control-panel @ManageNavPages.AdminPanelNavClass(ViewContext)" id="admin-panel" asp-area="Identity" asp-page="/Account/Manage/AdminPanel">Control panel</a>
         </li>
     }
 </ul>

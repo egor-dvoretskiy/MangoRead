@@ -5,7 +5,7 @@
 + Make all views for IManuscriptRepository.cs
 + Make an authorize system through Identity
 + Make user and Admin models
-- Add approval manuscript system (AMS): user fills a manuscript create form, then this form waiting for approval from admin. firstly goes to ManusciptDraft db -> secondly, ManuscriptApproved db
++ Add approval manuscript system (AMS): user fills a manuscript create form, then this form waiting for approval from admin. firstly goes to ManusciptDraft db -> secondly, ManuscriptApproved db
 - Make layout a little bit beauty than now
 + Mechanism add to genres
 - Mechanism add to Content (seq: create -> upload ??) >> first. add empty manuscript; second. get to details; third. add files to content.
@@ -19,7 +19,7 @@
 + rework login/signup from controllers to razorpages
 + make create TitleImage as IFormFile
 + add title image to details and edit
-- add restriction to change SuperAdmin roles by everybody else
++ add restriction to change SuperAdmin roles by everybody else
 + add different manuscriptmanagement pages for admins and basic users
 + add enum for approve status
 - make username unique
@@ -29,8 +29,9 @@
 - fix all routes
 + add to management rejected  manuscripts
 - rework edit according to approval system
-- add title to review class
-- add to manuscript list of reviews
++ add title to review class
++ add to manuscript list of reviews
+- add review CRUD
 
 
 ### Migration Commands

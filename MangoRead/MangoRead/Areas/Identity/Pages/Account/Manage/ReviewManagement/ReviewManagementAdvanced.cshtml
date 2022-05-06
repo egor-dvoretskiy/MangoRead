@@ -2,3 +2,188 @@
 @model MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement.ReviewManagementAdvancedModel
 @{
 }
+
+<div class="row">
+    @*<div class="row">        
+        <a asp-area="" asp-controller="Manuscript" asp-action="Create" class="btn btn-primary">Add new manuscript</a>
+    </div>*@
+
+    <br />
+    <div class="row">
+        <h4>Requested reviews </h4>
+        <br />
+        <table id="data_table_requested_review" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedReviewManagementAdvancedViewModels[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedReviewManagementAdvancedViewModels[0].AuthorUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedReviewManagementAdvancedViewModels[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedReviewManagementAdvancedViewModels[0].UpdateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedReviewManagementAdvancedViewModels[0].Rating)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.RequestedReviewManagementAdvancedViewModels)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Review" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuthorUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <h4>Rejected reviews </h4>
+        <br />
+        <table id="data_table_rejected_review" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].AuthorUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].UpdateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].Rating)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedReviewManagementAdvancedViewModels[0].ApprovalDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.RejectedReviewManagementAdvancedViewModels)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Review" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuthorUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApprovalDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <h4>Approved reviews</h4>
+        <br />
+        <table id="data_table_approved_review" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].AuthorUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].UpdateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].Rating)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprovedReviewManagementAdvancedViewModels[0].ApprovalDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ApprovedReviewManagementAdvancedViewModels)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Review" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuthorUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApprovalDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

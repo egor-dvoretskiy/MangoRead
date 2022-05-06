@@ -20,10 +20,10 @@ namespace MangoRead.Domain.ViewModels.Account.Manage
         public string Publisher { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? ApprovingDate { get; set; } = null;
+        public DateTime? ApprovalDate { get; set; } = null;
 
         public ManuscriptType Type { get; set; } = ManuscriptType.Other;
 
-        public ApprovalStatus IsApproved { get; set; } = ApprovalStatus.InProgress;
+        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;
     }
 }

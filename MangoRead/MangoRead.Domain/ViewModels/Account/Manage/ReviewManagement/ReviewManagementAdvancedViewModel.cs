@@ -24,7 +24,5 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement
         public int Rating { get; set; }
 
         public DateTime? ApprovalDate { get; set; } = null;
-
-        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;
     }
 }

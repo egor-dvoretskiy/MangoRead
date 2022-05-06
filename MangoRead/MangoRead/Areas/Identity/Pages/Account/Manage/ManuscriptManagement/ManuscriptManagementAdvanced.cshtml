@@ -76,7 +76,7 @@
                         @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].UploadDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].ApprovingDate)
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].ApprovalDate)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].Type)
@@ -102,13 +102,13 @@
                             @Html.DisplayFor(modelItem => item.UploadDate)
                         </td>
                         <td>
-                            @if (item.ApprovingDate is null)
+                            @if (item.ApprovalDate is null)
                             {
                                 <p>-</p>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                                @Html.DisplayFor(modelItem => item.ApprovalDate)
                             }
                         </td>
                         <td>
@@ -138,7 +138,7 @@
                         @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].UploadDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].ApprovingDate)
+                        @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].ApprovalDate)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ApprovedManuscriptManagementAdvancedViewModel[0].Type)
@@ -164,13 +164,13 @@
                             @Html.DisplayFor(modelItem => item.UploadDate)
                         </td>
                         <td>
-                            @if (item.ApprovingDate is null)
+                            @if (item.ApprovalDate is null)
                             {
                                 <p>-</p>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                                @Html.DisplayFor(modelItem => item.ApprovalDate)
                             }
                         </td>
                         <td>
