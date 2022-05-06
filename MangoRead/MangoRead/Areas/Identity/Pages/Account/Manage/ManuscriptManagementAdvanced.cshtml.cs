@@ -26,17 +26,33 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
         [BindProperty(SupportsGet = true)]
         public IList<ManuscriptManagementAdvancedViewModel> RequestedManuscriptManagementAdvancedViewModel { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public IList<ManuscriptManagementAdvancedViewModel> RejectedManuscriptManagementAdvancedViewModel { get; set; }
+
         public async Task OnGetAsync()
         {
             try
             {
                 ApprovedManuscriptManagementAdvancedViewModel = await this.GetApprovedData();
                 RequestedManuscriptManagementAdvancedViewModel = await this.GetRequestedData();
+                RejectedManuscriptManagementAdvancedViewModel = await this.GetRejectedData();
             }
             catch (ArgumentException)
             {
                 return;
             }
+        }
+
+        private async Task<IList<ManuscriptManagementAdvancedViewModel>> GetRejectedData()
+        {
+            var responseApproved = await _manuscriptService.GetRejectedManuscriptsForAdvancedManagement();
+
+            if (responseApproved.Status != Domain.Enums.ResponseStatus.OK && responseApproved.Status != Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                throw new ArgumentException("Get rejected data fails.");
+            }
+
+            return responseApproved.Data;
         }
 
         private async Task<IList<ManuscriptManagementAdvancedViewModel>> GetApprovedData()

@@ -7,7 +7,7 @@
     <div class="row">        
         <a asp-area="" asp-controller="Manuscript" asp-action="Create" class="btn btn-primary">Add new manuscript</a>
     </div>
-    <hr/>
+    <br />
     <div class="row">
         <h4>Requested manuscripts </h4>
         <br />
@@ -48,6 +48,68 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <h4>Rejected manuscripts </h4>
+        <br />
+        <table id="data_table_rejected" class="table table-striped" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].Publisher)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].UploadDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].ApprovingDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].Type)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.RejectedManuscriptManagementAdvancedViewModel)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadDate)
+                        </td>
+                        <td>
+                            @if (item.ApprovingDate is null)
+                            {
+                                <p>-</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovingDate)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)

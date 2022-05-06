@@ -22,6 +22,8 @@ namespace MangoRead.Service.Interfaces
 
         Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetApprovedManuscriptsForAdvancedManagement();
 
+        Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRejectedManuscriptsForAdvancedManagement();
+
         Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id);
 
         Task<IBaseResponse<ManuscriptDetailsViewModel>> GetManuscriptDetailsById(int id);

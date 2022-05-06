@@ -24,9 +24,10 @@
 + add enum for approve status
 - make username unique
 - add to main page manuscript reviews
-- add to admin ManagementManuscriptControl (mmc) button create manuscript.
++ add to admin ManagementManuscriptControl (mmc) button create manuscript.
 + add possibility to approve/reject the manuscripts
 - fix all routes
+- add to management rejected  manuscripts
 
 
 ### Migration Commands
