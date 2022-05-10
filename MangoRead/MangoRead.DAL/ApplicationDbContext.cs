@@ -35,9 +35,9 @@ namespace MangoRead.DAL
                 .WithOne(y => y.Manuscript)
                 .HasForeignKey(x => x.ManuscriptId);
 
-            builder.Entity<Manuscript>()
-                .HasMany(x => x.Reviews)
-                .WithOne(y => y.Manuscript);
+            builder.Entity<ManuscriptReview>()
+                .HasOne(x => x.Manuscript)
+                .WithMany(y => y.Reviews);
 
             builder.Entity<Manuscript>()
                 .Property(x => x.Title)

@@ -9,13 +9,13 @@ namespace MangoRead.Domain.ViewModels.Review
 {
     public class ReviewCreateViewModel
     {
+        public int IdCouple { get; set; }
+
         public string Content { get; set; }
 
-        public string AuthorUserName { get; set; }
+        public string UserName { get; set; } = "Jesus Christ";
 
         [Range(1, 5, ErrorMessage = "Possible range: from 1 to 5.")]
         public int Rating { get; set; }
-
-        public Guid CouplingGuid { get; set; }
     }
 }

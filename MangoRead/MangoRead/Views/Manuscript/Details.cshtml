@@ -13,7 +13,7 @@
 }
 
 
-<div>
+<div class="row">
     <h4><span class="_details-manuscript-title">Details of</span> <i>@Model.Title</i></h4>
     <hr />
 
@@ -107,7 +107,10 @@
         </dd>
     </dl>
 </div>
-<div>
+<div class="row">
+    <a asp-area="" asp-controller="ManuscriptReview" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-light" data-mdb-ripple-color="dark">Write a review</a>
+</div>
+<div class="row">
     <ul class="list-inline">
         <li class="list-inline-item">            
             <a onclick="getBack()" class="btn btn-info" data-mdb-ripple-color="dark">Get Back</a>

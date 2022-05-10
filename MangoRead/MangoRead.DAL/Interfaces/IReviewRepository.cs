@@ -9,6 +9,6 @@ namespace MangoRead.DAL.Interfaces
 {
     public interface IReviewRepository : IBaseRepository<ManuscriptReview>
     {
-
+        Task<bool> Update(Manuscript entity);
     }
 }

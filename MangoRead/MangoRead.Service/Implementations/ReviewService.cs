@@ -2,10 +2,12 @@
 using MangoRead.Domain.Enums;
 using MangoRead.Domain.Interfaces;
 using MangoRead.Domain.Models;
+using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.Responses;
 using MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement;
 using MangoRead.Domain.ViewModels.Review;
 using MangoRead.Service.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +19,14 @@ namespace MangoRead.Service.Implementations
     public class ReviewService : IReviewService
     {
         private readonly IReviewRepository _reviewRepository;
+        private readonly IManuscriptRepository _manuscriptRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReviewService(IReviewRepository reviewRepository)
+        public ReviewService(IReviewRepository reviewRepository, IManuscriptRepository manuscriptRepository, UserManager<ApplicationUser> userManager)
         {
             _reviewRepository = reviewRepository;
+            _manuscriptRepository = manuscriptRepository;
+            _userManager = userManager;
         }
 
         public async Task<IBaseResponse<ReviewCreateViewModel>> AddReview(ReviewCreateViewModel model)
@@ -31,15 +37,23 @@ namespace MangoRead.Service.Implementations
             {
                 var review = new ManuscriptReview()
                 {
-                    AuthorUserName = model.AuthorUserName,
+                    Author = model.UserName,
                     Content = model.Content,
-                    CouplingGuid = model.CouplingGuid,
                     UploadDate = DateTime.Now,
                     UpdateDate = DateTime.Now,
                     Rating = model.Rating,
                 };
 
-                bool isValid = await this._reviewRepository.Create(review);
+                var manuscript = await this._manuscriptRepository.GetEntityById(model.IdCouple);
+
+                if (manuscript == null)
+                {
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
+                }
+
+                manuscript.Reviews.Add(review);
+
+                bool isValid = await this._reviewRepository.Update(manuscript);
 
                 if (!isValid)
                 {
@@ -141,7 +155,7 @@ namespace MangoRead.Service.Implementations
                     Rating = review.Rating,
                     Content = review.Content,
                     CouplingGuid = review.CouplingGuid,
-                    AuthorUserName = review.AuthorUserName,
+                    AuthorUserName = review.Author,
                     UpdateDate = review.UpdateDate,
                     UploadDate = review.UploadDate,
                 };
@@ -209,7 +223,7 @@ namespace MangoRead.Service.Implementations
                         Rating = x.Rating,
                         Content = x.Content,
                         CouplingGuid = x.CouplingGuid,
-                        AuthorUserName = x.AuthorUserName,
+                        AuthorUserName = x.Author,
                         UpdateDate = x.UpdateDate,
                         UploadDate = x.UploadDate,
                     })
@@ -282,11 +296,10 @@ namespace MangoRead.Service.Implementations
                 var manuscripts = await this._reviewRepository.GetEntities();
 
                 List<ReviewManagementBasicViewModel> managementViewModels = manuscripts
-                    .Where(x => x.AuthorUserName == publisher)
+                    .Where(x => x.Author == publisher)
                     .Select(x => new ReviewManagementBasicViewModel
                     {
                         Id = x.Id,
-                        Title = x.Title,
                         ApprovalStatus = x.ApprovalStatus,
                         Rating = x.Rating,
                         UpdateDate = x.UpdateDate
@@ -320,11 +333,10 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        Title = x.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.AuthorUserName,
+                        AuthorUserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();
@@ -356,11 +368,10 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        Title = x.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.AuthorUserName,
+                        AuthorUserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();
@@ -392,11 +403,10 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
-                        Title = x.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.AuthorUserName,
+                        AuthorUserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();

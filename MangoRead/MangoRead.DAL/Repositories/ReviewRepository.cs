@@ -88,5 +88,26 @@ namespace MangoRead.DAL.Repositories
                 return false;
             }
         }
+
+        public async Task<bool> Update(Manuscript entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                }
+
+                this._context.Manuscripts.Update(entity);
+                await this._context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                _ = exception;
+                return false;
+            }
+        }
     }
 }

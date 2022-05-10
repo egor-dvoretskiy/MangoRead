@@ -39,11 +39,10 @@ namespace MangoRead.DAL.SeedData
         {
             ManuscriptReview review = new ManuscriptReview();
 
-            review.Title = "hoha";
             review.Rating = 4;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum ...";
-            review.AuthorUserName = "Simaon";
+            review.Author = "Simaon";
             review.UploadDate = DateTime.Now;
 
             return review;
@@ -53,11 +52,10 @@ namespace MangoRead.DAL.SeedData
         {
             ManuscriptReview review = new ManuscriptReview();
 
-            review.Title = "shush";
             review.Rating = 3;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Isuzu ipsum ...";
-            review.AuthorUserName = "Ergo";
+            review.Author = "Ergo";
             review.UploadDate = DateTime.Now;
 
             return review;
@@ -67,11 +65,10 @@ namespace MangoRead.DAL.SeedData
         {
             ManuscriptReview review = new ManuscriptReview();
 
-            review.Title = "chicha";
             review.Rating = 3;
             review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum colour ...";
-            review.AuthorUserName = "Sokka";
+            review.Author = "Sokka";
             review.UploadDate = DateTime.Now;
 
             return review;

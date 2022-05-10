@@ -18,6 +18,7 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         [Required]
         public string Title { get; set; } = string.Empty;
 
+        [Required]
         public byte[] TitleImage { get; set; }
 
         public IFormFile TitlePicture { get; set; }
