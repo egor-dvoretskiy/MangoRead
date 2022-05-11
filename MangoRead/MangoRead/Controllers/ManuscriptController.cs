@@ -72,7 +72,7 @@ namespace MangoRead.Controllers
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                return RedirectToPage("/Account/Manage/ManuscriptManagementAdvanced", new { area = "Identity" });
+                return RedirectToPage("/Account/Manage/ManuscriptManagement/ManuscriptManagementAdvanced", new { area = "Identity" });
             }
 
             return RedirectToAction("Error");

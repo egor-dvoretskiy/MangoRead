@@ -95,25 +95,17 @@ namespace MangoRead.Controllers
             }
         }
 
-        // GET: ManuscriptReviewController/Delete/5
-        public ActionResult Delete(int id)
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
-        }
+            var response = await this._reviewService.DeleteReview(id);
 
-        // POST: ManuscriptReviewController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToPage("/Account/Manage/ReviewManagement/ReviewManagementAdvanced", new { area = "Identity" });
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Error");
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
