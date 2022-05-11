@@ -20,12 +20,6 @@ namespace MangoRead.Controllers
             _userManager = userManager;
         }
 
-        // GET: ManuscriptReviewController
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         // GET: ManuscriptReviewController/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -74,25 +68,34 @@ namespace MangoRead.Controllers
             return View(review);
         }
 
-        // GET: ManuscriptReviewController/Edit/5
-        public ActionResult Edit(int id)
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var response = await this._reviewService.GetReviewForEditById(id);
+            var review = response.Data;
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            return View(review);
         }
 
-        // POST: ManuscriptReviewController/Edit/5
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, ReviewEditViewModel model)
         {
-            try
+            var response = await this._reviewService.Edit(id, model);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = id });
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(model);
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]

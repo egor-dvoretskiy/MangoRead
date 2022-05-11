@@ -9,6 +9,8 @@ namespace MangoRead.Domain.ViewModels.Review
 {
     public class ReviewEditViewModel
     {
+        public int Id { get; set; }
+
         public string Content { get; set; }
 
         [Range(1, 5, ErrorMessage = "Possible range: from 1 to 5.")]

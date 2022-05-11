@@ -31,7 +31,7 @@
 - rework edit according to approval system
 + add title to review class
 + add to manuscript list of reviews
-- add review CRUD
++ add review CRUD
 - add filtration
 + fix history problem
 - fix getback button

@@ -1,0 +1,34 @@
+﻿@using MangoRead.Domain.Enums;
+@model MangoRead.Domain.ViewModels.Review.ReviewEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1><span class="">Edit</span> #<i>@Model.Id</i></h1>
+<hr />
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary _save-button"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a onclick="getBack()" class="btn btn-info" data-mdb-ripple-color="dark">Get Back</a>
+</div>
