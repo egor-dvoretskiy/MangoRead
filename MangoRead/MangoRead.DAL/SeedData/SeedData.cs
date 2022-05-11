@@ -40,7 +40,6 @@ namespace MangoRead.DAL.SeedData
             ManuscriptReview review = new ManuscriptReview();
 
             review.Rating = 4;
-            review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum ...";
             review.Author = "Simaon";
             review.UploadDate = DateTime.Now;
@@ -53,7 +52,6 @@ namespace MangoRead.DAL.SeedData
             ManuscriptReview review = new ManuscriptReview();
 
             review.Rating = 3;
-            review.CouplingGuid = Guid.NewGuid();
             review.Content = "Isuzu ipsum ...";
             review.Author = "Ergo";
             review.UploadDate = DateTime.Now;
@@ -66,7 +64,6 @@ namespace MangoRead.DAL.SeedData
             ManuscriptReview review = new ManuscriptReview();
 
             review.Rating = 3;
-            review.CouplingGuid = Guid.NewGuid();
             review.Content = "Lorem ipsum colour ...";
             review.Author = "Sokka";
             review.UploadDate = DateTime.Now;

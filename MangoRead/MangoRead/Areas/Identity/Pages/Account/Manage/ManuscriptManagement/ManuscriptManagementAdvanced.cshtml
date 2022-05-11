@@ -76,9 +76,6 @@
                         @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].UploadDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].ApprovalDate)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.RejectedManuscriptManagementAdvancedViewModel[0].Type)
                     </th>
                 </tr>
@@ -100,16 +97,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UploadDate)
-                        </td>
-                        <td>
-                            @if (item.ApprovalDate is null)
-                            {
-                                <p>-</p>
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => item.ApprovalDate)
-                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)

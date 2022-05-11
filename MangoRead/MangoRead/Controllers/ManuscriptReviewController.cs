@@ -26,9 +26,16 @@ namespace MangoRead.Controllers
         }
 
         // GET: ManuscriptReviewController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var response = await this._reviewService.GetReviewDetailsById(id);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return View(response.Data);
+            }
+
+            return RedirectToAction("Error");
         }
 
         [Authorize]
@@ -42,7 +49,7 @@ namespace MangoRead.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(int id, ReviewCreateViewModel review)
+        public async Task<IActionResult> CreateAsync(int id, ReviewCreateViewModel review)
         {
             review.IdCouple = id;
             var user = await _userManager.GetUserAsync(User);

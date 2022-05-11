@@ -30,9 +30,6 @@ namespace MangoRead.Domain.Models
         [Range(1, 5, ErrorMessage = "Possible range: from 1 to 5.")]
         public int Rating { get; set; }
 
-        [Required]
-        public Guid CouplingGuid { get; set; }
-
         public DateTime? ApprovalDate { get; set; } = null;
 
         public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;

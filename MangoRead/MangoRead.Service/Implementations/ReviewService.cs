@@ -154,8 +154,7 @@ namespace MangoRead.Service.Implementations
                     Id = review.Id,
                     Rating = review.Rating,
                     Content = review.Content,
-                    CouplingGuid = review.CouplingGuid,
-                    AuthorUserName = review.Author,
+                    UserName = review.Author,
                     UpdateDate = review.UpdateDate,
                     UploadDate = review.UploadDate,
                 };
@@ -222,8 +221,7 @@ namespace MangoRead.Service.Implementations
                         Id = x.Id,
                         Rating = x.Rating,
                         Content = x.Content,
-                        CouplingGuid = x.CouplingGuid,
-                        AuthorUserName = x.Author,
+                        UserName = x.Author,
                         UpdateDate = x.UpdateDate,
                         UploadDate = x.UploadDate,
                     })
@@ -300,6 +298,7 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementBasicViewModel
                     {
                         Id = x.Id,
+                        Title = x.Manuscript.Title,
                         ApprovalStatus = x.ApprovalStatus,
                         Rating = x.Rating,
                         UpdateDate = x.UpdateDate
@@ -333,10 +332,11 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
+                        Title = x.Manuscript.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.Author,
+                        UserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();
@@ -368,10 +368,11 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
+                        Title = x.Manuscript.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.Author,
+                        UserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();
@@ -403,10 +404,11 @@ namespace MangoRead.Service.Implementations
                     .Select(x => new ReviewManagementAdvancedViewModel
                     {
                         Id = x.Id,
+                        Title = x.Manuscript.Title,
                         UploadDate = x.UploadDate,
                         UpdateDate = x.UpdateDate,
                         ApprovalDate = x.ApprovalDate,
-                        AuthorUserName = x.Author,
+                        UserName = x.Author,
                         Rating = x.Rating
                     })
                     .ToList();

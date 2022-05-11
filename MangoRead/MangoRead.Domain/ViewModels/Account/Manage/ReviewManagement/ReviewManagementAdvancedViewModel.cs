@@ -18,7 +18,7 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement
 
         public DateTime UpdateDate { get; set; }
 
-        public string AuthorUserName { get; set; }
+        public string UserName { get; set; }
 
         [Range(1, 5, ErrorMessage = "Possible range: from 1 to 5.")]
         public int Rating { get; set; }
