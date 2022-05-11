@@ -171,7 +171,7 @@ namespace MangoRead.Service.Implementations
                     Type = manuscript.Type,
                     Description = manuscript.Description,
                     IsRequireLegalAge = manuscript.IsRequireLegalAge,
-                    IsApproved = manuscript.ApprovalStatus,
+                    ApprovalStatus = manuscript.ApprovalStatus,
                     GenresString = string.Join(", ", manuscript.Genres.Select(x => x.Genre).ToArray()),
                     Content = manuscript.Content,
                 };

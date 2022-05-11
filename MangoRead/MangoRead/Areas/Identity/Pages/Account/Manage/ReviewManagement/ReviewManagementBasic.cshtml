@@ -43,7 +43,9 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                            <a asp-area="" asp-controller="ManuscriptReview" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdateDate)

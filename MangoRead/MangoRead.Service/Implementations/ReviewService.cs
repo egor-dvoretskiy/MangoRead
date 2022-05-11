@@ -157,6 +157,8 @@ namespace MangoRead.Service.Implementations
                     UserName = review.Author,
                     UpdateDate = review.UpdateDate,
                     UploadDate = review.UploadDate,
+                    ApprovalStatus = review.ApprovalStatus,
+                    ApprovalDate = review.ApprovalDate
                 };
 
                 response.Data = model;

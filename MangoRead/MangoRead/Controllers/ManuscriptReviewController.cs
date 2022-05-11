@@ -26,6 +26,7 @@ namespace MangoRead.Controllers
         }
 
         // GET: ManuscriptReviewController/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var response = await this._reviewService.GetReviewDetailsById(id);

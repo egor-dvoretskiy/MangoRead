@@ -43,7 +43,7 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="Review" asp-action="Details" asp-route-id="@item.Id">
+                            <a asp-area="" asp-controller="ManuscriptReview" asp-action="Details" asp-route-id="@item.Id">
                                 @Html.DisplayFor(modelItem => item.Title)
                             </a>
                         </td>
@@ -65,7 +65,7 @@
         </table>
     </div>
     <div class="row">
-        <h4>Rejected reviews </h4>
+        <h4>Rejected reviews</h4>
         <br />
         <table id="data_table_rejected_review" class="table table-striped" style="width:100%">
             <thead class="table-light">

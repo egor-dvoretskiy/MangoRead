@@ -13,7 +13,7 @@
 }
 
 
-<div class="row">
+<div class="row mb-4">
     <h4><span class="_details-manuscript-title">Details of</span> <i>@Model.Title</i></h4>
     <hr />
 
@@ -107,10 +107,10 @@
         </dd>
     </dl>
 </div>
-<div class="row">
+<div class="row mb-4">
     <a asp-area="" asp-controller="ManuscriptReview" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-light" data-mdb-ripple-color="dark">Write a review</a>
 </div>
-<div class="row">
+<div class="row mb-4">
     <ul class="list-inline">
         <li class="list-inline-item">            
             <a onclick="getBack()" class="btn btn-info" data-mdb-ripple-color="dark">Get Back</a>
@@ -126,13 +126,13 @@
 
             @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
             {
-                @if (Model.IsApproved != ApprovalStatus.Approved)
+                @if (Model.ApprovalStatus != ApprovalStatus.Approved)
                 {
                     <li class="list-inline-item">            
                         <a onclick="assignTransposition(true)" asp-area="" asp-controller="Manuscript" asp-action="Approve" class="btn btn-success _index-manuscript-approve" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Approve</a>
                     </li>
                 }
-                @if (Model.IsApproved != ApprovalStatus.Rejected)
+                @if (Model.ApprovalStatus != ApprovalStatus.Rejected)
                 {
                     <li class="list-inline-item">            
                         <a onclick="assignTransposition(true)" asp-area="" asp-controller="Manuscript" asp-action="Reject" class="btn btn-warning _index-manuscript-reject" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Reject</a>

@@ -34,6 +34,8 @@
 - add review CRUD
 - add filtration
 + fix history problem
+- fix getback button
+- switch between mangement pages and profile blows to the main page
 
 ### Migration Commands
 

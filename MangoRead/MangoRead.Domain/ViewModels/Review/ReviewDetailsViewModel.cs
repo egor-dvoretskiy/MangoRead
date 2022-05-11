@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MangoRead.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,5 +22,10 @@ namespace MangoRead.Domain.ViewModels.Review
 
         [Range(1, 5, ErrorMessage = "Possible range: from 1 to 5.")]
         public int Rating { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? ApprovalDate { get; set; } = null;
+
+        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;
     }
 }
