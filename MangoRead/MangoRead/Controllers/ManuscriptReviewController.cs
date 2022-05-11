@@ -1,4 +1,5 @@
-﻿using MangoRead.Domain.Models.Account;
+﻿using MangoRead.Domain.Enums;
+using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.ViewModels.Review;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -113,6 +114,32 @@ namespace MangoRead.Controllers
             {
                 return View();
             }
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var response = await this._reviewService.SetApprovalStatus(id, ApprovalStatus.Approved);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            return RedirectToAction("Error");
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var response = await this._reviewService.SetApprovalStatus(id, ApprovalStatus.Rejected);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            return RedirectToAction("Error");
         }
     }
 }
