@@ -5,6 +5,7 @@ using MangoRead.Domain.Models;
 using MangoRead.Domain.Models.Account;
 using MangoRead.Domain.Responses;
 using MangoRead.Domain.ViewModels.Account.Manage.ReviewManagement;
+using MangoRead.Domain.ViewModels.Home;
 using MangoRead.Domain.ViewModels.Review;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -206,6 +207,39 @@ namespace MangoRead.Service.Implementations
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
+        }
+
+        public async Task<IBaseResponse<IList<IndexReviewViewModel>>> GetPosingReviews()
+        {
+            var response = new BaseResponse<IList<IndexReviewViewModel>>();
+
+            /*try
+            {
+                var review = await this._reviewRepository.GetEntityById(id);
+
+                if (review == null)
+                {
+                    throw new ArgumentNullException(nameof(review), "There is no review with such id.");
+                }
+
+                ReviewEditViewModel model = new ReviewEditViewModel()
+                {
+                    Rating = review.Rating,
+                    Content = review.Content,
+                };
+
+                response.Data = model;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<ReviewEditViewModel>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }*/
         }
 
         public async Task<IBaseResponse<IEnumerable<ReviewIndexViewModel>>> GetReviews()
