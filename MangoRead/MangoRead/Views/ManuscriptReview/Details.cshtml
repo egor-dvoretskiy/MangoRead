@@ -55,12 +55,25 @@
 </div>
 
 <div class="row mb-4">
-    <ul class="list-inline">
-        <li class="list-inline-item">            
-            <a onclick="getBack()" class="btn btn-info" data-mdb-ripple-color="dark">Get Back</a>
+    <ul class="list-inline">        
+        <li class="list-inline-item">    
+            <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="" asp-controller="Manuscript" asp-action="Details" asp-route-id="@Model.ManuscriptId">Return to manuscript</a>
         </li>
         @if (_signInManager.IsSignedIn(User))
-        {    
+        {        
+            @if (User.IsInRole("Basic"))
+            {
+                <li class="list-inline-item">  
+                    <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="Identity" asp-page="/Account/Manage/ReviewManagement/ReviewManagementBasic">Manage</a>
+                </li>
+            }
+            else
+            {
+                <li class="list-inline-item">  
+                    <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="Identity" asp-page="/Account/Manage/ReviewManagement/ReviewManagementAdvanced">Manage</a>
+                </li>
+            }
+
             @if (User.Identity.Name == Model.UserName || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
             {
                 <li class="list-inline-item">            

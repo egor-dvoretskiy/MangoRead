@@ -112,11 +112,25 @@
 </div>
 <div class="row mb-4">
     <ul class="list-inline">
-        <li class="list-inline-item">            
-            <a onclick="getBack()" class="btn btn-info" data-mdb-ripple-color="dark">Get Back</a>
+        <li class="list-inline-item">    
+            <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="" asp-controller="Manuscript" asp-action="Index">Return to list</a>
         </li>
         @if (_signInManager.IsSignedIn(User))
         {    
+            
+            @if (User.IsInRole("Basic"))
+            {
+                <li class="list-inline-item">  
+                    <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="Identity" asp-page="/Account/Manage/ManuscriptManagement/ManuscriptManagementBasic">Manage</a>
+                </li>
+            }
+            else
+            {
+                <li class="list-inline-item">  
+                    <a class="btn btn-info" data-mdb-ripple-color="dark" asp-area="Identity" asp-page="/Account/Manage/ManuscriptManagement/ManuscriptManagementAdvanced">Manage</a>
+                </li>
+            }
+
             @if (User.Identity.Name == Model.Publisher || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
             {
                 <li class="list-inline-item">            
@@ -129,13 +143,13 @@
                 @if (Model.ApprovalStatus != ApprovalStatus.Approved)
                 {
                     <li class="list-inline-item">            
-                        <a onclick="assignTransposition(true)" asp-area="" asp-controller="Manuscript" asp-action="Approve" class="btn btn-success _index-manuscript-approve" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Approve</a>
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Approve" class="btn btn-success _index-manuscript-approve" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Approve</a>
                     </li>
                 }
                 @if (Model.ApprovalStatus != ApprovalStatus.Rejected)
                 {
                     <li class="list-inline-item">            
-                        <a onclick="assignTransposition(true)" asp-area="" asp-controller="Manuscript" asp-action="Reject" class="btn btn-warning _index-manuscript-reject" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Reject</a>
+                        <a asp-area="" asp-controller="Manuscript" asp-action="Reject" class="btn btn-warning _index-manuscript-reject" asp-route-id="@Model.Id" data-mdb-ripple-color="dark">Reject</a>
                     </li>
                 }
                 <li class="list-inline-item">            

@@ -22,19 +22,19 @@
 + add restriction to change SuperAdmin roles by everybody else
 + add different manuscriptmanagement pages for admins and basic users
 + add enum for approve status
-- make username unique
++ make username unique
 + add to main page manuscript reviews
 + add to admin ManagementManuscriptControl (mmc) button create manuscript.
 + add possibility to approve/reject the manuscripts
 - fix all routes
 + add to management rejected  manuscripts
-- rework edit according to approval system
++ rework edit according to approval system
 + add title to review class
 + add to manuscript list of reviews
 + add review CRUD
 - add filtration
 + fix history problem
-- fix getback button
++ fix getback button
 - switch between mangement pages and profile blows to the main page
 - add posing review amount configuration to appsettings.json
 

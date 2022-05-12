@@ -162,7 +162,8 @@ namespace MangoRead.Service.Implementations
                     UpdateDate = review.UpdateDate,
                     UploadDate = review.UploadDate,
                     ApprovalStatus = review.ApprovalStatus,
-                    ApprovalDate = review.ApprovalDate
+                    ApprovalDate = review.ApprovalDate,
+                    ManuscriptId = review.ManuscriptId                    
                 };
 
                 response.Data = model;
@@ -228,7 +229,7 @@ namespace MangoRead.Service.Implementations
                 //TODO take through popularity/views
 
                 reviews = reviews
-                    .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
+                    .Where(x => x.Manuscript.ApprovalStatus == ApprovalStatus.Approved && x.ApprovalStatus == ApprovalStatus.Approved)
                     .Take(PosingReviewAmount)
                     .ToList();
 

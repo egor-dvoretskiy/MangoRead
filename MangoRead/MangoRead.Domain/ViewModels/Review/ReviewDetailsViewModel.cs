@@ -12,6 +12,8 @@ namespace MangoRead.Domain.ViewModels.Review
     {
         public int Id { get; set; }
 
+        public int ManuscriptId { get; set; }
+
         public string Content { get; set; }
 
         public DateTime UploadDate { get; set; }
