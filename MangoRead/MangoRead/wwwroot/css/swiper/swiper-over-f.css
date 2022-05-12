@@ -7,7 +7,7 @@
 .swiper-container {
     box-sizing: border-box;
     width: 100%;
-    height: 400px;
+    height: 330px;
     transition: opacity .6s ease;
 }
 
@@ -32,15 +32,13 @@
         bottom: 4%;
         left: 2%;
         max-width: 70%;
-        padding: 10px 16px;
+        padding: 10px 10px;
         color: #fff;
         font-family: Verdana, sans-serif;
-        background: rgba(0,0,0,0.6);
     }
 
         .swiper-slide .swiper-content .swiper-title {
-            font-size: 30px;
-            margin-bottom: 10px;
+            font-size: 20px;
             font-family: 'Roboto', sans-serif;
         }
 
@@ -98,13 +96,15 @@
     }
 
     .swiper-slide .swiper-content .swiper-title {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     .swiper-slide .swiper-content .swiper-caption {
-        font-size: 13px;
+        font-size: 15px;
     }
 }
+
+/*CUSTOM*/
 
 .swiper-slide {
     text-align: center;
@@ -121,4 +121,17 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.swiper-container {
+    width: 100%;
+    text-align: center;
+}
+
+.swiper-content {
+    display: inline-block;
+}
+
+.swiper-title {
+    color: black;
 }

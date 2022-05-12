@@ -1,5 +1,6 @@
 ﻿using MangoRead.DAL;
 using MangoRead.Models;
+using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -8,16 +9,23 @@ namespace MangoRead.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IReviewService _reviewService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IReviewService reviewService)
         {
-            _logger = logger;
+            _reviewService = reviewService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await this._reviewService.GetPosingReviews();
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                return View(response.Data);
+            }
+
+            return RedirectToAction("Error");
         }
 
         public IActionResult Privacy()

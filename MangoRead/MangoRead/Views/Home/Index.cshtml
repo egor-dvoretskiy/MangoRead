@@ -1,4 +1,8 @@
-﻿@{
+﻿@using MangoRead.Domain.ViewModels.Home
+
+@model List<IndexReviewViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,30 +11,19 @@
 
     <section class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="swiper-content">
-                    <p class="swiper-title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">title one</p>
-                </div>                
-                <div class="swiper-slide-review-content">
-                    review one
+            @foreach (var review in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <p class="swiper-title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">
+                            @Html.DisplayFor(x => review.Title)
+                        </p>
+                    </div>                
+                    <div class="swiper-slide-review-content">
+                        @Html.DisplayFor(x => review.Content)
+                    </div>
                 </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-content">
-                    <p class="swiper-title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">title two</p>
-                </div>
-                <div class="swiper-slide-review-content">
-                    review two
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-content">
-                    <p class="swiper-title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">title three</p>
-                </div>
-                <div class="swiper-slide-review-content">
-                    review three
-                </div>                
-            </div>
+            }            
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev swiper-button-white"></div>

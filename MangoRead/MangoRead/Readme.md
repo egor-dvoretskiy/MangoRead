@@ -23,7 +23,7 @@
 + add different manuscriptmanagement pages for admins and basic users
 + add enum for approve status
 - make username unique
-- add to main page manuscript reviews
++ add to main page manuscript reviews
 + add to admin ManagementManuscriptControl (mmc) button create manuscript.
 + add possibility to approve/reject the manuscripts
 - fix all routes
@@ -36,6 +36,7 @@
 + fix history problem
 - fix getback button
 - switch between mangement pages and profile blows to the main page
+- add posing review amount configuration to appsettings.json
 
 ### Migration Commands
 

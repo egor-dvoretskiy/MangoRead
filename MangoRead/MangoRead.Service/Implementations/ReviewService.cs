@@ -22,6 +22,7 @@ namespace MangoRead.Service.Implementations
         private readonly IReviewRepository _reviewRepository;
         private readonly IManuscriptRepository _manuscriptRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        public const int PosingReviewAmount = 5;
 
         public ReviewService(IReviewRepository reviewRepository, IManuscriptRepository manuscriptRepository, UserManager<ApplicationUser> userManager)
         {
@@ -213,33 +214,46 @@ namespace MangoRead.Service.Implementations
         {
             var response = new BaseResponse<IList<IndexReviewViewModel>>();
 
-            /*try
+            try
             {
-                var review = await this._reviewRepository.GetEntityById(id);
+                var reviews = await this._reviewRepository.GetEntities();
 
-                if (review == null)
+                if (reviews == null)
                 {
-                    throw new ArgumentNullException(nameof(review), "There is no review with such id.");
+                    throw new ArgumentNullException(nameof(reviews), "There is no review with such id.");
                 }
 
-                ReviewEditViewModel model = new ReviewEditViewModel()
-                {
-                    Rating = review.Rating,
-                    Content = review.Content,
-                };
+                //TODO take through popularity/views
 
-                response.Data = model;
+                reviews = reviews
+                    .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
+                    .Take(PosingReviewAmount)
+                    .ToList();
+
+                var models = reviews
+                    .Select(x => new IndexReviewViewModel()
+                    {
+                        Id = x.Id,
+                        Content = x.Content,
+                        Rating = x.Rating,
+                        Title = x.Manuscript.Title,
+                        UpdateDate = x.UpdateDate,
+                        UserName = x.Author
+                    })
+                    .ToList();
+
+                response.Data = models;
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
             catch (Exception exception)
             {
-                return new BaseResponse<ReviewEditViewModel>()
+                return new BaseResponse<IList<IndexReviewViewModel>>()
                 {
                     Descripton = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
-            }*/
+            }
         }
 
         public async Task<IBaseResponse<IEnumerable<ReviewIndexViewModel>>> GetReviews()
