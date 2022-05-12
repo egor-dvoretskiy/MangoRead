@@ -117,6 +117,8 @@ namespace MangoRead.Service.Implementations
                 review.Content = model.Content;
                 review.UpdateDate = DateTime.Now;
                 review.Rating = model.Rating;
+                review.ApprovalStatus = ApprovalStatus.InProgress;
+                review.ApprovalDate = null;
 
                 bool isValid = await this._reviewRepository.Update(review);
 

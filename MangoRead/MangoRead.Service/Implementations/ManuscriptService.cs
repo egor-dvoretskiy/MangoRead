@@ -122,7 +122,8 @@ namespace MangoRead.Service.Implementations
                 manuscript.IsRequireLegalAge = model.IsRequireLegalAge;
                 manuscript.Genres = model.Genres.Select(x => new GenreHolder() { Genre = x }).ToList();
                 manuscript.Content = model.Content;
-
+                manuscript.ApprovalStatus = ApprovalStatus.InProgress;
+                manuscript.ApprovalDate = null;
 
                 bool isValid = await this.manuscriptRepository.Update(manuscript);
 
