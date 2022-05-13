@@ -22,9 +22,9 @@ namespace MangoRead.Controllers
 
         // GET: ManuscriptReviewController/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var response = await this._reviewService.GetReviewDetailsById(id);
+            var response = this._reviewService.GetReviewDetailsById(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -70,9 +70,9 @@ namespace MangoRead.Controllers
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var response = await this._reviewService.GetReviewForEditById(id);
+            var response = this._reviewService.GetReviewForEditById(id);
             var review = response.Data;
 
             if (review == null)

@@ -32,7 +32,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
                 return;
             }
 
-            var response = await _reviewService.GetManuscriptsForBasicManagement(user.UserName);
+            var response = _reviewService.GetManuscriptsForBasicManagement(user.UserName);
 
             if (response.Status != Domain.Enums.ResponseStatus.OK && response.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {

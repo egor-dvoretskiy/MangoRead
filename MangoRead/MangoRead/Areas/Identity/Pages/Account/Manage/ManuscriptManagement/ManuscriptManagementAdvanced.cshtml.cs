@@ -33,9 +33,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
         {
             try
             {
-                ApprovedManuscriptManagementAdvancedViewModel = await this.GetApprovedData();
-                RequestedManuscriptManagementAdvancedViewModel = await this.GetRequestedData();
-                RejectedManuscriptManagementAdvancedViewModel = await this.GetRejectedData();
+                ApprovedManuscriptManagementAdvancedViewModel = this.GetApprovedData();
+                RequestedManuscriptManagementAdvancedViewModel = this.GetRequestedData();
+                RejectedManuscriptManagementAdvancedViewModel = this.GetRejectedData();
             }
             catch (ArgumentException)
             {
@@ -43,9 +43,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
             }
         }
 
-        private async Task<IList<ManuscriptManagementAdvancedViewModel>> GetRejectedData()
+        private IList<ManuscriptManagementAdvancedViewModel> GetRejectedData()
         {
-            var responseApproved = await _manuscriptService.GetRejectedManuscriptsForAdvancedManagement();
+            var responseApproved = _manuscriptService.GetRejectedManuscriptsForAdvancedManagement();
 
             if (responseApproved.Status != Domain.Enums.ResponseStatus.OK && responseApproved.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -55,9 +55,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
             return responseApproved.Data;
         }
 
-        private async Task<IList<ManuscriptManagementAdvancedViewModel>> GetApprovedData()
+        private IList<ManuscriptManagementAdvancedViewModel> GetApprovedData()
         {
-            var responseApproved = await _manuscriptService.GetApprovedManuscriptsForAdvancedManagement();
+            var responseApproved = _manuscriptService.GetApprovedManuscriptsForAdvancedManagement();
 
             if (responseApproved.Status != Domain.Enums.ResponseStatus.OK && responseApproved.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -67,9 +67,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage
             return responseApproved.Data;
         }
 
-        private async Task<IList<ManuscriptManagementAdvancedViewModel>> GetRequestedData()
+        private IList<ManuscriptManagementAdvancedViewModel> GetRequestedData()
         {
-            var responseRequested = await _manuscriptService.GetRequestedManuscriptsForAdvancedManagement();
+            var responseRequested = _manuscriptService.GetRequestedManuscriptsForAdvancedManagement();
 
             if (responseRequested.Status != Domain.Enums.ResponseStatus.OK && responseRequested.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {

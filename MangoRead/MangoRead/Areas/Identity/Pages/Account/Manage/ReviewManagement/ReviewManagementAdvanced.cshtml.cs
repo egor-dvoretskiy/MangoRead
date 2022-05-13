@@ -33,9 +33,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
         {
             try
             {
-                ApprovedReviewManagementAdvancedViewModels = await this.GetApprovedData();
-                RequestedReviewManagementAdvancedViewModels = await this.GetRequestedData();
-                RejectedReviewManagementAdvancedViewModels = await this.GetRejectedData();
+                ApprovedReviewManagementAdvancedViewModels = this.GetApprovedData();
+                RequestedReviewManagementAdvancedViewModels = this.GetRequestedData();
+                RejectedReviewManagementAdvancedViewModels = this.GetRejectedData();
             }
             catch (ArgumentException)
             {
@@ -43,9 +43,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
             }
         }
 
-        private async Task<IList<ReviewManagementAdvancedViewModel>> GetRejectedData()
+        private IList<ReviewManagementAdvancedViewModel> GetRejectedData()
         {
-            var responseApproved = await _reviewService.GetRejectedReviewsForAdvancedManagement();
+            var responseApproved = _reviewService.GetRejectedReviewsForAdvancedManagement();
 
             if (responseApproved.Status != Domain.Enums.ResponseStatus.OK && responseApproved.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -55,9 +55,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
             return responseApproved.Data;
         }
 
-        private async Task<IList<ReviewManagementAdvancedViewModel>> GetApprovedData()
+        private IList<ReviewManagementAdvancedViewModel> GetApprovedData()
         {
-            var responseApproved = await _reviewService.GetApprovedReviewsForAdvancedManagement();
+            var responseApproved = _reviewService.GetApprovedReviewsForAdvancedManagement();
 
             if (responseApproved.Status != Domain.Enums.ResponseStatus.OK && responseApproved.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -67,9 +67,9 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ReviewManagement
             return responseApproved.Data;
         }
 
-        private async Task<IList<ReviewManagementAdvancedViewModel>> GetRequestedData()
+        private IList<ReviewManagementAdvancedViewModel> GetRequestedData()
         {
-            var responseRequested = await _reviewService.GetRequestedReviewsForAdvancedManagement();
+            var responseRequested = _reviewService.GetRequestedReviewsForAdvancedManagement();
 
             if (responseRequested.Status != Domain.Enums.ResponseStatus.OK && responseRequested.Status != Domain.Enums.ResponseStatus.EmptyEntity)
             {

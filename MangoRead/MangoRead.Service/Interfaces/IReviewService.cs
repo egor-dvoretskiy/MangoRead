@@ -14,21 +14,21 @@ namespace MangoRead.Service.Interfaces
 {
     public interface IReviewService
     {
-        Task<IBaseResponse<IEnumerable<ReviewIndexViewModel>>> GetReviews();
+        IBaseResponse<IEnumerable<ReviewIndexViewModel>> GetReviews();
 
-        Task<IBaseResponse<IList<IndexReviewViewModel>>> GetPosingReviews();
+        IBaseResponse<IList<IndexReviewViewModel>> GetPosingReviews();
 
-        Task<IBaseResponse<IList<ReviewManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
+        IBaseResponse<IList<ReviewManagementBasicViewModel>> GetManuscriptsForBasicManagement(string publisher);
 
-        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRequestedReviewsForAdvancedManagement();
+        IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetRequestedReviewsForAdvancedManagement();
 
-        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetApprovedReviewsForAdvancedManagement();
+        IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetApprovedReviewsForAdvancedManagement();
 
-        Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRejectedReviewsForAdvancedManagement();
+        IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetRejectedReviewsForAdvancedManagement();
 
-        Task<IBaseResponse<ReviewEditViewModel>> GetReviewForEditById(int id);
+        IBaseResponse<ReviewEditViewModel> GetReviewForEditById(int id);
 
-        Task<IBaseResponse<ReviewDetailsViewModel>> GetReviewDetailsById(int id);
+        IBaseResponse<ReviewDetailsViewModel> GetReviewDetailsById(int id);
 
         Task<IBaseResponse<ReviewCreateViewModel>> AddReview(ReviewCreateViewModel model);
 

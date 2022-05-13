@@ -53,14 +53,14 @@ namespace MangoRead.DAL.Repositories
             }
         }
 
-        public async Task<List<Manuscript>> GetEntities()
+        public IQueryable<Manuscript> GetEntities()
         {
-            return await this._context.Manuscripts
+            return this._context.Manuscripts
                 .Include(x => x.Content)
                 .ThenInclude(x => x.Volumes)
                 .ThenInclude(x => x.Chapters)
                 .ThenInclude(x => x.Pages)
-                .ToListAsync();
+                .AsQueryable<Manuscript>();
         }
 
         public async Task<Manuscript?> GetEntityById(int id)

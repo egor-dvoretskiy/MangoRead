@@ -14,19 +14,19 @@ namespace MangoRead.Service.Interfaces
 {
     public interface IManuscriptService
     {
-        Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts();
+        IBaseResponse<IEnumerable<Manuscript>> GetManuscripts();
 
-        Task<IBaseResponse<IList<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher);
+        IBaseResponse<IList<ManuscriptManagementBasicViewModel>> GetManuscriptsForBasicManagement(string publisher);
 
-        Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRequestedManuscriptsForAdvancedManagement();
+        IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetRequestedManuscriptsForAdvancedManagement();
 
-        Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetApprovedManuscriptsForAdvancedManagement();
+        IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetApprovedManuscriptsForAdvancedManagement();
 
-        Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRejectedManuscriptsForAdvancedManagement();
+        IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetRejectedManuscriptsForAdvancedManagement();
 
-        Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id);
+        IBaseResponse<ManuscriptEditViewModel> GetManuscriptForEditById(int id);
 
-        Task<IBaseResponse<ManuscriptDetailsViewModel>> GetManuscriptDetailsById(int id);
+        IBaseResponse<ManuscriptDetailsViewModel> GetManuscriptDetailsById(int id);
 
         Task<IBaseResponse<ManuscriptCreateViewModel>> AddManuscript(ManuscriptCreateViewModel model);
 

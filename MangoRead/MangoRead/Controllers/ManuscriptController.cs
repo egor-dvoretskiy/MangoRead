@@ -17,9 +17,9 @@ namespace MangoRead.Controllers
             this.manuscriptService = manuscriptService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var response = await this.manuscriptService.GetManuscripts();
+            var response = this.manuscriptService.GetManuscripts();
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -29,9 +29,9 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptDetailsById(id);
+            var response = this.manuscriptService.GetManuscriptDetailsById(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -80,9 +80,9 @@ namespace MangoRead.Controllers
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var response = await this.manuscriptService.GetManuscriptForEditById(id);
+            var response = this.manuscriptService.GetManuscriptForEditById(id);
             var manuscript = response.Data;
 
             if (manuscript == null)

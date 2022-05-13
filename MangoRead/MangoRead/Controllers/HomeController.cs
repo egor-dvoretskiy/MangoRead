@@ -16,9 +16,9 @@ namespace MangoRead.Controllers
             _reviewService = reviewService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var response = await this._reviewService.GetPosingReviews();
+            var response = this._reviewService.GetPosingReviews();
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {

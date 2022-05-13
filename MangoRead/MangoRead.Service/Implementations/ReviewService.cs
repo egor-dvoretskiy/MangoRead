@@ -46,7 +46,10 @@ namespace MangoRead.Service.Implementations
                     Rating = model.Rating,
                 };
 
-                var manuscript = await this._manuscriptRepository.GetEntityById(model.IdCouple);
+                var manuscript = this._manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == model.IdCouple)
+                    .SingleOrDefault();
 
                 if (manuscript == null)
                 {
@@ -107,7 +110,10 @@ namespace MangoRead.Service.Implementations
 
             try
             {
-                var review = await this._reviewRepository.GetEntityById(id);
+                var review = this._reviewRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (review == null)
                 {
@@ -140,13 +146,16 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ReviewDetailsViewModel>> GetReviewDetailsById(int id)
+        public IBaseResponse<ReviewDetailsViewModel> GetReviewDetailsById(int id)
         {
             var response = new BaseResponse<ReviewDetailsViewModel>();
 
             try
             {
-                var review = await this._reviewRepository.GetEntityById(id);
+                var review = this._reviewRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (review == null)
                 {
@@ -180,13 +189,16 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ReviewEditViewModel>> GetReviewForEditById(int id)
+        public IBaseResponse<ReviewEditViewModel> GetReviewForEditById(int id)
         {
             var response = new BaseResponse<ReviewEditViewModel>();
 
             try
             {
-                var review = await this._reviewRepository.GetEntityById(id);
+                var review = this._reviewRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (review == null)
                 {
@@ -213,13 +225,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<IndexReviewViewModel>>> GetPosingReviews()
+        public IBaseResponse<IList<IndexReviewViewModel>> GetPosingReviews()
         {
             var response = new BaseResponse<IList<IndexReviewViewModel>>();
 
             try
             {
-                var reviews = await this._reviewRepository.GetEntities();
+                var reviews = this._reviewRepository.GetEntities();
 
                 if (reviews == null)
                 {
@@ -230,8 +242,7 @@ namespace MangoRead.Service.Implementations
 
                 reviews = reviews
                     .Where(x => x.Manuscript.ApprovalStatus == ApprovalStatus.Approved && x.ApprovalStatus == ApprovalStatus.Approved)
-                    .Take(PosingReviewAmount)
-                    .ToList();
+                    .Take(PosingReviewAmount);
 
                 var models = reviews
                     .Select(x => new IndexReviewViewModel()
@@ -259,13 +270,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<ReviewIndexViewModel>>> GetReviews()
+        public IBaseResponse<IEnumerable<ReviewIndexViewModel>> GetReviews()
         {
             var response = new BaseResponse<IEnumerable<ReviewIndexViewModel>>();
 
             try
             {
-                var reviewsDb = await this._reviewRepository
+                var reviewsDb = this._reviewRepository
                     .GetEntities();
 
                 var reviewsIndex = reviewsDb
@@ -300,7 +311,10 @@ namespace MangoRead.Service.Implementations
 
             try
             {
-                var review = await this._reviewRepository.GetEntityById(id);
+                var review = this._reviewRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (review == null)
                 {
@@ -338,13 +352,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ReviewManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
+        public IBaseResponse<IList<ReviewManagementBasicViewModel>> GetManuscriptsForBasicManagement(string publisher)
         {
             var response = new BaseResponse<IList<ReviewManagementBasicViewModel>>();
 
             try
             {
-                var manuscripts = await this._reviewRepository.GetEntities();
+                var manuscripts = this._reviewRepository.GetEntities();
 
                 List<ReviewManagementBasicViewModel> managementViewModels = manuscripts
                     .Where(x => x.Author == publisher)
@@ -372,13 +386,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRequestedReviewsForAdvancedManagement()
+        public IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetRequestedReviewsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
 
             try
             {
-                var reviews = await this._reviewRepository.GetEntities();
+                var reviews = this._reviewRepository.GetEntities();
 
                 List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
                     .Where(x => x.ApprovalStatus == ApprovalStatus.InProgress)
@@ -408,13 +422,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetApprovedReviewsForAdvancedManagement()
+        public IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetApprovedReviewsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
 
             try
             {
-                var reviews = await this._reviewRepository.GetEntities();
+                var reviews = this._reviewRepository.GetEntities();
 
                 List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
                     .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
@@ -444,13 +458,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ReviewManagementAdvancedViewModel>>> GetRejectedReviewsForAdvancedManagement()
+        public IBaseResponse<IList<ReviewManagementAdvancedViewModel>> GetRejectedReviewsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ReviewManagementAdvancedViewModel>>();
 
             try
             {
-                var reviews = await this._reviewRepository.GetEntities();
+                var reviews = this._reviewRepository.GetEntities();
 
                 List<ReviewManagementAdvancedViewModel> managementViewModels = reviews
                     .Where(x => x.ApprovalStatus == ApprovalStatus.Rejected)

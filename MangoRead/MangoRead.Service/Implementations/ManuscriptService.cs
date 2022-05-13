@@ -103,7 +103,10 @@ namespace MangoRead.Service.Implementations
 
             try
             {
-                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+                var manuscript = this.manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id ==  id)
+                    .SingleOrDefault();
 
                 if (manuscript == null)
                 {
@@ -145,13 +148,16 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ManuscriptDetailsViewModel>> GetManuscriptDetailsById(int id)
+        public IBaseResponse<ManuscriptDetailsViewModel> GetManuscriptDetailsById(int id)
         {
             var response = new BaseResponse<ManuscriptDetailsViewModel>();
 
             try
             {
-                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+                var manuscript = this.manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (manuscript == null)
                 {
@@ -191,13 +197,16 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ManuscriptEditViewModel>> GetManuscriptForEditById(int id)
+        public IBaseResponse<ManuscriptEditViewModel> GetManuscriptForEditById(int id)
         {
             var response = new BaseResponse<ManuscriptEditViewModel>();
 
             try
             {
-                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+                var manuscript = this.manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (manuscript == null)
                 {
@@ -248,13 +257,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Manuscript>>> GetManuscripts()
+        public IBaseResponse<IEnumerable<Manuscript>> GetManuscripts()
         {
             var response = new BaseResponse<IEnumerable<Manuscript>>();
 
             try
             {
-                var manuscripts = await this.manuscriptRepository.GetEntities();
+                var manuscripts = this.manuscriptRepository.GetEntities();
 
                 response.Data = manuscripts;
                 response.Status = Domain.Enums.ResponseStatus.OK;
@@ -270,13 +279,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ManuscriptManagementBasicViewModel>>> GetManuscriptsForBasicManagement(string publisher)
+        public IBaseResponse<IList<ManuscriptManagementBasicViewModel>> GetManuscriptsForBasicManagement(string publisher)
         {
             var response = new BaseResponse<IList<ManuscriptManagementBasicViewModel>>();
 
             try
             {
-                var manuscripts = await this.manuscriptRepository.GetEntities();
+                var manuscripts = this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementBasicViewModel> managementViewModels = manuscripts
                     .Where(x => x.Publisher == publisher)
@@ -305,13 +314,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRequestedManuscriptsForAdvancedManagement()
+        public IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetRequestedManuscriptsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>();
 
             try
             {
-                var manuscripts = await this.manuscriptRepository.GetEntities();
+                var manuscripts = this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
                     .Where(x => x.ApprovalStatus == ApprovalStatus.InProgress)
@@ -339,13 +348,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetApprovedManuscriptsForAdvancedManagement()
+        public IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetApprovedManuscriptsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>();
 
             try
             {
-                var manuscripts = await this.manuscriptRepository.GetEntities();
+                var manuscripts = this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
                     .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
@@ -374,13 +383,13 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>>> GetRejectedManuscriptsForAdvancedManagement()
+        public IBaseResponse<IList<ManuscriptManagementAdvancedViewModel>> GetRejectedManuscriptsForAdvancedManagement()
         {
             var response = new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>();
 
             try
             {
-                var manuscripts = await this.manuscriptRepository.GetEntities();
+                var manuscripts = this.manuscriptRepository.GetEntities();
 
                 List<ManuscriptManagementAdvancedViewModel> managementViewModels = manuscripts
                     .Where(x => x.ApprovalStatus == ApprovalStatus.Rejected)
@@ -415,7 +424,10 @@ namespace MangoRead.Service.Implementations
 
             try
             {
-                var manuscript = await this.manuscriptRepository.GetEntityById(id);
+                var manuscript = this.manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
 
                 if (manuscript == null)
                 {
