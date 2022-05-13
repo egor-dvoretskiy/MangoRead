@@ -37,6 +37,7 @@
 + fix getback button
 - switch between mangement pages and profile blows to the main page
 - add posing review amount configuration to appsettings.json
+- add review browsing in manuscript details
 
 ### Migration Commands
 

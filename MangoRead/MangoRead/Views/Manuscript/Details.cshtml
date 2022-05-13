@@ -108,7 +108,59 @@
     </dl>
 </div>
 <div class="row mb-4">
-    <a asp-area="" asp-controller="ManuscriptReview" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-light" data-mdb-ripple-color="dark">Write a review</a>
+    <a asp-area="" asp-controller="ManuscriptReview" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-rounded" data-mdb-ripple-color="dark">Write a review</a>
+    <div>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reviews[0].Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reviews[0].UpdateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reviews[0].Content)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reviews[0].Rating)
+                    </th>
+                    <th>                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.Reviews)
+                {        
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="ManuscriptReview" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">
+                                See
+                            </a> 
+                        </td>
+                    </tr>
+                }
+          </tbody>
+        </table>
+    </div>
 </div>
 <div class="row mb-4">
     <ul class="list-inline">

@@ -49,5 +49,7 @@ namespace MangoRead.Domain.ViewModels.Manuscript
         public string? GenresString { get; set; }
 
         public ManuscriptContent? Content { get; set; }
+
+        public IList<ManuscriptReview> Reviews { get; set; } = new List<ManuscriptReview>();
     }
 }

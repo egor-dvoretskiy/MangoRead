@@ -181,6 +181,7 @@ namespace MangoRead.Service.Implementations
                     ApprovalStatus = manuscript.ApprovalStatus,
                     GenresString = string.Join(", ", manuscript.Genres.Select(x => x.Genre).ToArray()),
                     Content = manuscript.Content,
+                    Reviews = manuscript.Reviews,
                 };
 
                 response.Data = model;
