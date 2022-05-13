@@ -134,6 +134,32 @@ namespace MangoRead.Controllers
             return RedirectToAction("Error");
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult AddContent(int id)
+        {
+            var response = this.manuscriptService.GetManuscriptContent(id);
+
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
+            {
+                var content = response.Data;
+
+                return View(content);
+            }
+
+            return RedirectToAction("Error");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddContent(int id, List<IFormFile> files)
+        {
+            var response = this.manuscriptService.GetManuscriptContent(id);
+            var content = response.Data;
+
+            return View(content);
+        }
+
         /*[HttpPost]
         public IActionResult Upload(List<IFormFile> postedFiles)
         {

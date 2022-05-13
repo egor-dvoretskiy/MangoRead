@@ -419,6 +419,42 @@ namespace MangoRead.Service.Implementations
             }
         }
 
+        public IBaseResponse<ManuscriptContentViewModel> GetManuscriptContent(int id)
+        {
+            var response = new BaseResponse<ManuscriptContentViewModel>();
+
+            try
+            {
+                var manuscript = this.manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
+
+                if (manuscript == null)
+                {
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
+                }
+
+                var content = new ManuscriptContentViewModel
+                {
+                    ManuscriptId = manuscript.Id,
+                    Manuscript = manuscript,
+                };
+
+                response.Data = content;
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<ManuscriptContentViewModel>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
         public async Task<IBaseResponse<bool>> SetApprovalStatus(int id, ApprovalStatus status)
         {
             var response = new BaseResponse<bool>();

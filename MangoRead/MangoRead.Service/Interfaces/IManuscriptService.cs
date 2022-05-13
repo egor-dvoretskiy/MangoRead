@@ -28,6 +28,8 @@ namespace MangoRead.Service.Interfaces
 
         IBaseResponse<ManuscriptDetailsViewModel> GetManuscriptDetailsById(int id);
 
+        IBaseResponse<ManuscriptContentViewModel> GetManuscriptContent(int id);
+
         Task<IBaseResponse<ManuscriptCreateViewModel>> AddManuscript(ManuscriptCreateViewModel model);
 
         Task<IBaseResponse<bool>> DeleteManuscript(int id);

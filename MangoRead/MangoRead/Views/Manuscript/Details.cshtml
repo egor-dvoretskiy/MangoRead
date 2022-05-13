@@ -108,6 +108,11 @@
     </dl>
 </div>
 <div class="row mb-4">
+    <a asp-area="" asp-controller="Manuscript" asp-action="AddContent" asp-route-id="@Model.Id" class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark">
+        Add content
+    </a>
+</div>
+<div class="row mb-4">
     <a asp-area="" asp-controller="ManuscriptReview" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-rounded" data-mdb-ripple-color="dark">Write a review</a>
     <div>
         <table class="table table-hover">
