@@ -66,7 +66,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.SetFolders(contentFolderPath);
-//app.SetFolders(requestedFolderPath);
+app.SetFolders(requestedFolderPath);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

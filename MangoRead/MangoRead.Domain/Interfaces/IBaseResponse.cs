@@ -11,6 +11,8 @@ namespace MangoRead.Domain.Interfaces
     {
         ResponseStatus Status { get; }
 
+        string Description { get; set; }
+
         T Data { get; }
     }
 }

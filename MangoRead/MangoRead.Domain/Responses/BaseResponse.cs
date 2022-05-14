@@ -10,7 +10,7 @@ namespace MangoRead.Domain.Responses
 {
     public class BaseResponse<T> : IBaseResponse<T>
     {
-        public string Descripton { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public ResponseStatus Status {get; set;}
 

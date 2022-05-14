@@ -72,7 +72,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ReviewCreateViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -98,7 +98,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -140,7 +140,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ReviewEditViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -183,7 +183,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ReviewDetailsViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -219,7 +219,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ReviewEditViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -264,7 +264,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<IndexReviewViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -299,7 +299,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IEnumerable<ReviewIndexViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -346,7 +346,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -380,7 +380,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ReviewManagementBasicViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -416,7 +416,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -452,7 +452,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -488,7 +488,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ReviewManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }

@@ -69,7 +69,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ManuscriptCreateViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -95,7 +95,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -146,7 +146,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ManuscriptEditViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -196,7 +196,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ManuscriptDetailsViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -256,7 +256,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ManuscriptEditViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -278,7 +278,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IEnumerable<Manuscript>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -313,7 +313,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ManuscriptManagementBasicViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -347,7 +347,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -382,7 +382,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -417,7 +417,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<IList<ManuscriptManagementAdvancedViewModel>>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -453,7 +453,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<ManuscriptContentViewModel>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -499,7 +499,7 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Descripton = exception.Message,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
@@ -530,16 +530,16 @@ namespace MangoRead.Service.Implementations
 
                 string currentDirectory = Directory.GetCurrentDirectory();
                 string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
-                string type = content.Manuscript.Type.ToString();
+                string type = manuscript.Type.ToString();
 
-                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
+                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", zipFile.FileName);
 
                 using (Stream fileStream = new FileStream(extractPath, FileMode.Create, FileAccess.Write))
                 {
-                    file.CopyToAsync(fileStream);
+                    zipFile.CopyToAsync(fileStream);
                 }
 
-
+                response.Data = true;
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;
             }
@@ -547,7 +547,8 @@ namespace MangoRead.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Descripton = exception.Message,
+                    Data = false,
+                    Description = exception.Message,
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }

@@ -141,7 +141,7 @@ namespace MangoRead.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult AddContent(int id)
+        public IActionResult Upload(int id)
         {
             var response = this._manuscriptService.GetManuscriptContent(id);
 
@@ -157,34 +157,22 @@ namespace MangoRead.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddContent(int id, ManuscriptContentViewModel model)
+        public IActionResult Upload(int id, ManuscriptContentViewModel model)
         {
-            var response = this._manuscriptService.GetManuscriptContent(id);
-            var content = response.Data;
-            string title = content.Manuscript.Title;
-            var file = model.File;
+            model.ManuscriptId = id;
+            var response = this._manuscriptService.UploadRequestedFile(model);
 
-            if (!file.FileName.Contains(title))
+            if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
-                ViewBag.Message = $"Wrong archive name: {file.Name}. The name of title you choosed is {title}";
-                return View(content);
+                return RedirectToAction("Details", new { id = id });
+            }
+            else
+            {
+                ViewBag.Message = response.Description;
             }
 
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
-            string type = content.Manuscript.Type.ToString();
-
-            string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
-
-            using (Stream fileStream = new FileStream(extractPath, FileMode.Create, FileAccess.Write))
-            {
-                await file.CopyToAsync(fileStream);
-            }
-
-            return RedirectToAction("Details", new { id = id });
+            return View(model);
         }
-
-
 
         /*[HttpPost]
         public IActionResult Upload(List<IFormFile> postedFiles)
