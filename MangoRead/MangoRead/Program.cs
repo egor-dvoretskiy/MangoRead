@@ -44,6 +44,7 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 var app = builder.Build();
 
 string contentFolderPath = builder.Configuration.GetValue<string>("StaticFilesConfiguration:ContentFolderPath");
+string requestedFolderPath = builder.Configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -64,7 +65,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.SetContentFolders(contentFolderPath);
+app.SetFolders(contentFolderPath);
+//app.SetFolders(requestedFolderPath);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

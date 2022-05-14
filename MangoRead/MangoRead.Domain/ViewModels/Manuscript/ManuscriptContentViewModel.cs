@@ -12,7 +12,7 @@ namespace MangoRead.Domain.ViewModels.Manuscript
     {
         public string FolderName { get; set; } = string.Empty;
 
-        public List<IFormFile> Files { get; set; }
+        public IFormFile File { get; set; }
 
         public int ManuscriptId { get; set; }
 

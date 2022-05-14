@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MangoRead.Middlewares
 {
-    public class ContentFolderMiddleware
+    public class FolderMiddleware
     {
         private readonly string _path;
         private RequestDelegate _next;
 
-        public ContentFolderMiddleware(RequestDelegate next, string path)
+        public FolderMiddleware(RequestDelegate next, string path)
         {
             this._next = next;
             this._path = path;
@@ -24,7 +24,7 @@ namespace MangoRead.Middlewares
 
             var projectPath = Directory.GetCurrentDirectory();
             var rootContentPath = string.Concat(projectPath, relativePathToContent);
-            
+
             var typeNames = Enum.GetNames(typeof(ManuscriptType));
 
             foreach (var type in typeNames)

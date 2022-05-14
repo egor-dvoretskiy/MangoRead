@@ -8,9 +8,9 @@ namespace MangoRead.Middlewares
 {
     public static class Extension
     {
-        public static IApplicationBuilder SetContentFolders(this IApplicationBuilder builder, string path)
+        public static IApplicationBuilder SetFolders(this IApplicationBuilder builder, string path)
         {
-            return builder.UseMiddleware<ContentFolderMiddleware>(path);
+            return builder.UseMiddleware<FolderMiddleware>(path);
         }
     }
 }

@@ -1,25 +1,30 @@
-﻿using MangoRead.Domain.Enums;
+﻿using Ionic.Zip;
+using MangoRead.Domain.Enums;
 using MangoRead.Domain.ViewModels;
 using MangoRead.Domain.ViewModels.Manuscript;
+using MangoRead.Service.Extensions;
 using MangoRead.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO.Compression;
 using System.Web;
 
 namespace MangoRead.Controllers
 {
     public class ManuscriptController : Controller
     {
-        private readonly IManuscriptService manuscriptService;
+        private readonly IManuscriptService _manuscriptService;
+        private readonly IConfiguration _configuration;
 
-        public ManuscriptController(IManuscriptService manuscriptService)
+        public ManuscriptController(IManuscriptService manuscriptService, IConfiguration configuration)
         {
-            this.manuscriptService = manuscriptService;
+            _manuscriptService = manuscriptService;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
         {
-            var response = this.manuscriptService.GetManuscripts();
+            var response = this._manuscriptService.GetManuscripts();
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -31,7 +36,7 @@ namespace MangoRead.Controllers
 
         public IActionResult Details(int id)
         {
-            var response = this.manuscriptService.GetManuscriptDetailsById(id);
+            var response = this._manuscriptService.GetManuscriptDetailsById(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -54,7 +59,7 @@ namespace MangoRead.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await this.manuscriptService.AddManuscript(manuscript);
+                var response = await this._manuscriptService.AddManuscript(manuscript);
 
                 if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
                 {
@@ -68,7 +73,7 @@ namespace MangoRead.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await this.manuscriptService.DeleteManuscript(id);
+            var response = await this._manuscriptService.DeleteManuscript(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -82,7 +87,7 @@ namespace MangoRead.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var response = this.manuscriptService.GetManuscriptForEditById(id);
+            var response = this._manuscriptService.GetManuscriptForEditById(id);
             var manuscript = response.Data;
 
             if (manuscript == null)
@@ -98,7 +103,7 @@ namespace MangoRead.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ManuscriptEditViewModel model)
         {
-            var response = await this.manuscriptService.Edit(id, model);
+            var response = await this._manuscriptService.Edit(id, model);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -111,7 +116,7 @@ namespace MangoRead.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Approve(int id)
         {
-            var response = await this.manuscriptService.SetApprovalStatus(id, ApprovalStatus.Approved);
+            var response = await this._manuscriptService.SetApprovalStatus(id, ApprovalStatus.Approved);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -124,7 +129,7 @@ namespace MangoRead.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Reject(int id)
         {
-            var response = await this.manuscriptService.SetApprovalStatus(id, ApprovalStatus.Rejected);
+            var response = await this._manuscriptService.SetApprovalStatus(id, ApprovalStatus.Rejected);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -138,7 +143,7 @@ namespace MangoRead.Controllers
         [HttpGet]
         public IActionResult AddContent(int id)
         {
-            var response = this.manuscriptService.GetManuscriptContent(id);
+            var response = this._manuscriptService.GetManuscriptContent(id);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {
@@ -152,13 +157,34 @@ namespace MangoRead.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddContent(int id, List<IFormFile> files)
+        public async Task<IActionResult> AddContent(int id, ManuscriptContentViewModel model)
         {
-            var response = this.manuscriptService.GetManuscriptContent(id);
+            var response = this._manuscriptService.GetManuscriptContent(id);
             var content = response.Data;
+            string title = content.Manuscript.Title;
+            var file = model.File;
 
-            return View(content);
+            if (!file.FileName.Contains(title))
+            {
+                ViewBag.Message = $"Wrong archive name: {file.Name}. The name of title you choosed is {title}";
+                return View(content);
+            }
+
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
+            string type = content.Manuscript.Type.ToString();
+
+            string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
+
+            using (Stream fileStream = new FileStream(extractPath, FileMode.Create, FileAccess.Write))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            return RedirectToAction("Details", new { id = id });
         }
+
+
 
         /*[HttpPost]
         public IActionResult Upload(List<IFormFile> postedFiles)

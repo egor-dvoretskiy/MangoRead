@@ -16,16 +16,20 @@ using MangoRead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MangoRead.Service.Extensions;
 using MangoRead.Domain.ViewModels.Account.Manage;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.Extensions.Configuration;
 
 namespace MangoRead.Service.Implementations
 {
     public class ManuscriptService : IManuscriptService
     {
         private readonly IManuscriptRepository manuscriptRepository;
+        private readonly IConfiguration _configuration;
 
-        public ManuscriptService(DAL.Interfaces.IManuscriptRepository manuscriptRepository)
+        public ManuscriptService(DAL.Interfaces.IManuscriptRepository manuscriptRepository, IConfiguration configuration)
         {
             this.manuscriptRepository = manuscriptRepository;
+            this._configuration = configuration;
         }
 
         public async Task<IBaseResponse<ManuscriptCreateViewModel>> AddManuscript(ManuscriptCreateViewModel model)
@@ -487,6 +491,54 @@ namespace MangoRead.Service.Implementations
                 {
                     throw new ArgumentException(nameof(manuscript), "There is an error with UPDATE review after setting ApprovalStatus.");
                 }
+
+                response.Status = Domain.Enums.ResponseStatus.OK;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Descripton = exception.Message,
+                    Status = Domain.Enums.ResponseStatus.InternalServerError
+                };
+            }
+        }
+
+        public IBaseResponse<bool> UploadRequestedFile(ManuscriptContentViewModel model)
+        {
+            var response = new BaseResponse<bool>();
+
+            try
+            {
+                var manuscript = manuscriptRepository
+                    .GetEntities()
+                    .Where(x => x.Id == model.ManuscriptId)
+                    .SingleOrDefault();
+
+                if (manuscript == null)
+                {
+                    throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
+                }
+
+                var zipFile = model.File;
+
+                if (!zipFile.FileName.Contains(manuscript.Title))
+                {
+                    throw new ArgumentException($"Wrong archive name: {zipFile.FileName}. The name of title you choosed is {manuscript.Title}");
+                }
+
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
+                string type = content.Manuscript.Type.ToString();
+
+                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
+
+                using (Stream fileStream = new FileStream(extractPath, FileMode.Create, FileAccess.Write))
+                {
+                    file.CopyToAsync(fileStream);
+                }
+
 
                 response.Status = Domain.Enums.ResponseStatus.OK;
                 return response;

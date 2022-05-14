@@ -38,5 +38,12 @@ namespace MangoRead.Service.Extensions
 
             return file;
         }
+
+        public async static Task<Stream> ToStream(this IFormFile file)
+        {
+            MemoryStream memoryStream = new MemoryStream();            
+            await file.CopyToAsync(memoryStream);
+            return memoryStream;
+        }
     }
 }
