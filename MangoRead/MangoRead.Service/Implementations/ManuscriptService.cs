@@ -18,6 +18,7 @@ using MangoRead.Service.Extensions;
 using MangoRead.Domain.ViewModels.Account.Manage;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
+using System.IO.Compression;
 
 namespace MangoRead.Service.Implementations
 {
@@ -505,7 +506,7 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        public IBaseResponse<bool> UploadRequestedFile(ManuscriptContentViewModel model)
+        public async Task<IBaseResponse<bool>> UploadRequestedFile(ManuscriptContentViewModel model)
         {
             var response = new BaseResponse<bool>();
 
@@ -521,22 +522,47 @@ namespace MangoRead.Service.Implementations
                     throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
                 }
 
-                var zipFile = model.File;
+                var file = model.File;
 
-                if (!zipFile.FileName.Contains(manuscript.Title))
+                if (!file.FileName.Contains(manuscript.Title))
                 {
-                    throw new ArgumentException($"Wrong archive name: {zipFile.FileName}. The name of title you choosed is {manuscript.Title}");
+                    throw new ArgumentException($"Wrong archive name: {file.FileName}. The name of title you choosed is {manuscript.Title}");
                 }
 
                 string currentDirectory = Directory.GetCurrentDirectory();
                 string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
                 string type = manuscript.Type.ToString();
 
-                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", zipFile.FileName);
+                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
 
-                using (Stream fileStream = new FileStream(extractPath, FileMode.Create, FileAccess.Write))
+                if (File.Exists(extractPath))
                 {
-                    zipFile.CopyToAsync(fileStream);
+                    File.Delete(extractPath);
+                }
+
+                using (Stream fileStream = new FileStream(extractPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                using (var zipFileMemoryStream = new MemoryStream())
+                {
+                    using (ZipArchive archive = new ZipArchive(zipFileMemoryStream, ZipArchiveMode.Update, leaveOpen: true))
+                    {
+                        var botFileName = Path.GetFileName(extractPath);
+                        var entry = archive.CreateEntry(botFileName);
+                        using (var entryStream = entry.Open())
+                        using (var fileStream = System.IO.File.OpenRead(extractPath))
+                        {
+                            await fileStream.CopyToAsync(entryStream);
+                        }
+
+                        archive.Entries.SingleOrDefault().ExtractToFile(string.Concat(currentDirectory, contentPath, type));
+
+                    }
+
+                    zipFileMemoryStream.Seek(0, SeekOrigin.Begin);
+                    // use stream as needed
                 }
 
                 response.Data = true;

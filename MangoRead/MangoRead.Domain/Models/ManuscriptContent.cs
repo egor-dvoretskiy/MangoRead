@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MangoRead.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace MangoRead.Domain.Models
         public string FolderName { get; set; } = string.Empty;
 
         public List<Volume> Volumes { get; set; } = new List<Volume>();
+
+        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.InProgress;
+
+        public DateTime? ApprovalDate { get; set; } = null;
 
         public int ManuscriptId { get; set; }
 

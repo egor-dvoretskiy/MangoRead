@@ -157,10 +157,10 @@ namespace MangoRead.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Upload(int id, ManuscriptContentViewModel model)
+        public async Task<IActionResult> Upload(int id, ManuscriptContentViewModel model)
         {
             model.ManuscriptId = id;
-            var response = this._manuscriptService.UploadRequestedFile(model);
+            var response = await this._manuscriptService.UploadRequestedFile(model);
 
             if (response.Status == Domain.Enums.ResponseStatus.OK || response.Status == Domain.Enums.ResponseStatus.EmptyEntity)
             {

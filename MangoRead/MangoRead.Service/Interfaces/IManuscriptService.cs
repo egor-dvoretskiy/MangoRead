@@ -30,7 +30,7 @@ namespace MangoRead.Service.Interfaces
 
         IBaseResponse<ManuscriptContentViewModel> GetManuscriptContent(int id);
 
-        IBaseResponse<bool> UploadRequestedFile(ManuscriptContentViewModel model);
+        Task<IBaseResponse<bool>> UploadRequestedFile(ManuscriptContentViewModel model);
 
         Task<IBaseResponse<ManuscriptCreateViewModel>> AddManuscript(ManuscriptCreateViewModel model);
 
