@@ -19,6 +19,7 @@ using MangoRead.Domain.ViewModels.Account.Manage;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 using System.IO.Compression;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MangoRead.Service.Implementations
 {
@@ -522,47 +523,26 @@ namespace MangoRead.Service.Implementations
                     throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
                 }
 
-                var file = model.File;
-
-                if (!file.FileName.Contains(manuscript.Title))
+                string pathToRequestedFolder = GetExtractPath(manuscript.Type);
+                foreach (var i in model.Files)
                 {
-                    throw new ArgumentException($"Wrong archive name: {file.FileName}. The name of title you choosed is {manuscript.Title}");
-                }
+                    string fileName = Path.GetFileName(i.FileName);
 
-                string currentDirectory = Directory.GetCurrentDirectory();
-                string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath");
-                string type = manuscript.Type.ToString();
+                    var relativePath = i.FileName.Remove(i.FileName.Length - fileName.Length).Replace("/", @"\");
 
-                string extractPath = string.Concat(currentDirectory, contentPath, type, @"\", file.FileName);
+                    string globalPathToExtractFolder = Path.Combine(pathToRequestedFolder, relativePath);
 
-                if (File.Exists(extractPath))
-                {
-                    File.Delete(extractPath);
-                }
-
-                using (Stream fileStream = new FileStream(extractPath, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
-
-                using (var zipFileMemoryStream = new MemoryStream())
-                {
-                    using (ZipArchive archive = new ZipArchive(zipFileMemoryStream, ZipArchiveMode.Update, leaveOpen: true))
+                    if (!Directory.Exists(globalPathToExtractFolder))
                     {
-                        var botFileName = Path.GetFileName(extractPath);
-                        var entry = archive.CreateEntry(botFileName);
-                        using (var entryStream = entry.Open())
-                        using (var fileStream = System.IO.File.OpenRead(extractPath))
-                        {
-                            await fileStream.CopyToAsync(entryStream);
-                        }
-
-                        archive.Entries.SingleOrDefault().ExtractToFile(string.Concat(currentDirectory, contentPath, type));
-
+                        Directory.CreateDirectory(globalPathToExtractFolder);
                     }
 
-                    zipFileMemoryStream.Seek(0, SeekOrigin.Begin);
-                    // use stream as needed
+                    string globalPathToFile = Path.Combine(globalPathToExtractFolder, fileName);
+
+                    using (FileStream fstream = new FileStream(globalPathToFile, FileMode.Create))
+                    {
+                        await i.CopyToAsync(fstream);
+                    }
                 }
 
                 response.Data = true;
@@ -578,6 +558,17 @@ namespace MangoRead.Service.Implementations
                     Status = Domain.Enums.ResponseStatus.InternalServerError
                 };
             }
+        }
+
+        private string GetExtractPath(ManuscriptType type)
+        {
+            string rootPath = _configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+            string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath").Remove(0,1);
+            string contentType = type.ToString();
+
+            string extractPath = string.Concat(rootPath, contentPath, contentType);
+
+            return extractPath;
         }
     }
 }
