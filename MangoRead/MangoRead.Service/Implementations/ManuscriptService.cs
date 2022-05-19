@@ -528,13 +528,23 @@ namespace MangoRead.Service.Implementations
                 string pathToRequestedFolder = GetPathToRequestFolder(manuscript.Type);
                 var pathes = GetGlobalPathesForUpload(model.Files, pathToRequestedFolder);
 
+                var content = manuscript.Content ?? new ManuscriptContent();
+
                 for (int i = 0; i < pathes.Length; i++)
                 {
                     using (FileStream fstream = new FileStream(pathes[i], FileMode.Create))
                     {
+                        var contentNumbers = pathes[i].GetContentNumbers();
+
                         await model.Files[i].CopyToAsync(fstream);
+
+                        UpdateManuscriptContent(ref content, contentNumbers, pathes[i]);
                     }
                 }
+
+                content.FolderName = manuscript.Title;
+                manuscript.Content = content;
+                await manuscriptRepository.Update(manuscript);
 
                 response.Data = true;
                 response.Status = Domain.Enums.ResponseStatus.OK;
@@ -588,12 +598,85 @@ namespace MangoRead.Service.Implementations
             {
                 string globalPathToFile = GetGlobalPathToFile(files[i], pathToRequestedFolder);
                 globalPathToFile.ValidatePathToFile();
-                /*var contentNumbers = globalPathToFile.GetContentNumbers();*/
 
                 pathes[i] = globalPathToFile;
             }
 
             return pathes;
+        }
+
+        private void UpdateManuscriptContent(ref ManuscriptContent content, (int, int) contentNumbers, string pathToFile)
+        {
+            int volumeNumber = contentNumbers.Item1;
+            int chapterNumber = contentNumbers.Item2;
+
+            if (content.Volumes.Any(x => x.VolumeNumber == volumeNumber))
+            {
+                var volume = content.Volumes.Where(x => x.VolumeNumber == volumeNumber).SingleOrDefault();
+
+                if (volume.Chapters.Any(x => x.ChapterNumber == chapterNumber))
+                {
+                    var chapter = volume.Chapters.Where(x => x.ChapterNumber == chapterNumber).SingleOrDefault();
+
+                    var page = new Page()
+                    {
+                        Path = pathToFile,
+                        Name = Path.GetFileNameWithoutExtension(pathToFile),
+                        Extension = Path.GetExtension(pathToFile)
+                    };
+
+                    page.PageNumber = int.Parse(page.Name);
+
+                    chapter.Pages.Add(page);
+                }
+                else
+                {
+                    var chapter = new Chapter()
+                    {
+                        ChapterNumber = chapterNumber,
+                        Name = $"Chapter {chapterNumber}"
+                    };
+
+                    var page = new Page()
+                    {
+                        Path = pathToFile,
+                        Name = Path.GetFileNameWithoutExtension(pathToFile),
+                        Extension = Path.GetExtension(pathToFile)
+                    };
+
+                    page.PageNumber = int.Parse(page.Name);
+
+                    chapter.Pages.Add(page);
+                    volume.Chapters.Add(chapter);
+                }
+            }
+            else
+            {
+                var volume = new Volume()
+                {
+                    VolumeNumber = volumeNumber,
+                    Name = $"Volume {volumeNumber}"
+                };
+
+                var chapter = new Chapter()
+                {
+                    ChapterNumber = chapterNumber,
+                    Name = $"Chapter {chapterNumber}"
+                };
+
+                var page = new Page()
+                {
+                    Path = pathToFile,
+                    Name = Path.GetFileNameWithoutExtension(pathToFile),
+                    Extension = Path.GetExtension(pathToFile)
+                };
+
+                page.PageNumber = int.Parse(page.Name);
+
+                chapter.Pages.Add(page);
+                volume.Chapters.Add(chapter);
+                content.Volumes.Add(volume);
+            }
         }
     }
 }
