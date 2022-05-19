@@ -11,6 +11,8 @@ namespace MangoRead.Domain.Models
     {
         public int Id { get; set; }
 
+        public int PageNumber { get; set; }
+
         public string Name { get; set; } = string.Empty;
 
         public string Extension { get; set; } = string.Empty;

@@ -20,6 +20,8 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 using System.IO.Compression;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using MangoRead.Service.Extensions.Validation;
 
 namespace MangoRead.Service.Implementations
 {
@@ -523,25 +525,14 @@ namespace MangoRead.Service.Implementations
                     throw new ArgumentNullException(nameof(manuscript), "There is no manuscript with such id.");
                 }
 
-                string pathToRequestedFolder = GetExtractPath(manuscript.Type);
-                foreach (var i in model.Files)
+                string pathToRequestedFolder = GetPathToRequestFolder(manuscript.Type);
+                var pathes = GetGlobalPathesForUpload(model.Files, pathToRequestedFolder);
+
+                for (int i = 0; i < pathes.Length; i++)
                 {
-                    string fileName = Path.GetFileName(i.FileName);
-
-                    var relativePath = i.FileName.Remove(i.FileName.Length - fileName.Length).Replace("/", @"\");
-
-                    string globalPathToExtractFolder = Path.Combine(pathToRequestedFolder, relativePath);
-
-                    if (!Directory.Exists(globalPathToExtractFolder))
+                    using (FileStream fstream = new FileStream(pathes[i], FileMode.Create))
                     {
-                        Directory.CreateDirectory(globalPathToExtractFolder);
-                    }
-
-                    string globalPathToFile = Path.Combine(globalPathToExtractFolder, fileName);
-
-                    using (FileStream fstream = new FileStream(globalPathToFile, FileMode.Create))
-                    {
-                        await i.CopyToAsync(fstream);
+                        await model.Files[i].CopyToAsync(fstream);
                     }
                 }
 
@@ -560,7 +551,7 @@ namespace MangoRead.Service.Implementations
             }
         }
 
-        private string GetExtractPath(ManuscriptType type)
+        private string GetPathToRequestFolder(ManuscriptType type)
         {
             string rootPath = _configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
             string contentPath = _configuration.GetValue<string>("StaticFilesConfiguration:RequestedFolderPath").Remove(0,1);
@@ -569,6 +560,40 @@ namespace MangoRead.Service.Implementations
             string extractPath = string.Concat(rootPath, contentPath, contentType);
 
             return extractPath;
+        }
+
+        private string GetGlobalPathToFile(IFormFile item, string pathToRequestedFolder)
+        {
+            string fileName = Path.GetFileName(item.FileName);
+
+            var relativePath = item.FileName.Remove(item.FileName.Length - fileName.Length).Replace("/", @"\");
+
+            string globalPathToExtractFolder = Path.Combine(pathToRequestedFolder, relativePath);
+
+            if (!Directory.Exists(globalPathToExtractFolder))
+            {
+                Directory.CreateDirectory(globalPathToExtractFolder);
+            }
+
+            string globalPathToFile = Path.Combine(globalPathToExtractFolder, fileName);
+
+            return globalPathToFile;
+        }
+
+        private string[] GetGlobalPathesForUpload(List<IFormFile> files, string pathToRequestedFolder)
+        {
+            string[] pathes = new string[files.Count];
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                string globalPathToFile = GetGlobalPathToFile(files[i], pathToRequestedFolder);
+                globalPathToFile.ValidatePathToFile();
+                /*var contentNumbers = globalPathToFile.GetContentNumbers();*/
+
+                pathes[i] = globalPathToFile;
+            }
+
+            return pathes;
         }
     }
 }
