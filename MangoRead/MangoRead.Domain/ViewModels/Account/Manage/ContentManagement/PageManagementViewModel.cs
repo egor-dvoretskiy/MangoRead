@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MangoRead.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,14 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
         public string Path { get; set; } = string.Empty;
 
         public int ChapterId { get; set; }
+
+        public PageManagementViewModel(Page page)
+        {
+            PageNumber = page.PageNumber;
+            Name = page.Name;
+            Extension = page.Extension;
+            Path = page.Path;
+            ChapterId = page.ChapterId;
+        }
     }
 }

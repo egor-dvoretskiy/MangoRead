@@ -13,8 +13,20 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
 
         public string Name { get; set; } = string.Empty;
 
-        public List<Page> Pages { get; set; } = new List<Page>();
+        public List<PageManagementViewModel> Pages { get; set; } = new List<PageManagementViewModel>();
 
         public int VolumeId { get; set; }
+
+        public ChapterManagementViewModel(Chapter chapter)
+        {
+            ChapterNumber = chapter.ChapterNumber;
+            Name = chapter.Name;
+            VolumeId = chapter.VolumeId;
+
+            foreach(var page in chapter.Pages)
+            {
+                Pages.Add(new PageManagementViewModel(page));
+            }
+        }
     }
 }

@@ -72,6 +72,8 @@ namespace  MangoRead.Areas.Identity.Pages.Account.Manage
 
         public static string ReviewManagementAdvanced => "ReviewManagementAdvanced";
 
+        public static string ContentManagement => "ContentManagement";
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -129,6 +131,8 @@ namespace  MangoRead.Areas.Identity.Pages.Account.Manage
         public static string ReviewManagementBasicNavClass(ViewContext viewContext) => PageNavClass(viewContext, ReviewManagementBasic);
 
         public static string ReviewManagementAdvancedNavClass(ViewContext viewContext) => PageNavClass(viewContext, ReviewManagementAdvanced);
+
+        public static string ContentManagementNavClass(ViewContext viewContext) => PageNavClass(viewContext, ContentManagement);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

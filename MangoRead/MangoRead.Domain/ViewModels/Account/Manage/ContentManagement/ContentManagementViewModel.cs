@@ -11,8 +11,19 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
     {
         public string FolderName { get; set; } = string.Empty;
 
-        public List<Volume> Volumes { get; set; } = new List<Volume>();
+        public List<VolumeManagementViewModel> Volumes { get; set; } = new List<VolumeManagementViewModel>();
 
         public int ManuscriptId { get; set; }
+
+        public ContentManagementViewModel(ManuscriptContent content)
+        {
+            FolderName = content.FolderName;
+            ManuscriptId = content.ManuscriptId;
+
+            foreach(var volume in content.Volumes)
+            {
+                Volumes.Add(new VolumeManagementViewModel(volume));
+            }
+        }
     }
 }
