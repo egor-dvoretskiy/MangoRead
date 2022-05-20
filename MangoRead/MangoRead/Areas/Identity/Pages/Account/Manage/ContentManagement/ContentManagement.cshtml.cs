@@ -15,7 +15,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ContentManagement
         }
 
         [BindProperty]
-        IList<ContentManagementViewModel> Contents { get; set; }
+        public IList<ContentManagementViewModel> Contents { get; set; }
 
         public void OnGet()
         {
@@ -27,7 +27,7 @@ namespace MangoRead.Areas.Identity.Pages.Account.Manage.ContentManagement
             }
 
             Contents = manuscripts.Data
-                .Where(x => x.Content != null)
+                .Where(x => x.Content != null && x.Content.ApprovalStatus != Domain.Enums.ApprovalStatus.Approved)
                 .Select(x => new ContentManagementViewModel(x.Content))
                 .ToList();
         }

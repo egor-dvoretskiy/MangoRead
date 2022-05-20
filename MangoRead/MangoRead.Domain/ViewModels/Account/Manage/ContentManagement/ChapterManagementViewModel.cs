@@ -15,6 +15,8 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
 
         public List<PageManagementViewModel> Pages { get; set; } = new List<PageManagementViewModel>();
 
+        public int AmountOfRequestedPages { get; set; }
+
         public int VolumeId { get; set; }
 
         public ChapterManagementViewModel(Chapter chapter)
@@ -27,6 +29,8 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
             {
                 Pages.Add(new PageManagementViewModel(page));
             }
+
+            AmountOfRequestedPages = chapter.Pages.Count;
         }
     }
 }

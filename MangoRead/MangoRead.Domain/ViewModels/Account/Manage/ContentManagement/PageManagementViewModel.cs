@@ -13,6 +13,8 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
 
         public string Name { get; set; } = string.Empty;
 
+        public string FullName { get; set; } = string.Empty;
+
         public string Extension { get; set; } = string.Empty;
 
         public string Path { get; set; } = string.Empty;
@@ -26,6 +28,7 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
             Extension = page.Extension;
             Path = page.Path;
             ChapterId = page.ChapterId;
+            FullName = String.Concat(Name, Extension);
         }
     }
 }

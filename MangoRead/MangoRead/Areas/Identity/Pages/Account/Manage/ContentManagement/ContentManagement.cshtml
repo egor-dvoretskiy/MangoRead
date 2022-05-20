@@ -6,4 +6,41 @@
 
 <div class="row">
     <h4>Content View.</h4>
+
+    <ul class="">
+        @foreach(var content in Model.Contents)
+        {
+            <li class="">
+                @Html.DisplayFor(x => content.FolderName)
+                <span class="badge badge-primary rounded-pill bg-primary">Volumes: @content.AmountOfRequestedVolumes, Chapters: @content.AmountOfRequestedChapters, Pages: @content.AmountOfRequestedPages</span>
+                <ul class="">
+                    @foreach(var volume in content.Volumes)
+                    {
+                        <li class="">
+                            @Html.DisplayFor(x => volume.Name)
+                            <span class="badge badge-primary rounded-pill bg-primary">Chapters: @volume.AmountOfRequestedChapters, Pages: @volume.AmountOfRequestedPages</span>
+                            <ul class="">
+                                @foreach(var chapter in volume.Chapters)
+                                {
+                                    <li class="">
+                                        @Html.DisplayFor(x => chapter.Name)
+                                        <span class="badge badge-primary rounded-pill bg-primary">Pages: @chapter.AmountOfRequestedPages</span>
+                                        <ul class="">
+                                            @foreach(var page in chapter.Pages)
+                                            {
+                                                <li class="">
+                                                    @Html.DisplayFor(x => page.FullName)
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+
 </div>

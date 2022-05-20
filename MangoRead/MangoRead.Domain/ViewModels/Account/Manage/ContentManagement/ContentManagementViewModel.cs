@@ -13,6 +13,12 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
 
         public List<VolumeManagementViewModel> Volumes { get; set; } = new List<VolumeManagementViewModel>();
 
+        public int AmountOfRequestedVolumes { get; set; }
+
+        public int AmountOfRequestedChapters { get; set; }
+
+        public int AmountOfRequestedPages { get; set; }
+
         public int ManuscriptId { get; set; }
 
         public ContentManagementViewModel(ManuscriptContent content)
@@ -24,6 +30,10 @@ namespace MangoRead.Domain.ViewModels.Account.Manage.ContentManagement
             {
                 Volumes.Add(new VolumeManagementViewModel(volume));
             }
+
+            AmountOfRequestedVolumes = content.Volumes.Count;
+            AmountOfRequestedChapters = content.Volumes.Sum(x => x.Chapters.Count);
+            AmountOfRequestedPages = content.Volumes.Sum(x => x.Chapters.Sum(y => y.Pages.Count));
         }
     }
 }
