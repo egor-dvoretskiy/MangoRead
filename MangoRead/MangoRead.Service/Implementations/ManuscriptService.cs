@@ -532,6 +532,12 @@ namespace MangoRead.Service.Implementations
 
                 for (int i = 0; i < pathes.Length; i++)
                 {
+                    if (File.Exists(pathes[i]))
+                    {
+                        File.Delete(pathes[i]);
+                        RemovePageFromRequestedContent(ref content, pathes[i]);
+                    }
+
                     using (FileStream fstream = new FileStream(pathes[i], FileMode.Create))
                     {
                         var contentNumbers = pathes[i].GetContentNumbers();
@@ -676,6 +682,17 @@ namespace MangoRead.Service.Implementations
                 chapter.Pages.Add(page);
                 volume.Chapters.Add(chapter);
                 content.Volumes.Add(volume);
+            }
+        }
+
+        private void RemovePageFromRequestedContent(ref ManuscriptContent content, string path)
+        {
+            foreach(var volume in content.Volumes)
+            {
+                foreach(var chapter in volume.Chapters)
+                {
+                    chapter.Pages.RemoveAll(x => x.Path == path);
+                }
             }
         }
     }
